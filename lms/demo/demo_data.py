@@ -7,6 +7,9 @@ from lms.lms.utils import create_user, get_course_progress
 
 
 def create_demo_data(setup_args: dict | None = None):
+	if frappe.db.get_single_value("LMS Settings", "demo_data_present"):
+		return
+
 	# Sample content, not the site's own: kept out of product telemetry.
 	frappe.flags.in_lms_demo = True
 	try:
@@ -337,6 +340,9 @@ def create_quiz_questions(question, option_1, is_correct_1, option_2, is_correct
 
 
 def create_reviews(course, student):
+	if frappe.db.exists("LMS Course Review", {"course": course.name, "owner": student.name}):
+		return
+
 	frappe.session.user = student.name
 	review = frappe.new_doc("LMS Course Review")
 	review.course = course.name

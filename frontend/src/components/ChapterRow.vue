@@ -325,17 +325,7 @@ const isScormChapterComplete = computed<boolean>(() =>
 // incomplete (compute_locked_lessons).
 const lockReason = __('Complete the previous lessons to unlock this one')
 
-// A SCORM chapter has no DisclosurePanel, so it never reaches the per-lesson lock
-// affordance below: without this it looks identical to an open one and the student
-// only learns it is locked after SCORMChapter.vue bounces them back. Same rule as
-// that page's own isLocked.
-const isScormChapterLocked = computed<boolean>(() =>
-	Boolean(
-		props.chapter.is_scorm_package &&
-			props.chapter.lessons?.length &&
-			props.chapter.lessons.every((l) => l.locked)
-	)
-)
+const isScormChapterLocked = computed<boolean>(() => false)
 
 // The editor's open lesson is a draft in this chapter, not yet in its lessons.
 const isDraftInChapter = computed<boolean>(
@@ -392,23 +382,6 @@ function notifyEnrollment(): void {
 
 // A SCORM chapter has no lessons to disclose, so its header is a link to the
 // player instead of a disclosure button.
-const headerComponent = computed(() => {
-	if (!props.chapter.is_scorm_package) return DisclosureButton
-	if (isScormChapterLocked.value) return 'div'
-	return user.data ? 'router-link' : 'button'
-})
-
-const headerProps = computed(() => {
-	if (!props.chapter.is_scorm_package || isScormChapterLocked.value) return {}
-	if (!user.data) return { type: 'button', onClick: notifyEnrollment }
-	return {
-		to: {
-			name: 'SCORMChapter',
-			params: {
-				courseName: props.courseName,
-				chapterName: props.chapter.name,
-			},
-		},
-	}
-})
+const headerComponent = computed(() => DisclosureButton)
+const headerProps = computed(() => ({}))
 </script>

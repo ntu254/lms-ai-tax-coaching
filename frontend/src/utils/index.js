@@ -2,7 +2,6 @@ import { call, toast } from 'frappe-ui'
 import { AUDIO_EXTENSIONS } from '@/utils/audio'
 import { ASSESSMENT_BLOCK_SELECTOR } from '@/utils/blockMount'
 import { Quiz } from '@/utils/quiz'
-import { Program } from '@/utils/program'
 import { Assignment } from '@/utils/assignment'
 import { Upload } from '@/utils/upload'
 import { Markdown } from '@/utils/markdownParser'
@@ -179,12 +178,6 @@ export function getEditorTools(
 		// config and on into the iframe URL.
 		assignment: {
 			class: Assignment,
-			config: { studentView },
-		},
-		// Renders its submission in an iframe too, so Student View travels the
-		// same way it does for assignments.
-		program: {
-			class: Program,
 			config: { studentView },
 		},
 		markdown: {
@@ -585,12 +578,6 @@ const getSidebarItems = (forMobile = false) => {
 					},
 				},
 				{
-					label: 'Jobs',
-					icon: 'Briefcase',
-					to: 'Jobs',
-					activeFor: ['Jobs', 'JobDetail'],
-				},
-				{
 					label: 'Statistics',
 					icon: 'TrendingUp',
 					to: 'Statistics',
@@ -645,19 +632,6 @@ const getSidebarItems = (forMobile = false) => {
 						'Assignments',
 						'AssignmentSubmissions',
 						'AssignmentSubmission',
-					],
-				},
-				{
-					label: 'Programming Exercises',
-					icon: 'Code',
-					to: 'ProgrammingExercises',
-					condition: () => {
-						return !forMobile && isAdmin()
-					},
-					activeFor: [
-						'ProgrammingExercises',
-						'ProgrammingExerciseSubmissions',
-						'ProgrammingExerciseSubmission',
 					],
 				},
 			],

@@ -3,6 +3,7 @@ name: lms
 services:
   mariadb:
     image: mariadb:10.8
+    restart: always
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
@@ -15,15 +16,19 @@ services:
 
   redis:
     image: redis:alpine
+    restart: always
 
   frappe:
     image: frappe/bench:latest
+    restart: always
     command: bash /workspace/init.sh
     environment:
       - SHELL=/bin/bash
     working_dir: /home/frappe
     volumes:
       - .:/workspace
+      - ../:/home/frappe/frappe-bench/apps/lms
+      - /home/frappe/frappe-bench/apps/lms/frontend/node_modules
     ports:
       - 8000:8000
       - 9000:9000

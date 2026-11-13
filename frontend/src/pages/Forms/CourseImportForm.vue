@@ -47,7 +47,7 @@
 						</div>
 						<div class="w-full bg-surface-gray-1 h-1 rounded-full mt-3">
 							<div
-								class="bg-surface-gray-10 h-1 rounded-full transition-all duration-500 ease-in-out"
+								class="bg-surface-orange-7 h-1 rounded-full transition-all duration-500 ease-in-out"
 								:style="`width: ${uploadProgress}%`"
 							></div>
 						</div>

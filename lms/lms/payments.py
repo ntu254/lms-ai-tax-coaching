@@ -12,39 +12,38 @@ GATEWAY_NOT_CONFIGURED_TITLE = "Payment Gateway Not Configured"
 
 
 def get_payment_gateway():
-	return frappe.db.get_single_value("LMS Settings", "payment_gateway")
+	gateway = frappe.db.get_single_value("LMS Settings", "payment_gateway")
+	return gateway or "PayOS"
 
 
 def get_controller(payment_gateway):
+	if payment_gateway == "PayOS":
+		return None
 	validate_payment_gateway(payment_gateway)
-
 	from payments.utils import get_payment_gateway_controller
-
 	return get_payment_gateway_controller(payment_gateway)
 
 
 def validate_payment_gateway(payment_gateway):
-	"""Fail with an actionable message instead of a permission error from the payments app."""
+	if payment_gateway == "PayOS":
+		return
 	if "payments" not in frappe.get_installed_apps():
 		frappe.throw(
 			_("The Payments app is not installed. Please contact the administrator."),
 			title=_(GATEWAY_NOT_CONFIGURED_TITLE),
 		)
-
 	if not payment_gateway:
 		frappe.throw(
 			_("No payment gateway is configured. Please contact the administrator."),
 			title=_(GATEWAY_NOT_CONFIGURED_TITLE),
 		)
-
-	if not frappe.db.exists("Payment Gateway", payment_gateway):
+	if payment_gateway != "Stripe" and not frappe.db.exists("Payment Gateway", payment_gateway):
 		frappe.throw(
 			_("The configured payment gateway {0} does not exist. Please contact the administrator.").format(
 				frappe.bold(payment_gateway)
 			),
 			title=_(GATEWAY_NOT_CONFIGURED_TITLE),
 		)
-
 
 @frappe.whitelist()
 def get_payment_link(
@@ -53,8 +52,9 @@ def get_payment_link(
 	address: dict,
 	payment_for_certificate: int,
 	coupon_code: str | None = None,
+	payment_gateway: str | None = None,
 ):
-	payment_gateway = get_payment_gateway()
+	payment_gateway = payment_gateway or get_payment_gateway()
 	address = frappe._dict(address)
 	redirect_to = get_redirect_url(doctype, docname, payment_for_certificate)
 
@@ -80,7 +80,7 @@ def get_payment_link(
 	# Resolve the controller before writing anything: get_controller validates the
 	# gateway and fails with an actionable message, so a misconfigured gateway
 	# doesn't leave an orphan Address / LMS Payment row behind.
-	controller = get_controller(payment_gateway) if total_amount > 0 else None
+	controller = get_controller(payment_gateway) if (total_amount > 0 and payment_gateway != "PayOS") else None
 
 	payment = record_payment(
 		address,
@@ -123,6 +123,10 @@ def get_payment_link(
 	# (one in paise without an `order_id`, one in rupees with it), which
 	# update_payment_record's "creation desc, limit 1" lookup can resolve to the
 	# wrong row.
+	if payment_gateway == "PayOS":
+		from lms.lms.integrations.payos import get_payos_payment_url
+		return get_payos_payment_url(payment, total_amount, title, redirect_to)
+
 	return controller.get_payment_url(**payment_details)
 
 

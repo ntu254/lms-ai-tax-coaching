@@ -31,14 +31,6 @@
 							<div class="text-ink-gray-6">{{ __('Discount') }}:</div>
 							<div>- {{ orderSummary.data.discount_amount_formatted }}</div>
 						</div>
-						<div v-if="orderSummary.data.gst_applied" class="space-y-1">
-							<div class="text-ink-gray-6 uppercase text-xs">
-								{{ __('GST Amount') }}:
-							</div>
-							<div class="text-ink-gray-9">
-								{{ orderSummary.data.gst_amount_formatted }}
-							</div>
-						</div>
 						<div class="space-y-1 border-t border-outline-gray-3 pt-4 mt-2">
 							<div class="uppercase text-ink-gray-6 text-xs">
 								{{ __('Total') }}:
@@ -126,20 +118,11 @@
 								autocomplete="address-level2"
 								:required="!!fieldMeta.city?.reqd"
 							/>
-							<Combobox
-								v-if="billingDetails.country == 'India'"
-								:label="__('State/Province')"
-								v-model="billingDetails.state"
-								autocomplete="address-level1"
-								:options="INDIAN_STATE_OPTIONS"
-								:placeholder="__('Select a state')"
-								:required="!!fieldMeta.state?.reqd"
-							/>
 							<FormControl
-								v-else
-								:label="__('State/Province')"
+								:label="__('Tỉnh / Thành phố')"
 								v-model="billingDetails.state"
 								autocomplete="address-level1"
+								:placeholder="__('Hà Nội, TP. Hồ Chí Minh...')"
 								:required="!!fieldMeta.state?.reqd"
 							/>
 						</div>
@@ -171,18 +154,25 @@
 								:label="__('Where did you hear about us?')"
 								:required="!!fieldMeta.source?.reqd"
 							/>
-							<FormControl
-								v-if="billingDetails.country == 'India'"
-								:label="__('GST Number')"
-								v-model="billingDetails.gstin"
-								:required="!!fieldMeta.gstin?.reqd"
-							/>
-							<FormControl
-								v-if="billingDetails.country == 'India'"
-								:label="__('PAN Number')"
-								v-model="billingDetails.pan"
-								:required="!!fieldMeta.pan?.reqd"
-							/>
+						</div>
+					</div>
+					<div v-if="!isZeroAmount" class="mt-6 mb-4">
+						<div class="text-sm font-medium text-ink-gray-8 mb-2">{{ __('Phương thức thanh toán') }}</div>
+						<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+							<label :class="['flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors', selectedGateway === 'PayOS' ? 'border-primary-500 bg-primary-50 dark:bg-primary-950/20' : 'border-outline-gray-2']">
+								<input type="radio" value="PayOS" v-model="selectedGateway" class="text-primary-600 focus:ring-primary-500" />
+								<div>
+									<div class="font-medium text-sm text-ink-gray-9">{{ __('Chuyển khoản VietQR (PayOS)') }}</div>
+									<div class="text-xs text-ink-gray-5">{{ __('Quét mã QR qua app ngân hàng / MoMo') }}</div>
+								</div>
+							</label>
+							<label :class="['flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors', selectedGateway === 'Stripe' ? 'border-primary-500 bg-primary-50 dark:bg-primary-950/20' : 'border-outline-gray-2']">
+								<input type="radio" value="Stripe" v-model="selectedGateway" class="text-primary-600 focus:ring-primary-500" />
+								<div>
+									<div class="font-medium text-sm text-ink-gray-9">{{ __('Thẻ quốc tế (Stripe)') }}</div>
+									<div class="text-xs text-ink-gray-5">{{ __('Visa, Mastercard, JCB') }}</div>
+								</div>
+							</label>
 						</div>
 					</div>
 					<div
@@ -260,10 +250,6 @@ import Link from '@/components/Controls/Link.vue'
 import NotPermitted from '@/components/NotPermitted.vue'
 import { useTelemetry } from '@framework/ui/telemetry/index'
 import { getLmsRoute } from '@/utils/basePath'
-import {
-	INDIAN_STATE_OPTIONS,
-	canonicalIndianState,
-} from '@/utils/indianStates'
 
 const breadcrumbs = [
 	{ label: __('Billing Details'), route: { name: 'Billing' } },
@@ -274,6 +260,7 @@ const { brand } = sessionStore()
 const showConsentWarning = ref(false)
 const { capture } = useTelemetry()
 
+const selectedGateway = ref('PayOS')
 onMounted(() => {
 	if (user.data?.name) {
 		access.submit()
@@ -334,23 +321,15 @@ const setBillingDetails = (data) => {
 		data?.address_line2 || getDefault('address_line2')
 	billingDetails.city = data?.city || getDefault('city')
 	billingDetails.state = data?.state || getDefault('state')
-	billingDetails.country = data?.country || getDefault('country')
+	billingDetails.country = data?.country || getDefault('country') || 'Vietnam'
 	billingDetails.pincode = data?.pincode || getDefault('pincode')
 	billingDetails.phone = data?.phone || getDefault('phone')
 	billingDetails.source = data?.source || getDefault('source')
-	billingDetails.gstin = data?.gstin || getDefault('gstin')
-	billingDetails.pan = data?.pan || getDefault('pan')
-	normalizeState()
 }
 
 // Addresses saved before the dropdown existed hold free text ("GUJARAT"), which
 // matches no option and would look unselected. Anything unrecognised is left
 // alone so validation can report it.
-const normalizeState = () => {
-	if (billingDetails.country != 'India') return
-	const canonical = canonicalIndianState(billingDetails.state)
-	if (canonical) billingDetails.state = canonical
-}
 
 const paymentLink = createResource({
 	url: 'lms.lms.payments.get_payment_link',
@@ -362,6 +341,7 @@ const paymentLink = createResource({
 			payment_for_certificate: props.type == 'certificate',
 			coupon_code: couponCode(),
 			country: billingDetails.country,
+			payment_gateway: selectedGateway.value,
 		}
 		return data
 	},
@@ -421,8 +401,6 @@ const validateAddress = () => {
 		'pincode',
 		'country',
 		'phone',
-		'gstin',
-		'pan',
 	]
 	let mandatoryFields = billingFields.filter((f) => fieldMeta[f]?.reqd)
 	for (let field of mandatoryFields) {
@@ -436,20 +414,8 @@ const validateAddress = () => {
 			)
 	}
 
-	if (billingDetails.gstin && !billingDetails.pan)
-		return 'Please enter a valid pan number.'
-
-	if (billingDetails.country != 'India') return
-
-	if (!billingDetails.state) return __('Please select your state.')
-
-	// The dropdown only ever yields canonical names; this catches an older
-	// free-text address that no spelling of ours can resolve.
-	const canonical = canonicalIndianState(billingDetails.state)
-	if (!canonical) return __('Please select your state from the list.')
-	billingDetails.state = canonical
+	return undefined
 }
-
 // A validation failure arrives as an Error; handing that to toast.error renders
 // an empty toast, which is why a rejected checkout looked like a dead button.
 const showError = (err) => {
@@ -458,7 +424,6 @@ const showError = (err) => {
 
 const changeCurrency = (country) => {
 	billingDetails.country = country
-	normalizeState()
 	orderSummary.reload()
 }
 

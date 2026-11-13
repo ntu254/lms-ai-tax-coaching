@@ -128,30 +128,6 @@
 							</ul>
 						</div>
 
-						<div
-							v-if="assessmentProgress.data?.exercises?.length"
-							class="border border-outline-elevation-2 rounded-6 px-3 pt-3 h-fit"
-						>
-							<div>
-								<div class="text-ink-gray-6 mb-5">
-									{{ __('Programming Exercise Progress') }}
-								</div>
-							</div>
-							<ul class="list-none">
-								<li
-									v-for="(exercise, index) in assessmentProgress.data.exercises"
-									:key="`${exercise.exercise}-${index}`"
-									class="flex justify-between text-sm py-2 my-1"
-								>
-									<div>
-										{{ exercise.exercise_title }}
-									</div>
-									<Badge :theme="getAssessmentStatusTheme(exercise.status)">
-										{{ exercise.status }}
-									</Badge>
-								</li>
-							</ul>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -224,9 +200,7 @@ const hasAssessmentData = computed(() => {
 		(assessmentProgress.data?.quizzes &&
 			assessmentProgress.data.quizzes.length > 0) ||
 		(assessmentProgress.data?.assignments &&
-			assessmentProgress.data.assignments.length > 0) ||
-		(assessmentProgress.data?.exercises &&
-			assessmentProgress.data.exercises.length > 0)
+			assessmentProgress.data.assignments.length > 0)
 	)
 })
 </script>

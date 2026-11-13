@@ -2,6 +2,17 @@
 	<div v-if="lesson.data" class="">
 		<PageHeader :breadcrumbs="breadcrumbs">
 			<template #actions>
+				<Button
+					variant="subtle"
+					size="sm"
+					class="text-primary-600 hover:text-primary-700 font-medium"
+					@click="showAITutor = true"
+				>
+					<template #prefix>
+						<span class="lucide-sparkles size-4 text-amber-500" />
+					</template>
+					{{ __('Trợ lý AI') }}
+				</Button>
 				<CertificationLinks :courseName="courseName" />
 				<HeaderButton
 					v-if="canEditLesson"
@@ -70,6 +81,7 @@
 						v-if="user.data && !lesson.data.disable_self_learning"
 						@click="enrollStudent()"
 						variant="solid"
+						class="!bg-surface-orange-7 hover:!bg-surface-orange-8 active:!bg-surface-orange-9"
 					>
 						{{ __('Start Learning') }}
 					</Button>
@@ -346,6 +358,11 @@
 		v-model:notes="notes"
 		@updateNotes="updateNotes"
 	/>
+	<AITutorModal
+		v-model="showAITutor"
+		:lessonTitle="lesson.data?.title || ''"
+		:lessonContent="lessonContentString"
+	/>
 </template>
 <script setup lang="ts">
 import {
@@ -403,6 +420,7 @@ import HeaderButton from '@/components/HeaderButton.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
 import Notes from '@/components/Notes/Notes.vue'
 import InlineLessonMenu from '@/components/Notes/InlineLessonMenu.vue'
+import AITutorModal from '@/components/Modals/AITutorModal.vue'
 import { parseStoredEditorJs } from '@/utils/lessonForm'
 import { isLessonSelection } from '@/utils/lessonSelection'
 import { getLmsRoute } from '@/utils/basePath'
@@ -505,6 +523,12 @@ const completedLesson = ref<string | null>(null)
 const settingsStore = useSettings()
 const { isMobile } = useScreenSize()
 const showChapters = ref(false)
+const showAITutor = ref(false)
+const lessonContentString = computed(() =>
+	typeof lesson.data?.content === 'string'
+		? lesson.data.content
+		: JSON.stringify(lesson.data?.content || '')
+)
 let timerInterval: ReturnType<typeof setInterval> | undefined
 
 const props = defineProps<{
@@ -595,15 +619,6 @@ const setupLesson = (data: LessonPayload): void => {
 	}
 	if (data.locked) {
 		return
-	}
-	if (data.is_scorm_package) {
-		router.push({
-			name: 'SCORMChapter',
-			params: {
-				courseName: props.courseName,
-				chapterName: data.chapter_name,
-			},
-		})
 	}
 	lessonProgress.value = data.membership?.progress ?? 0
 	contentUnreadable.value = false

@@ -151,7 +151,7 @@
 					>
 						<span class="relative z-10 flex">
 							<span
-								class="lucide-graduation-cap size-5 text-ink-gray-7"
+								class="lucide-graduation-cap size-5 text-ink-orange-7"
 								aria-hidden="true"
 							/>
 							<span class="sr-only">{{ __('Get Certified') }}</span>

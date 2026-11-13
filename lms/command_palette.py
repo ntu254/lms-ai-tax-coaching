@@ -11,7 +11,6 @@ from lms.lms.utils import has_moderator_role
 CATEGORY_DOCTYPES = {
 	"courses": "LMS Course",
 	"batches": "LMS Batch",
-	"jobs": "Job Opportunity",
 	"quizzes": "LMS Quiz",
 	"assignments": "LMS Assignment",
 	"programs": "LMS Program",
@@ -21,7 +20,6 @@ CATEGORY_DOCTYPES = {
 DOCTYPE_GROUPS = {
 	"LMS Course": "Courses",
 	"LMS Batch": "Batches",
-	"Job Opportunity": "Job Opportunities",
 	"LMS Quiz": "Quizzes",
 	"LMS Assignment": "Assignments",
 	"LMS Program": "Programs",
@@ -136,8 +134,6 @@ def is_visible(row, doctype, roles, permitted, authored=None):
 		return can_access_course(row, drafts)
 	if doctype == "LMS Batch":
 		return can_access_batch(row, roles, drafts)
-	if doctype == "Job Opportunity":
-		return can_access_job(row, roles)
 	return row.get("name") in permitted.get(doctype, ())
 
 
@@ -262,11 +258,6 @@ def can_access_batch(batch, roles, authored):
 		return True
 	return batch.get("start_date") >= nowdate()
 
-
-def can_access_job(job, roles):
-	if "Moderator" in roles:
-		return True
-	return job.get("status") == "Open"
 
 
 def can_create_batch(roles):

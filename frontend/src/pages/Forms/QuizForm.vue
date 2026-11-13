@@ -326,27 +326,6 @@
 						variant="outline"
 					/>
 					<BooleanSwitch
-						v-model="doc.enable_proctoring"
-						size="sm"
-						:label="__('Enable Proctoring')"
-						:description="
-							__(
-								'Require camera access and monitor for violations during the quiz.'
-							)
-						"
-					/>
-					<FormControl
-						v-if="doc.enable_proctoring"
-						type="number"
-						v-model="doc.max_violations"
-						:label="__('Max Violations')"
-						:description="
-							__('Quiz auto-submits when this many violations are recorded.')
-						"
-						variant="outline"
-						:required="true"
-					/>
-					<BooleanSwitch
 						v-model="doc.enable_scheduling"
 						size="sm"
 						:label="__('Enable Scheduling')"
@@ -964,14 +943,6 @@ watch(hasOpenEnded, (present) => {
 	if (!present) forgetOpenEndedDismissal()
 })
 
-watch(
-	() => quizDetails.value.doc?.enable_proctoring,
-	(enabled) => {
-		if (enabled && !quizDetails.value.doc.max_violations) {
-			quizDetails.value.doc.max_violations = 3
-		}
-	}
-)
 
 // Resolves to whether the quiz reached the server, which is what lets autosave re-arm.
 let saveInFlight = false

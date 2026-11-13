@@ -17,7 +17,7 @@
 					<Button
 						variant="solid"
 						size="md"
-						class="w-full"
+						class="w-full !bg-surface-orange-7 hover:!bg-surface-orange-8 active:!bg-surface-orange-9"
 						:route="{
 							name: 'Lesson',
 							params: {
@@ -44,7 +44,7 @@
 					v-else-if="course.data?.paid_course && !isAdmin"
 					variant="solid"
 					size="md"
-					class="w-full mb-8 text-p-base-medium"
+					class="w-full mb-8 text-p-base-medium !bg-surface-orange-7 hover:!bg-surface-orange-8 active:!bg-surface-orange-9"
 					:route="{
 						name: 'Billing',
 						params: {
@@ -72,7 +72,7 @@
 					v-else-if="!isAdmin"
 					@click="enrollStudent()"
 					variant="solid"
-					class="w-full mb-8"
+					class="w-full mb-8 !bg-surface-orange-7 hover:!bg-surface-orange-8 active:!bg-surface-orange-9"
 					size="md"
 				>
 					<template #prefix>

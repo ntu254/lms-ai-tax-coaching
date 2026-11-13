@@ -33,16 +33,6 @@
 					autocomplete="off"
 				/>
 				<FormControl
-					v-if="showGst"
-					v-model="doc.amount_with_gst"
-					data-testid="amount-with-gst"
-					:label="__('Amount with GST')"
-					type="number"
-					placeholder="0"
-					:required="required('amount_with_gst')"
-					autocomplete="off"
-				/>
-				<FormControl
 					v-model="doc.payment_for_document_type"
 					data-testid="document-type"
 					:label="__('Paid For')"
@@ -287,24 +277,6 @@
 
 			<div class="h-px border-t border-outline-elevation-2" />
 
-			<div class="grid grid-cols-2 gap-4">
-				<FormControl
-					v-model="doc.gstin"
-					data-testid="gstin"
-					:label="__('GSTIN')"
-					type="text"
-					:required="required('gstin')"
-					autocomplete="off"
-				/>
-				<FormControl
-					v-model="doc.pan"
-					data-testid="pan"
-					:label="__('PAN')"
-					type="text"
-					:required="required('pan')"
-					autocomplete="off"
-				/>
-			</div>
 
 			<ErrorMessage v-if="error" class="ms-1" :message="error" />
 		</div>

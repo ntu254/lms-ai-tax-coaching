@@ -853,7 +853,7 @@ def can_write_the_stored_parent(parenttype: str, parent: str) -> bool:
 
 
 # Doctypes an assessment placement can name; anything else is refused outright.
-ASSESSMENT_DOCTYPES = ("LMS Quiz", "LMS Assignment", "LMS Programming Exercise")
+ASSESSMENT_DOCTYPES = ("LMS Quiz", "LMS Assignment")
 
 # Doctypes carrying a pre-placement-table course stamp. LMS Programming Exercise
 # has no course field at all.
@@ -1134,9 +1134,6 @@ def assignment_query_conditions(user: str | None = None) -> str:
 	return _assessment_query_conditions("LMS Assignment", user)
 
 
-def programming_exercise_query_conditions(user: str | None = None) -> str:
-	return _assessment_query_conditions("LMS Programming Exercise", user)
-
 
 def _assessment_query_conditions(doctype: str, user: str | None = None) -> str:
 	"""``can_access_assessment`` as SQL, for the list read a has_permission hook
@@ -1178,7 +1175,6 @@ def _is_unrestricted(user: str) -> bool:
 SUBMISSION_ASSESSMENT_FIELDS = {
 	"LMS Quiz Submission": ("LMS Quiz", "quiz"),
 	"LMS Assignment Submission": ("LMS Assignment", "assignment"),
-	"LMS Programming Exercise Submission": ("LMS Programming Exercise", "exercise"),
 }
 
 
@@ -1189,9 +1185,6 @@ def quiz_submission_query_conditions(user: str | None = None) -> str:
 def assignment_submission_query_conditions(user: str | None = None) -> str:
 	return _assessment_submission_query_conditions("LMS Assignment Submission", user)
 
-
-def programming_exercise_submission_query_conditions(user: str | None = None) -> str:
-	return _assessment_submission_query_conditions("LMS Programming Exercise Submission", user)
 
 
 def _assessment_submission_query_conditions(doctype: str, user: str | None = None) -> str:

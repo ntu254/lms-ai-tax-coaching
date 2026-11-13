@@ -12,6 +12,7 @@
 		/>
 		<InstallPrompt v-if="isMobile && !settings.data?.disable_pwa" />
 		<Dialogs />
+		<AICourseAdvisor />
 	</FrappeUIProvider>
 </template>
 <script setup>
@@ -32,6 +33,7 @@ import ContinueCoursePanel from '@/components/ContinueCoursePanel.vue'
 import { showHelpModal } from '@framework/ui/components/Onboarding/index'
 import { seesOnboarding } from '@/utils/onboarding'
 import { usersStore } from '@/stores/user'
+import AICourseAdvisor from '@/components/AICourseAdvisor.vue'
 
 const { isMobile } = useScreenSize()
 const route = useRoute()

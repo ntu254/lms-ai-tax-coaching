@@ -1,0 +1,44 @@
+version: "3.7"
+name: lms-prod
+
+services:
+  mariadb:
+    image: mariadb:10.8
+    restart: always
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --skip-innodb-read-only-compressed
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD:-123}
+    volumes:
+      - mariadb-data:/var/lib/mysql
+
+  redis:
+    image: redis:alpine
+    restart: always
+
+  frappe:
+    image: frappe/bench:latest
+    restart: always
+    command: bash /workspace/init.sh
+    environment:
+      - SHELL=/bin/bash
+      - SITE_NAME=${SITE_NAME:-lms.localhost}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
+    working_dir: /home/frappe
+    volumes:
+      - ../../docker:/workspace
+      - sites-data:/home/frappe/frappe-bench/sites
+    ports:
+      # Chỉ lắng nghe trên 127.0.0.1 để ép buộc đi qua Nginx Reverse Proxy (SSL HTTPS)
+      - 127.0.0.1:8000:8000
+      - 127.0.0.1:9000:9000
+    depends_on:
+      - mariadb
+      - redis
+
+volumes:
+  mariadb-data:
+  sites-data:

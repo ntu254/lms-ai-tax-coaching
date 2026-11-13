@@ -173,6 +173,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "default": "VND",
    "fieldname": "currency",
    "fieldtype": "Link",
    "label": "Currency",

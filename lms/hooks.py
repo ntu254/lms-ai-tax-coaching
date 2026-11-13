@@ -112,10 +112,8 @@ permission_query_conditions = {
 	"LMS Batch Enrollment": "lms.lms.doctype.lms_batch_enrollment.lms_batch_enrollment.get_permission_query_conditions",
 	"LMS Quiz": "lms.lms.permissions.quiz_query_conditions",
 	"LMS Assignment": "lms.lms.permissions.assignment_query_conditions",
-	"LMS Programming Exercise": "lms.lms.permissions.programming_exercise_query_conditions",
 	"LMS Quiz Submission": "lms.lms.permissions.quiz_submission_query_conditions",
 	"LMS Assignment Submission": "lms.lms.permissions.assignment_submission_query_conditions",
-	"LMS Programming Exercise Submission": "lms.lms.permissions.programming_exercise_submission_query_conditions",
 }
 
 has_permission = {
@@ -137,11 +135,9 @@ has_permission = {
 	"File": "lms.lms.permissions.file_has_permission",
 	"LMS Quiz": "lms.lms.permissions.assessment_has_permission",
 	"LMS Assignment": "lms.lms.permissions.assessment_has_permission",
-	"LMS Programming Exercise": "lms.lms.permissions.assessment_has_permission",
 	"LMS Question": "lms.lms.permissions.has_authored_content_permission",
 	"LMS Quiz Submission": "lms.lms.permissions.assessment_submission_has_permission",
 	"LMS Assignment Submission": "lms.lms.permissions.assessment_submission_has_permission",
-	"LMS Programming Exercise Submission": "lms.lms.permissions.assessment_submission_has_permission",
 }
 
 # DocType Class
@@ -183,7 +179,6 @@ doc_events = {
 	# name with no ownership check. A save of the thief's own quiz naming a foreign row
 	# is checked for `write` on the destination only, and reaches the child gate never.
 	"LMS Quiz": {"validate": CHILD_ROW_MOVE_GATE, "after_insert": "lms.lms.telemetry.quiz_created"},
-	"LMS Programming Exercise": {"validate": CHILD_ROW_MOVE_GATE},
 	"LMS Assignment": {
 		"validate": CHILD_ROW_MOVE_GATE,
 		"after_insert": "lms.lms.telemetry.assignment_created",
@@ -228,7 +223,6 @@ scheduler_events = {
 		"lms.lms.day1_email.send_day1_email",
 	],
 	"daily": [
-		"lms.job.doctype.job_opportunity.job_opportunity.update_job_openings",
 		"lms.lms.doctype.lms_payment.lms_payment.send_payment_reminder",
 		"lms.lms.doctype.lms_batch.lms_batch.send_batch_start_reminder",
 		"lms.lms.doctype.lms_live_class.lms_live_class.send_live_class_reminder",
@@ -237,8 +231,7 @@ scheduler_events = {
 		"lms.lms.doctype.course_evaluator.course_evaluator.clear_expired_time_off",
 	],
 }
-
-fixtures = ["Custom Field", "Function", "Industry", "LMS Category"]
+fixtures = ["Custom Field", "LMS Category"]
 
 # Testing
 # -------
@@ -340,9 +333,7 @@ lms_markdown_macro_renderers = {
 	"PDF": "lms.plugins.pdf_renderer",
 }
 
-page_renderer = [
-	"lms.page_renderers.SCORMRenderer",
-]
+page_renderer = []
 
 # set this to "/" to have profiles on the top-level
 profile_url_prefix = "/users/"
@@ -393,10 +384,8 @@ standard_sidebar_items = [
 	{"name1": "programs", "is_standard": 1, "item_type": "Built-in"},
 	{"name1": "batches", "is_standard": 1, "item_type": "Built-in"},
 	{"name1": "certifications", "is_standard": 1, "item_type": "Built-in"},
-	{"name1": "jobs", "is_standard": 1, "item_type": "Built-in"},
 	{"name1": "statistics", "is_standard": 1, "item_type": "Built-in"},
 	{"name1": "contact_us", "is_standard": 1, "item_type": "Built-in"},
 	{"name1": "quizzes", "is_standard": 1, "item_type": "Built-in"},
 	{"name1": "assignments", "is_standard": 1, "item_type": "Built-in"},
-	{"name1": "programming_exercises", "is_standard": 1, "item_type": "Built-in"},
 ]

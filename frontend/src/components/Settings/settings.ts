@@ -143,10 +143,6 @@ export const settingsTree: SettingsGroup[] = [
 											label: 'Assignments',
 											name: 'enforce_assignment_completion',
 										},
-										{
-											label: 'Programming exercises',
-											name: 'enforce_programming_exercise_completion',
-										},
 									],
 								},
 								{
@@ -174,11 +170,6 @@ export const settingsTree: SettingsGroup[] = [
 											requires: 'enforce_assignment_completion',
 											caution:
 												'The lesson completes only after an instructor grades it.',
-										},
-										{
-											label: 'Programming exercises',
-											name: 'enforce_programming_exercise_passing',
-											requires: 'enforce_programming_exercise_completion',
 										},
 									],
 								},
@@ -362,13 +353,6 @@ export const settingsTree: SettingsGroup[] = [
 									doctype: 'Payment Gateway',
 									description:
 										'Payment gateway used to process course and batch purchases.',
-								},
-								{
-									label: 'Apply GST for India',
-									name: 'apply_gst',
-									type: 'checkbox',
-									description:
-										'If enabled, GST will be applied to the price for students from India.',
 								},
 							],
 						},

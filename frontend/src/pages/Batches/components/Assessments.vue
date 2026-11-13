@@ -153,24 +153,6 @@ const getRowRoute = (row) => {
 				},
 			}
 		}
-	} else if (row.assessment_type == 'LMS Programming Exercise') {
-		if (row.submission) {
-			return {
-				name: 'ProgrammingExerciseSubmission',
-				params: {
-					exerciseID: row.assessment_name,
-					submissionID: row.submission.name,
-				},
-			}
-		} else {
-			return {
-				name: 'ProgrammingExerciseSubmission',
-				params: {
-					exerciseID: row.assessment_name,
-					submissionID: 'new',
-				},
-			}
-		}
 	} else {
 		return {
 			name: 'QuizPage',
@@ -229,10 +211,8 @@ const getStatusTheme = (status) => {
 const getAssessmentTypeLabel = (type) => {
 	if (type == 'LMS Assignment') {
 		return __('Assignment')
-	} else if (type == 'LMS Quiz') {
+	} else {
 		return __('Quiz')
-	} else if (type == 'LMS Programming Exercise') {
-		return __('Programming Exercise')
 	}
 }
 </script>

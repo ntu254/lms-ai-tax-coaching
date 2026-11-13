@@ -14,10 +14,8 @@ LEGACY_VISIBILITY_FIELDS = (
 	"courses",
 	"batches",
 	"certifications",
-	"jobs",
 	"statistics",
 	"notifications",
-	"programming_exercises",
 )
 
 # Everything a row owns, and the only fields copied when the table is rebuilt.

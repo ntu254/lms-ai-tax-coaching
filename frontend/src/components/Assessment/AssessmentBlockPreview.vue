@@ -31,9 +31,6 @@
 			:subtitle="quizSummary.subtitle"
 			preview
 		>
-			<Badge v-if="details.doc.enable_proctoring" theme="amber" size="sm">
-				{{ __('Proctored') }}
-			</Badge>
 			<span
 				v-if="details.doc.max_attempts"
 				class="hidden text-xs text-ink-gray-6 sm:inline"
@@ -184,7 +181,6 @@ const icon = {
 const label = {
 	quiz: __('Quiz'),
 	assignment: __('Assignment'),
-	exercise: __('Programming Exercise'),
 }[props.kind]
 
 const loading = ref(true)
@@ -233,12 +229,7 @@ const fetchDetails = async (): Promise<Details | null> => {
 		)
 		return doc ? { kind: 'assignment', doc } : null
 	}
-	const doc = await call<ExerciseSummary | null>('frappe.client.get_value', {
-		doctype: 'LMS Programming Exercise',
-		filters: { name: props.name },
-		fieldname: ['title', 'problem_statement', 'language'],
-	})
-	return doc ? { kind: 'exercise', doc } : null
+	return null
 }
 
 onMounted(async () => {

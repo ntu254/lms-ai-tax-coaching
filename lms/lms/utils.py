@@ -1293,60 +1293,11 @@ def attach_file_to_doc(file_url: str, doctype: str, docname: str) -> None:
 
 
 def check_multicurrency(amount: float, currency: str, country: str = None, amount_usd: float = None):
-	settings = frappe.get_single("LMS Settings")
-	show_usd_equivalent = settings.show_usd_equivalent
-
-	# Countries for which currency should not be converted
-	exception_country = settings.exception_country
-	exception_country = [country.country for country in exception_country]
-
-	# Get users country
-	if not country:
-		country = frappe.db.get_value("Address", {"email_id": frappe.session.user}, "country")
-
-	if not country:
-		country = frappe.db.get_value("User", frappe.session.user, "country")
-
-	if not country:
-		country = get_country_code()
-
-	# If the country is the one for which conversion is not needed then return as is
-	if not country or (exception_country and country in exception_country):
-		return amount, currency
-
-	# If conversion is disabled from settings or the currency is already USD then return as is
-	if not show_usd_equivalent or currency == "USD":
-		return amount, currency
-
-	# If Explicit USD price is given then return that without conversion
-	if amount_usd and country and country not in exception_country:
-		return amount_usd, "USD"
-
-	# Conversion logic starts here. Exchange rate is fetched and amount is converted.
-	exchange_rate = get_current_exchange_rate(currency, "USD")
-	amount = flt(amount * exchange_rate, 2)
-	currency = "USD"
-
-	# Check if the amount should be rounded and then apply rounding
-	apply_rounding = settings.apply_rounding
-	if apply_rounding and amount % 100 != 0:
-		amount = amount + 100 - amount % 100
-
-	return rounded(amount), currency
+	return amount, currency
 
 
 def apply_gst(amount: float, country: str = None) -> tuple:
-	gst_applied = 0
-	apply_gst = frappe.db.get_single_value("LMS Settings", "apply_gst")
-
-	if not country:
-		country = frappe.db.get_value("User", frappe.session.user, "country")
-
-	if apply_gst and country == "India":
-		gst_applied = amount * 0.18
-		amount += gst_applied
-
-	return amount, gst_applied
+	return amount, 0
 
 
 def get_current_exchange_rate(source: str, target: str = "USD") -> float:
@@ -2552,9 +2503,6 @@ def get_assessments(batch: str) -> list:
 		elif assessment.assessment_type == "LMS Quiz":
 			assessment = get_quiz_details(assessment, member)
 
-		elif assessment.assessment_type == "LMS Programming Exercise":
-			assessment = get_exercise_details(assessment, member)
-
 	return assessments
 
 
@@ -2623,29 +2571,6 @@ def get_quiz_details(assessment: dict, member: str) -> dict:
 	return assessment
 
 
-def get_exercise_details(assessment: dict, member: str) -> dict:
-	assessment.title = frappe.db.get_value("LMS Programming Exercise", assessment.assessment_name, "title")
-	filters = {"member": member, "exercise": assessment.assessment_name}
-
-	if frappe.db.exists("LMS Programming Exercise Submission", filters):
-		assessment.submission = frappe.db.get_value(
-			"LMS Programming Exercise Submission",
-			filters,
-			["name", "status"],
-			as_dict=True,
-		)
-		assessment.completed = True
-		assessment.status = assessment.submission.status
-		assessment.edit_url = (
-			f"/programming-exercise-submission/{assessment.assessment_name}/{assessment.submission.name}"
-		)
-	else:
-		assessment.status = "Not Attempted"
-		assessment.color = "red"
-		assessment.completed = False
-		assessment.edit_url = f"/programming-exercise-submission/{assessment.assessment_name}/new"
-
-	return assessment
 
 
 @frappe.whitelist()
@@ -2872,11 +2797,6 @@ def get_assessment_meta(assessment_type: str):
 		docfield = "quiz"
 		fields = ["percentage"]
 		not_attempted = 0
-	elif assessment_type == "LMS Programming Exercise":
-		doctype = "LMS Programming Exercise Submission"
-		docfield = "exercise"
-		fields = ["status"]
-		not_attempted = "Not Attempted"
 
 	return doctype, docfield, fields, not_attempted
 

@@ -114,14 +114,6 @@ const redirectToAssessment = (row: any) => {
 				submissionName: row.submission,
 			},
 		})
-	} else if (row.type == 'LMS Programming Exercise') {
-		router.push({
-			name: 'ProgrammingExerciseSubmission',
-			params: {
-				exerciseID: row.assessment,
-				submissionID: row.submission,
-			},
-		})
 	} else if (row.type == 'LMS Quiz') {
 		router.push({
 			name: 'QuizSubmission',

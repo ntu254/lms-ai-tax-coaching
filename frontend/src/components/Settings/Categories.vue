@@ -1,6 +1,6 @@
 <template>
 	<SettingsList
-		:title="label"
+		:title="__(label)"
 		:columns="columns"
 		:rows="list.rows"
 		:loading="list.loading"

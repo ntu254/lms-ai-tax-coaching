@@ -5,7 +5,12 @@
 		</template>
 		<span>{{ __('Previous') }}</span>
 	</Button>
-	<Button v-if="hasNext" @click="emit('switch', 'next')">
+	<Button
+		v-if="hasNext"
+		variant="solid"
+		class="!bg-surface-orange-7 hover:!bg-surface-orange-8 active:!bg-surface-orange-9"
+		@click="emit('switch', 'next')"
+	>
 		<template #suffix>
 			<span class="lucide-chevron-right size-4" />
 		</template>
@@ -13,8 +18,9 @@
 	</Button>
 	<Button
 		v-else
+		variant="solid"
+		class="!bg-surface-orange-7 hover:!bg-surface-orange-8 active:!bg-surface-orange-9 text-p-base-medium"
 		:route="{ name: 'CourseDetail', params: { courseName } }"
-		class="text-p-base-medium"
 	>
 		{{ __('Back to Course') }}
 	</Button>

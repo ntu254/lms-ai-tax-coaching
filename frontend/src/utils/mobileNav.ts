@@ -37,12 +37,6 @@ export const GUEST_TABS: readonly NavLink[] = [
 		activeFor: ['Batches', 'BatchDetail'],
 	},
 	{
-		label: 'Jobs',
-		icon: 'Briefcase',
-		to: 'Jobs',
-		activeFor: ['Jobs', 'JobDetail'],
-	},
-	{
 		label: 'Statistics',
 		icon: 'TrendingUp',
 		to: 'Statistics',
@@ -70,14 +64,8 @@ const YOU_TAB: NavLink = {
 const MAX_PRIMARY_TABS = 5
 
 const SECTION_MAP: Record<string, readonly string[]> = {
-	LEARN: [
-		'Programs',
-		'Batches',
-		'Quizzes',
-		'Assignments',
-		'Programming Exercises',
-	],
-	DISCOVER: ['Jobs', 'Statistics'],
+	LEARN: ['Programs', 'Batches', 'Quizzes', 'Assignments'],
+	DISCOVER: ['Statistics'],
 }
 
 // Session actions belong to the account group no matter which list they
@@ -103,7 +91,6 @@ export function sectionFor(label: string): string {
 // to shorten a label that does not fit, rather than letting `truncate` clip a
 // word.
 const SHORT_TAB_LABELS: Record<string, string> = {
-	'Programming Exercises': 'Exercises',
 }
 
 export function tabLabel(label: string): string {

@@ -69,15 +69,6 @@
 			<!-- The monitor runs detection and floats its camera over the page, so it
 			     needs no room here; zero height, not display:none, so its first
 			     video still plays while it starts. The count sits in the header. -->
-			<div v-if="proctoringRunning" class="h-0 overflow-hidden">
-				<ProctoringMonitor
-					:active="proctoringActive"
-					@violation="handleViolation"
-					@warning="handleWarning"
-					@camera-ready="() => {}"
-					@camera-denied="() => {}"
-				/>
-			</div>
 
 			<div v-if="activeQuestion == 0">
 				<!-- What the quiz is comes first, then the rules for taking it. -->
@@ -184,80 +175,6 @@
 							__('Resume Video')
 						}}</Button>
 					</template>
-					<div
-						v-if="
-							quiz.data.enable_proctoring &&
-							attemptsReady &&
-							!attemptsExhausted &&
-							!scheduleBlocked
-						"
-						class="-mx-3.5 -mt-3.5 grid border-b border-outline-gray-1 md:grid-cols-2 md:divide-x md:divide-outline-gray-1 rtl:divide-x-reverse"
-					>
-						<!-- One band split by a divider, not two boxed cards: the quiz card
-						     is the only box. It is the first thing in this section whenever it
-						     shows, hence the negative top margin against the rules above. -->
-						<div
-							class="flex flex-col gap-3 border-b border-outline-gray-1 p-3.5 md:border-b-0"
-						>
-							<div class="text-sm-semibold text-ink-gray-8">
-								{{ __('Camera Setup') }}
-							</div>
-							<div class="flex min-h-[18rem] flex-1 flex-col md:min-h-0">
-								<ProctoringMonitor
-									class="flex min-h-0 flex-1 flex-col"
-									:active="false"
-									@camera-ready="cameraReady = true"
-									@camera-lost="cameraReady = false"
-									@camera-denied="() => {}"
-									@violation="handleViolation"
-									@warning="handleWarning"
-								/>
-							</div>
-						</div>
-
-						<div class="flex flex-col gap-1 p-3.5">
-							<div class="text-sm-semibold text-ink-gray-8">
-								{{ __('Proctoring Rules') }}
-							</div>
-							<div class="divide-y divide-outline-gray-1">
-								<div
-									v-for="rule in proctoringRules"
-									:key="rule.icon"
-									class="flex items-start gap-3 py-2.5"
-								>
-									<span
-										:class="rule.icon"
-										class="mt-0.5 size-4 shrink-0 text-ink-gray-5"
-									/>
-									<div>
-										<div class="text-sm text-ink-gray-8">
-											{{ rule.title }}
-										</div>
-										<div class="mt-0.5 text-p-sm text-ink-gray-6">
-											{{ rule.hint }}
-										</div>
-									</div>
-								</div>
-								<div class="flex items-start gap-3 py-2.5">
-									<span
-										class="lucide-alert-triangle mt-0.5 size-4 shrink-0 text-ink-orange-4"
-									/>
-									<div class="text-p-sm text-ink-orange-5">
-										{{
-											__(
-												'After {0} {1}, the quiz will be automatically submitted.'
-											).format(
-												quiz.data.max_violations,
-												quiz.data.max_violations == 1
-													? __('violation')
-													: __('violations')
-											)
-										}}
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 
 					<!-- Last, after the camera and the rules: the learner reads them and sees the
 					     camera turn ready on the way to the button it unlocks. -->
@@ -271,13 +188,6 @@
 						class="flex flex-wrap items-center justify-between gap-3"
 					>
 						<span class="text-sm text-ink-gray-6">
-							<template v-if="quiz.data.enable_proctoring && !cameraReady">
-								{{
-									__(
-										'Position your face in the camera to enable the start button.'
-									)
-								}}
-							</template>
 						</span>
 						<div class="flex items-center gap-2">
 							<Button v-if="inVideo" @click="props.backToVideo()">{{
@@ -285,7 +195,6 @@
 							}}</Button>
 							<Button
 								variant="solid"
-								:disabled="!!quiz.data.enable_proctoring && !cameraReady"
 								@click="startQuiz"
 							>
 								{{ __('Start Quiz') }}
@@ -869,7 +778,6 @@ import ResponsiveListView from '@/components/ResponsiveListView.vue'
 import RichTextEditor from '@/components/RichTextEditor.vue'
 import router from '@/router'
 import QuizActivityLog from '@/components/Quiz/QuizActivityLog.vue'
-import ProctoringMonitor from '@/components/ProctoringMonitor.vue'
 import EmptyStateLayout from '@/components/Layouts/EmptyStateLayout.vue'
 import AssessmentCard from '@/components/Assessment/AssessmentCard.vue'
 import AssessmentCardHeader from '@/components/Assessment/AssessmentCardHeader.vue'

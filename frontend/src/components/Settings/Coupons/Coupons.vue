@@ -1,7 +1,7 @@
 <template>
 	<SettingsList
 		v-if="!record"
-		:title="label"
+		:title="__(label)"
 		:columns="couponColumns"
 		:rows="list.rows"
 		:loading="list.loading"

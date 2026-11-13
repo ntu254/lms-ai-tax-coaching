@@ -10,7 +10,7 @@
 			:aria-label="props.label"
 		>
 			<div
-				class="bg-surface-gray-10 rounded-full"
+				class="bg-surface-orange-7 rounded-full transition-all duration-300"
 				:class="progressBarHeight"
 				:style="{ width: progressBarWidth }"
 			></div>

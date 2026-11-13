@@ -52,7 +52,6 @@ from lms.lms.bulk_enrollment import (
 	resolve_payment,
 	search_users,
 )
-from lms.lms.code_runner import code_to_store, run_test_cases
 from lms.lms.course_import_export import (
 	export_course_zip,
 	get_uploaded_zip_path,
@@ -141,7 +140,6 @@ PERMISSION_DOCTYPES = (
 	"LMS Quiz",
 	"LMS Assignment",
 	"LMS Program",
-	"Job Opportunity",
 )
 
 
@@ -205,10 +203,11 @@ def _doctype_permissions():
 
 @frappe.whitelist(allow_guest=True)
 def get_translations():
+	language = None
 	if frappe.session.user != "Guest":
 		language = frappe.db.get_value("User", frappe.session.user, "language")
-	else:
-		language = frappe.db.get_single_value("System Settings", "language")
+	if not language:
+		language = frappe.db.get_single_value("System Settings", "language") or "vi"
 	return get_all_translations(language)
 
 
@@ -339,40 +338,6 @@ def verify_billing_access(doctype, name, billing_type):
 	return access, message
 
 
-# nosemgrep: security.guest-whitelisted-method - pre-existing grant, unchanged by this branch; guests see only open job posts. Flagged only because semgrep ci re-scans the whole function when its body changes.
-@frappe.whitelist(allow_guest=True)
-def get_job_details(job: str):
-	if not isinstance(job, str):
-		frappe.throw(_("Job must be a string."))
-
-	job_details = frappe.db.get_value(
-		"Job Opportunity",
-		job,
-		[
-			"job_title",
-			"location",
-			"country",
-			"type",
-			"work_mode",
-			"company_name",
-			"company_logo",
-			"company_website",
-			"name",
-			"creation",
-			"description",
-			"owner",
-			"status",
-		],
-		as_dict=1,
-	)
-	if not job_details or not can_see_job(job_details.pop("status"), job_details.owner):
-		return None
-
-	job_details.applicants = frappe.db.count("LMS Job Application", {"job": job})
-	hide_user_emails([job_details], "owner")
-
-	return job_details
-
 
 @frappe.whitelist(allow_guest=True)
 def get_own_assignment_submission(assignment: str):
@@ -394,163 +359,6 @@ def get_own_assignment_submission(assignment: str):
 		{"assignment": assignment, "member": frappe.session.user},
 		"name",
 	)
-
-
-@frappe.whitelist()
-def get_application_users(applications: list | str) -> list:
-	"""Applicant display details per application the caller may read. Applicants are
-	identified by application, not by email; send_job_application_email reaches them."""
-	if isinstance(applications, str):
-		applications = json.loads(applications)
-	if not isinstance(applications, list) or not all(isinstance(name, str) for name in applications):
-		frappe.throw(_("Applications must be a list of names."))
-	if not applications:
-		return []
-
-	visible = frappe.get_list(
-		"LMS Job Application",
-		filters={"name": ["in", applications]},
-		fields=["name", "user"],
-	)
-	if not visible:
-		return []
-
-	users = {
-		user.pop("name"): user
-		for user in frappe.get_all(
-			"User",
-			filters={"name": ["in", list({row.user for row in visible})]},
-			fields=["name", "username", "full_name", "user_image"],
-		)
-	}
-	return [{"application": row.name, **users.get(row.user, {})} for row in visible]
-
-
-@frappe.whitelist(methods=["POST"])
-@rate_limit(limit=60, seconds=60 * 60)
-def send_job_application_email(application: str, subject: str, message: str):
-	"""Email an applicant, as the job's poster or a Moderator. The address is looked
-	up here so the poster never holds it, and the mail goes to nobody else."""
-	from frappe.core.doctype.communication.email import make
-
-	for value in (application, subject, message):
-		if not isinstance(value, str):
-			frappe.throw(_("Application, subject and message must be strings."))
-
-	row = frappe.db.get_value("LMS Job Application", application, ["job", "user"], as_dict=True)
-	if not row or not posted_job(row.job):
-		frappe.throw(_("Only the job's poster can email an applicant."), frappe.PermissionError)
-	return make(
-		doctype="LMS Job Application",
-		name=application,
-		recipients=row.user,
-		subject=subject,
-		content=message,
-		send_email=1,
-		now=True,
-	)
-
-
-def posted_job(job: str) -> bool:
-	"""Whether the caller posted `job`, or moderates the site."""
-	if has_moderator_role():
-		return True
-	return bool(job) and frappe.db.get_value("Job Opportunity", job, "owner") == frappe.session.user
-
-
-def sanitize_job_filters(filters, or_filters):
-	ALLOWED_FILTERS = ("status", "type", "work_mode", "country")
-	ALLOWED_OR_FILTERS = ("job_title", "company_name", "location")
-
-	filters = {f: v for f, v in (filters or {}).items() if f in ALLOWED_FILTERS}
-	or_filters = {f: v for f, v in (or_filters or {}).items() if f in ALLOWED_OR_FILTERS}
-	for field, value in (filters | or_filters).items():
-		check_filter_value(field, value)
-
-	if not sees_every_job():
-		if "status" not in filters:
-			filters["status"] = "Open"
-		elif not asks_only_open(filters["status"]):
-			filters["owner"] = frappe.session.user
-
-	return filters, or_filters
-
-
-def sees_every_job() -> bool:
-	return is_site_administrator() or "Moderator" in frappe.get_roles()
-
-
-def can_see_job(status: str, owner: str) -> bool:
-	"""A closed post is for its poster and staff; everyone else sees open posts. Guests see none
-	when the site turns guest access off."""
-	if not guest_access_allowed():
-		return False
-	return status == "Open" or owner == frappe.session.user or sees_every_job()
-
-
-def asks_only_open(status) -> bool:
-	"""Whether a status filter, in any spelling, can match nothing but Open posts.
-	Anything else could reach a closed post, so the caller is held to their own."""
-	values = status
-	if isinstance(status, list | tuple) and len(status) == 2:
-		operator, values = status
-		if not isinstance(operator, str) or operator.lower() not in ("=", "in"):
-			return False
-	if not isinstance(values, list | tuple):
-		values = [values]
-	return list(values) == ["Open"]
-
-
-# nosemgrep: security.guest-whitelisted-method - pre-existing grant, unchanged by this branch; guests are served only when guest access is on. Flagged only because the body changed.
-@frappe.whitelist(allow_guest=True)
-@guest_access_required(list)
-def get_job_opportunities(
-	filters: dict = None,
-	or_filters: dict = None,
-	start: int = 0,
-	page_length: int = 40,
-	limit_start: int = None,
-	limit_page_length: int = None,
-):
-	if limit_page_length is not None:
-		page_length = cint(limit_page_length)
-	if limit_start is not None:
-		start = cint(limit_start)
-	filters, or_filters = sanitize_job_filters(filters, or_filters)
-
-	jobs = frappe.get_all(
-		"Job Opportunity",
-		filters=filters,
-		or_filters=or_filters,
-		fields=[
-			"job_title",
-			"location",
-			"country",
-			"type",
-			"work_mode",
-			"company_name",
-			"company_logo",
-			"name",
-			"creation",
-			"description",
-		],
-		start=start,
-		page_length=page_length,
-		order_by="creation desc",
-	)
-
-	for job in jobs:
-		job.description = frappe.utils.strip_html_tags(job.description)
-		job.applicants = frappe.db.count("LMS Job Application", {"job": job.name})
-	return jobs
-
-
-# nosemgrep: security.guest-whitelisted-method - pre-existing grant, unchanged by this branch; guests are served only when guest access is on. Flagged only because the body changed.
-@frappe.whitelist(allow_guest=True)
-@guest_access_required(int)
-def get_job_opportunities_count(filters: dict = None, or_filters: dict = None):
-	filters, or_filters = sanitize_job_filters(filters, or_filters)
-	return frappe.db.count("Job Opportunity", filters, or_filters)
 
 
 # nosemgrep: security.guest-whitelisted-method - pre-existing grant, unchanged by this branch; guests are served only when guest access is on. Flagged only because the body changed.
@@ -2743,9 +2551,7 @@ def get_lms_settings():
 		"prevent_skipping_videos",
 		"contact_us_email",
 		"contact_us_url",
-		"livecode_url",
 		"disable_pwa",
-		"allow_job_posting",
 		"demo_data_present",
 		"lesson_dwell_time",
 		"enforce_video_completion",
@@ -3178,168 +2984,6 @@ def _redact_expected(case, author: bool) -> str | None:
 	return case.expected_output
 
 
-@frappe.whitelist()
-def get_programming_exercise(exercise: str) -> dict:
-	"""Return an exercise with hidden cases' expected output blanked (not dropped, as
-	`frappe.client.get` would), so the frontend can tell withheld from absent."""
-	if not isinstance(exercise, str):
-		frappe.throw(_("exercise must be a string"))
-
-	doc = frappe.get_doc("LMS Programming Exercise", exercise)
-	doc.check_permission("read")
-	return _exercise_for_viewer(doc, can_read_expected_output(doc))
-
-
-def _exercise_for_viewer(doc, author: bool) -> dict:
-	return {
-		"name": doc.name,
-		"title": doc.title,
-		"language": doc.language,
-		"problem_statement": doc.problem_statement,
-		"starter_code": doc.starter_code,
-		"test_cases": [
-			{
-				"idx": case.idx,
-				"input": case.input,
-				"hidden": case.hidden,
-				"expected_output": _redact_expected(case, author),
-			}
-			for case in doc.test_cases
-		],
-	}
-
-
-@frappe.whitelist()
-def evaluate_programming_exercise(exercise: str, outputs: list) -> list[dict]:
-	"""Score a run server-side. The browser runs the code, so it holds each input,
-	but it must never hold a hidden case's expected output."""
-	if not isinstance(exercise, str):
-		frappe.throw(_("exercise must be a string"))
-	if not isinstance(outputs, list):
-		frappe.throw(_("outputs must be a list"))
-
-	doc = frappe.get_doc("LMS Programming Exercise", exercise)
-	doc.check_permission("read")
-	return _score_outputs(doc, outputs)
-
-
-def _score_outputs(doc, outputs: list) -> list[dict]:
-	if len(outputs) != len(doc.test_cases):
-		frappe.throw(_("Expected {0} outputs, got {1}").format(len(doc.test_cases), len(outputs)))
-
-	author = can_read_expected_output(doc)
-	return [
-		_score_test_case(case, produced, author)
-		for case, produced in zip(doc.test_cases, outputs, strict=True)
-	]
-
-
-def _score_test_case(case, produced, author: bool) -> dict:
-	output = cstr(produced).strip()
-	expected = cstr(case.expected_output).strip()
-	return {
-		"idx": case.idx,
-		"status": "Passed" if output == expected else "Failed",
-		"hidden": case.hidden,
-		"output": output,
-		"expected_output": _redact_expected(case, author),
-	}
-
-
-@frappe.whitelist(methods=["POST"])
-def create_programming_exercise_submission(exercise: str, submission: str, code: str):
-	frappe.only_for(["Moderator", "Course Creator", "Batch Evaluator", "LMS Student"])
-	if submission == "new":
-		return make_new_exercise_submission(exercise, code)
-	update_exercise_submission(submission, code)
-	# The page takes the reply as the submission's name for its next save.
-	return submission
-
-
-def run_submitted_code(exercise: str, code: str) -> tuple[list[dict], str]:
-	"""Run `code`, as the page ran it, against every test case on the code runner
-	and score it. Nothing the browser reports about a run is trusted, so a learner
-	cannot save a pass it did not earn, nor store a hidden case's answer in a row
-	it can read back. Returns the scored rows and the code to store."""
-	doc = frappe.get_doc("LMS Programming Exercise", exercise)
-	doc.check_permission("read")
-
-	outputs = run_test_cases(doc.language, code, doc.test_cases)
-	scored = _score_outputs(doc, outputs)
-	rows = [
-		{
-			"input": case.input,
-			"output": row["output"],
-			"expected_output": row["expected_output"],
-			"status": row["status"],
-		}
-		for case, row in zip(doc.test_cases, scored, strict=True)
-	]
-	return rows, code_to_store(doc.language, doc.starter_code, code)
-
-
-def make_new_exercise_submission(exercise: str, code: str):
-	rows, stored_code = run_submitted_code(exercise, code)
-
-	submission = frappe.new_doc("LMS Programming Exercise Submission")
-	submission.exercise = exercise
-	submission.member = frappe.session.user
-	submission.code = stored_code
-	# Nothing stripped: tells the page not to add the boilerplate back on load.
-	submission.full_code = stored_code == code
-	for row in rows:
-		submission.append("test_cases", row)
-
-	submission.status = get_exercise_status(rows)
-	submission.flags.graded_on_server = True
-	submission.insert()
-	return submission.name
-
-
-def update_exercise_submission(submission: str, code: str):
-	member, exercise = frappe.db.get_value(
-		"LMS Programming Exercise Submission", submission, ["member", "exercise"]
-	) or (None, None)
-	if member != frappe.session.user:
-		frappe.throw(_("You do not have permission to update this submission."), frappe.PermissionError)
-
-	# Run against the submission's own exercise, never one named in the request.
-	rows, stored_code = run_submitted_code(exercise, code)
-	update_test_cases(rows, submission)
-	status = get_exercise_status(rows)
-	frappe.db.set_value(
-		"LMS Programming Exercise Submission",
-		submission,
-		{"status": status, "code": stored_code, "full_code": stored_code == code},
-	)
-
-
-def get_exercise_status(test_cases: list):
-	if not test_cases:
-		return "Failed"
-
-	if all(row.get("status", "Failed") == "Passed" for row in test_cases):
-		return "Passed"
-	else:
-		return "Failed"
-
-
-def update_test_cases(test_cases: list, submission: str):
-	frappe.db.delete("LMS Test Case Submission", {"parent": submission})
-	for row in test_cases:
-		test_case = frappe.new_doc("LMS Test Case Submission")
-		test_case.update(
-			{
-				"parent": submission,
-				"parenttype": "LMS Programming Exercise Submission",
-				"parentfield": "test_cases",
-				"input": row.get("input"),
-				"output": row.get("output"),
-				"expected_output": row.get("expected_output"),
-				"status": row.get("status", "Failed"),
-			}
-		)
-		test_case.insert()
 
 
 @frappe.whitelist()
@@ -4240,16 +3884,6 @@ def get_upcoming_batches():
 	)
 
 
-@frappe.whitelist(methods=["POST"])
-def delete_programming_exercise(exercise: str):
-	frappe.has_permission("LMS Programming Exercise", "delete", doc=exercise, throw=True)
-	# The rows link to the exercise, so they go first. The exercise's authors may
-	# clear every learner's row under it; the hook on each row agrees.
-	submissions = frappe.get_all("LMS Programming Exercise Submission", {"exercise": exercise}, pluck="name")
-	for submission in submissions:
-		frappe.delete_doc("LMS Programming Exercise Submission", submission)
-	frappe.delete_doc("LMS Programming Exercise", exercise)
-
 
 @frappe.whitelist()
 def get_lesson_completion_stats(course: str):
@@ -4305,12 +3939,10 @@ def get_course_assessment_progress(course: str, member: str):
 
 	quizzes = get_course_quiz_progress(course, member)
 	assignments = get_course_assignment_progress(course, member)
-	programming_exercises = get_course_programming_exercise_progress(course, member)
-
 	return {
 		"quizzes": quizzes,
 		"assignments": assignments,
-		"exercises": programming_exercises,
+		"exercises": [],
 	}
 
 
@@ -4374,33 +4006,7 @@ def get_course_assignment_progress(course: str, member: str):
 
 
 def get_course_programming_exercise_progress(course: str, member: str):
-	exercises = get_assessment_from_lesson(course, "program")
-	submissions = []
-
-	for exercise in exercises:
-		exercise_subs = frappe.get_all(
-			"LMS Programming Exercise Submission",
-			{
-				"exercise": exercise,
-				"member": member,
-			},
-			["name", "status", "exercise", "exercise_title"],
-			order_by="creation desc",
-			limit=1,
-		)
-		if len(exercise_subs):
-			submissions.append(exercise_subs[0])
-		else:
-			submissions.append(
-				{
-					"exercise": exercise,
-					"exercise_title": frappe.db.get_value("LMS Programming Exercise", exercise, "title"),
-					"status": "Not Attempted",
-				}
-			)
-
-	return submissions
-
+	return []
 
 def get_assessment_from_lesson(course: str, assessment_type: str):
 	assessments = []

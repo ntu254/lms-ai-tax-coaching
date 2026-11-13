@@ -43,6 +43,7 @@ export default defineConfig(async ({ mode }) => {
 			__VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'false',
 		},
 		plugins: [
+			stubGeolocationPlugin(),
 			frappeui({
 				frappeProxy: true,
 				lucideIcons: true,
@@ -116,13 +117,7 @@ export default defineConfig(async ({ mode }) => {
 			// blank. The `router` mirrors frappeProxy: Frappe resolves the site from the
 			// Host header, so we must forward to http://<site>:8000; a bare 127.0.0.1
 			// target makes Frappe 404 with "127.0.0.1 does not exist". (Backend :8000.)
-			proxy: {
-				'/scorm': {
-					target: 'http://127.0.0.1:8000',
-					router: (req) =>
-						`http://${req.headers.host.split(':')[0]}:8000`,
-				},
-			},
+			proxy: {},
 		},
 		resolve: {
 			// Resolve the linked `@framework/ui` through its symlink rather than its real
@@ -152,14 +147,6 @@ export default defineConfig(async ({ mode }) => {
 				'prosemirror-state',
 				'prosemirror-view',
 				'prosemirror-transform',
-				// A nested second copy of these makes the html language throw
-				// while parsing and leaves javascript with no syntax tree.
-				'@codemirror/language',
-				'@codemirror/state',
-				'@codemirror/view',
-				'@lezer/common',
-				'@lezer/lr',
-				'@lezer/highlight',
 				'vue',
 				'frappe-ui',
 			],
@@ -177,16 +164,6 @@ export default defineConfig(async ({ mode }) => {
 				'echarts/components',
 				'echarts/renderers',
 				'echarts/features',
-				'@codemirror/state',
-				'@codemirror/view',
-				'@codemirror/language',
-				'@codemirror/commands',
-				'@codemirror/search',
-				'@codemirror/autocomplete',
-				'@codemirror/lang-html',
-				'@codemirror/lang-javascript',
-				'@lezer/common',
-				'@lezer/highlight',
 			],
 			// @framework/ui joins frappe-ui here: pre-bundling its Onboarding index
 			// inlines onboarding.ts, while its .vue files are served raw and import the
@@ -222,4 +199,16 @@ function dropFrappeUIEsbuildTwin() {
 async function importFrappeUIPlugin() {
 	const module = await import('frappe-ui/vite')
 	return module.default
+}
+
+function stubGeolocationPlugin() {
+	return {
+		name: 'stub-geolocation',
+		enforce: 'pre',
+		resolveId(id) {
+			if (id && id.includes('GeolocationField.vue')) {
+				return path.resolve(import.meta.dirname, 'src/stubs/GeolocationFieldStub.vue')
+			}
+		},
+	}
 }

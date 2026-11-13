@@ -16,61 +16,6 @@
 					autocomplete="off"
 					autofocus
 				/>
-				<BooleanSwitch
-					size="sm"
-					:label="__('SCORM Package')"
-					:description="
-						__(
-							'Enable this only if you want to upload a SCORM package as a chapter.'
-						)
-					"
-					v-model="chapter.is_scorm_package"
-				/>
-				<div v-if="chapter.is_scorm_package">
-					<FileUploader
-						v-if="!chapter.scorm_package"
-						:fileTypes="['.zip']"
-						:private="true"
-						:validateFile="validateFile"
-						@success="(file) => (chapter.scorm_package = file)"
-					>
-						<template v-slot="{ file, progress, uploading, openFileSelector }">
-							<Button @click="openFileSelector" :loading="uploading">
-								{{ uploadLabel(uploading, progress) }}
-							</Button>
-						</template>
-					</FileUploader>
-					<div v-else class="flex items-center">
-						<div class="border rounded-5 p-2 me-2 shrink-0">
-							<span class="lucide-file-text h-5 w-5 text-ink-gray-7" />
-						</div>
-						<div class="flex min-w-0 flex-1 flex-col">
-							<span
-								class="truncate text-ink-gray-9"
-								:title="chapter.scorm_package.file_name"
-							>
-								{{ chapter.scorm_package.file_name }}
-							</span>
-							<span
-								v-if="chapter.scorm_package.file_size"
-								class="text-sm text-ink-gray-4 mt-1"
-							>
-								{{ getFileSize(chapter.scorm_package.file_size) }}
-							</span>
-						</div>
-						<button
-							type="button"
-							:aria-label="__('Remove file')"
-							@click="() => (chapter.scorm_package = null)"
-							class="-m-0.5 ms-3.5 size-6 shrink-0 cursor-pointer p-0.5"
-						>
-							<span
-								class="lucide-x bg-surface-gray-3 rounded-5 w-5 h-5 p-1"
-								aria-hidden="true"
-							/>
-						</button>
-					</div>
-				</div>
 			</div>
 		</template>
 		<template #actions>
@@ -251,8 +196,8 @@ const chapterResource = createResource({
 		return {
 			title: chapter.title,
 			course: props.courseName,
-			is_scorm_package: chapter.is_scorm_package,
-			scorm_package: chapter.scorm_package,
+			is_scorm_package: 0,
+			scorm_package: null,
 			name: isEdit.value ? props.chapterName : undefined,
 		}
 	},
@@ -261,9 +206,6 @@ const chapterResource = createResource({
 const validateChapter = (): string | undefined => {
 	if (!chapter.title) {
 		return __('Title is required')
-	}
-	if (chapter.is_scorm_package && !chapter.scorm_package) {
-		return __('Please upload a SCORM package')
 	}
 	return undefined
 }

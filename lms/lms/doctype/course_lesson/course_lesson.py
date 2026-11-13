@@ -493,15 +493,10 @@ COMPLETION_ITEMS = {
 	"quiz": ("enforce_quiz_completion", "enforce_quiz_passing", 1),
 	"open_ended_quiz": ("enforce_quiz_completion", "enforce_open_ended_quiz_passing", 1),
 	"assignment": ("enforce_assignment_completion", "enforce_assignment_passing", 0),
-	"programming_exercise": (
-		"enforce_programming_exercise_completion",
-		"enforce_programming_exercise_passing",
-		0,
-	),
 }
 # A pre-migrate site, which has none of the fields, still gates what it always gated.
 ENFORCED_BEFORE_MIGRATE = {"enforce_quiz_completion", "enforce_assignment_completion"}
-PASSED_STATUS = {"LMS Assignment Submission": "Pass", "LMS Programming Exercise Submission": "Passed"}
+PASSED_STATUS = {"LMS Assignment Submission": "Pass"}
 
 
 def get_completion_rules() -> dict[str, str | None]:
@@ -527,7 +522,6 @@ def lesson_requirements_met(lesson: str, member: str, rules: dict) -> bool:
 	return (
 		get_quiz_progress(lesson, member, rules["quiz"], rules["open_ended_quiz"])
 		and get_assignment_progress(lesson, member, rules["assignment"])
-		and get_programming_exercise_progress(lesson, member, rules["programming_exercise"])
 	)
 
 
@@ -955,23 +949,7 @@ def rename_settled_untitled_lessons():
 def get_programming_exercise_progress(
 	lesson: str, member: str | None = None, rule: str | None = "Attempted"
 ) -> bool:
-	"""Only block content renders an exercise; no legacy body macro does."""
-	if not rule:
-		return True
-	member = member or frappe.session.user
-	content = frappe.db.get_value("Course Lesson", lesson, "content")
-	exercises = {
-		(block.get("data") or {}).get("exercise")
-		for block in get_editorjs_blocks(content)
-		if block.get("type") == "program"
-	}
-	return all(
-		submission_meets_rule(
-			"LMS Programming Exercise Submission", {"exercise": exercise, "member": member}, rule
-		)
-		for exercise in exercises
-		if exercise
-	)
+	return True
 
 
 def get_assignment_progress(lesson: str, member: str | None = None, rule: str | None = "Attempted") -> bool:

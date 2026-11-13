@@ -1,6 +1,8 @@
 <template>
 	<Button
 		v-if="certification.data && certification.data.certificate"
+		variant="solid"
+		class="!bg-surface-orange-7 hover:!bg-surface-orange-8 active:!bg-surface-orange-9"
 		@click="downloadCertificate"
 	>
 		<template #prefix>
@@ -18,6 +20,8 @@
 	>
 		<Button
 			v-if="!certification.data.membership.purchased_certificate"
+			variant="solid"
+			class="w-full !bg-surface-orange-7 hover:!bg-surface-orange-8 active:!bg-surface-orange-9"
 			:route="{
 				name: 'Billing',
 				params: {
@@ -25,7 +29,6 @@
 					name: courseName,
 				},
 			}"
-			class="w-full"
 		>
 			<template #prefix>
 				<span class="lucide-graduation-cap size-4" />
@@ -34,13 +37,14 @@
 		</Button>
 		<Button
 			v-else-if="!certification.data.membership.certificate"
+			variant="solid"
+			class="w-full !bg-surface-orange-7 hover:!bg-surface-orange-8 active:!bg-surface-orange-9"
 			:route="{
 				name: 'CourseCertification',
 				params: {
 					courseName: courseName,
 				},
 			}"
-			class="w-full"
 		>
 			<template #prefix>
 				<span class="lucide-graduation-cap size-4" />

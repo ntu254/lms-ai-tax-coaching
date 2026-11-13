@@ -22,7 +22,7 @@
 					class="h-1 w-full rounded-full bg-surface-gray-2 overflow-hidden mt-2"
 				>
 					<div
-						class="h-full bg-surface-gray-10 transition-all"
+						class="h-full bg-surface-orange-7 transition-all duration-300"
 						:style="{ width: `${displayedProgress}%` }"
 					/>
 				</div>
@@ -87,14 +87,15 @@
 											? 'cursor-pointer'
 											: '',
 										isActive(lesson.number)
-											? 'bg-surface-gray-2 text-ink-gray-9'
+											? 'bg-surface-orange-2 text-ink-orange-9 font-medium border-s-2 border-outline-orange-6'
 											: '',
 									]"
 									@click="onLessonClick(lesson)"
 								>
 									<component
 										:is="iconFor(lesson.icon)"
-										class="size-4 stroke-1.5 shrink-0 text-ink-gray-7"
+										class="size-4 stroke-1.5 shrink-0"
+										:class="isActive(lesson.number) ? 'text-ink-orange-8' : 'text-ink-gray-7'"
 									/>
 									<span class="truncate flex-1">{{ lesson.title }}</span>
 									<template v-if="lesson.locked">

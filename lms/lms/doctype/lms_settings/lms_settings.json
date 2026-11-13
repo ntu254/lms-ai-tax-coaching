@@ -17,7 +17,8 @@
 		"demo_data_present",
 		"column_break_bjis",
 		"unsplash_access_key",
-		"livecode_url",
+		"gemini_api_key",
+		"gemini_model",
 		"notifications_section",
 		"send_notification_for_published_courses",
 		"column_break_dtns",
@@ -36,11 +37,9 @@
 		"enforce_video_completion",
 		"enforce_quiz_completion",
 		"enforce_assignment_completion",
-		"enforce_programming_exercise_completion",
 		"enforce_quiz_passing",
 		"enforce_open_ended_quiz_passing",
 		"enforce_assignment_passing",
-		"enforce_programming_exercise_passing",
 		"column_break_cprg",
 		"lesson_dwell_time",
 		"signup_settings_tab",
@@ -55,25 +54,15 @@
 		"batches",
 		"certified_members",
 		"certifications",
-		"programming_exercises",
-		"column_break_exdz",
-		"jobs",
 		"statistics",
 		"notifications",
 		"section_break_qlss",
 		"sidebar_items",
-		"mentor_request_section",
-		"mentor_request_creation",
-		"mentor_request_status_update",
 		"payment_settings_tab",
 		"payment_section",
 		"payment_gateway",
 		"default_currency",
-		"exception_country",
 		"column_break_cfcv",
-		"apply_gst",
-		"show_usd_equivalent",
-		"apply_rounding",
 		"send_payment_reminders_for_batch",
 		"send_payment_reminders_for_course",
 		"no_payments_app",
@@ -91,34 +80,20 @@
 		"contact_us_tab",
 		"contact_us_email",
 		"column_break_gcgv",
-		"contact_us_url",
-		"jobs_tab",
-		"allow_job_posting"
+		"contact_us_url"
 	],
 	"fields": [
 		{
-			"default": "https://falcon.frappe.io",
-			"fieldname": "livecode_url",
-			"fieldtype": "Data",
-			"label": "LiveCode URL"
+			"fieldname": "gemini_api_key",
+			"fieldtype": "Password",
+			"label": "Google Gemini API Key"
 		},
 		{
-			"fieldname": "mentor_request_creation",
-			"fieldtype": "Link",
-			"label": "Mentor Request Creation Template",
-			"options": "Email Template"
-		},
-		{
-			"fieldname": "mentor_request_status_update",
-			"fieldtype": "Link",
-			"label": "Mentor Request Status Update Template",
-			"options": "Email Template"
-		},
-		{
-			"fieldname": "mentor_request_section",
-			"fieldtype": "Section Break",
-			"hidden": 1,
-			"label": "Mentor Request"
+			"default": "gemini-3.1-flash-lite-preview",
+			"fieldname": "gemini_model",
+			"fieldtype": "Select",
+			"label": "Gemini Model",
+			"options": "gemini-3.1-flash-lite-preview\ngemini-3.8-flash\ngemini-2.5-pro\ngemini-flash-latest"
 		},
 		{
 			"fieldname": "column_break_2",
@@ -179,31 +154,6 @@
 		{
 			"fieldname": "column_break_cfcv",
 			"fieldtype": "Column Break"
-		},
-		{
-			"default": "0",
-			"fieldname": "apply_gst",
-			"fieldtype": "Check",
-			"label": "Apply GST for India"
-		},
-		{
-			"default": "0",
-			"fieldname": "show_usd_equivalent",
-			"fieldtype": "Check",
-			"label": "Show USD Equivalent"
-		},
-		{
-			"depends_on": "show_usd_equivalent",
-			"fieldname": "exception_country",
-			"fieldtype": "Table MultiSelect",
-			"label": "Primary Countries",
-			"options": "Payment Country"
-		},
-		{
-			"default": "0",
-			"fieldname": "apply_rounding",
-			"fieldtype": "Check",
-			"label": "Apply Rounding on Equivalent"
 		},
 		{
 			"fieldname": "batch_confirmation_template",
@@ -302,13 +252,6 @@
 			"fieldname": "batches",
 			"fieldtype": "Check",
 			"label": "Batches (Deprecated)"
-		},
-		{
-			"default": "1",
-			"description": "Superseded by Settings > Sidebar. No longer the source of truth.",
-			"fieldname": "jobs",
-			"fieldtype": "Check",
-			"label": "Jobs (Deprecated)"
 		},
 		{
 			"default": "1",
@@ -444,13 +387,6 @@
 			"fieldtype": "Column Break"
 		},
 		{
-			"default": "1",
-			"description": "Superseded by Settings > Sidebar. No longer the source of truth.",
-			"fieldname": "programming_exercises",
-			"fieldtype": "Check",
-			"label": "Programming Exercises (Deprecated)"
-		},
-		{
 			"fieldname": "contact_us_tab",
 			"fieldtype": "Tab Break",
 			"label": "Contact Us"
@@ -502,17 +438,6 @@
 		{
 			"fieldname": "column_break_dtns",
 			"fieldtype": "Column Break"
-		},
-		{
-			"fieldname": "jobs_tab",
-			"fieldtype": "Tab Break",
-			"label": "Jobs"
-		},
-		{
-			"default": "1",
-			"fieldname": "allow_job_posting",
-			"fieldtype": "Check",
-			"label": "Allow Job Posting"
 		},
 		{
 			"default": "0",
@@ -568,12 +493,6 @@
 			"label": "Enforce Assignment Completion"
 		},
 		{
-			"default": "0",
-			"fieldname": "enforce_programming_exercise_completion",
-			"fieldtype": "Check",
-			"label": "Enforce Programming Exercise Completion"
-		},
-		{
 			"default": "1",
 			"fieldname": "enforce_quiz_passing",
 			"fieldtype": "Check",
@@ -590,12 +509,6 @@
 			"fieldname": "enforce_assignment_passing",
 			"fieldtype": "Check",
 			"label": "Enforce Assignment Passing"
-		},
-		{
-			"default": "0",
-			"fieldname": "enforce_programming_exercise_passing",
-			"fieldtype": "Check",
-			"label": "Enforce Programming Exercise Passing"
 		}
 	],
 	"grid_page_length": 50,

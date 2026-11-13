@@ -86,7 +86,6 @@ const refusal = computed(() => {
 const assessmentTypes = computed(() => [
 	{ label: __('Quiz'), value: 'LMS Quiz' },
 	{ label: __('Assignment'), value: 'LMS Assignment' },
-	{ label: __('Programming Exercise'), value: 'LMS Programming Exercise' },
 ])
 
 const assessmentResource = createResource({
@@ -124,11 +123,6 @@ const createAssessment = () => {
 		router.push({ name: 'NewQuiz' })
 	} else if (assessmentType.value === 'LMS Assignment') {
 		router.push({ name: 'Assignments' })
-	} else if (assessmentType.value === 'LMS Programming Exercise') {
-		// The third type the picker offers had no branch, so Link closed its
-		// dropdown and nothing else happened — a dead control on a form that
-		// advertises the option.
-		router.push({ name: 'NewProgrammingExercise' })
 	}
 }
 
