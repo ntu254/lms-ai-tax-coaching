@@ -40,7 +40,7 @@ export const sessionStore = defineStore('lms-session', () => {
 		cache: 'brand',
 		auto: true,
 		onSuccess(data) {
-			brand.name = data.app_name
+			brand.name = data.app_name || 'AI Coaching Vietnam'
 			brand.logo = data.app_logo
 			brand.favicon =
 				data.favicon?.file_url || '/assets/lms/frontend/learning.svg'

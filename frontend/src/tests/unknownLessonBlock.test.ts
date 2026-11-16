@@ -24,7 +24,7 @@ const { getEditorTools } = await import('@/utils')
 
 const unknownBlock = {
 	id: 'b2',
-	type: 'programming_exercise',
+	type: 'program',
 	data: { exercise: 'EX-1' },
 }
 

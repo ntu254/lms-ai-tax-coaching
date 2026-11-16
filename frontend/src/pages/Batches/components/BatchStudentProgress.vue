@@ -28,7 +28,7 @@
 				<div class="space-y-8">
 					<ResponsiveListView
 						:columns="assessmentColumns"
-						:rows="studentDetails.data.assessments"
+						:rows="visibleAssessments"
 						row-key="title"
 						class="sm:border sm:border-outline-elevation-2 sm:rounded-6"
 						:options="assessmentListOptions"
@@ -104,6 +104,10 @@ const studentDetails = createResource({
 	auto: true,
 })
 
+const visibleAssessments = computed(() =>
+	(studentDetails.data?.assessments || []).filter((row: any) => row.type !== 'LMS Programming Exercise')
+)
+
 const redirectToAssessment = (row: any) => {
 	if (!row.submission) return
 	if (row.type == 'LMS Assignment') {
@@ -112,14 +116,6 @@ const redirectToAssessment = (row: any) => {
 			params: {
 				assignmentID: row.assessment,
 				submissionName: row.submission,
-			},
-		})
-	} else if (row.type == 'LMS Programming Exercise') {
-		router.push({
-			name: 'ProgrammingExerciseSubmission',
-			params: {
-				exerciseID: row.assessment,
-				submissionID: row.submission,
 			},
 		})
 	} else if (row.type == 'LMS Quiz') {

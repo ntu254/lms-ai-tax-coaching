@@ -128,10 +128,10 @@ const template = reactive({
 })
 
 const htmlPlaceholder = __(
-	'<p>Dear {{ member_name }},</p>\n\n<p>You have been enrolled in our upcoming batch {{ batch_name }}.</p>\n\n<p>Thanks,</p>\n<p>Frappe Learning</p>'
+	'<p>Xin chào {{ member_name }},</p>\n\n<p>Bạn đã được ghi danh vào lớp học {{ batch_name }}.</p>\n\n<p>Trân trọng,</p>\n<p>Ai Coaching Vietnam</p>'
 )
 const richPlaceholder = __(
-	'Dear {{ member_name }},\n\nYou have been enrolled in our upcoming batch {{ batch_name }}.\n\nThanks,\nFrappe Learning'
+	'Xin chào {{ member_name }},\n\nBạn đã được ghi danh vào lớp học {{ batch_name }}.\n\nTrân trọng,\nAi Coaching Vietnam'
 )
 
 // Its own insert, not the parent list resource the modal borrowed through

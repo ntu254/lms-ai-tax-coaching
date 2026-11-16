@@ -2540,7 +2540,7 @@ def get_assessments(batch: str) -> list:
 
 	assessments = frappe.get_all(
 		"LMS Assessment",
-		{"parent": batch},
+		{"parent": batch, "assessment_type": ("in", ["LMS Assignment", "LMS Quiz"])},
 		["name", "assessment_type", "assessment_name"],
 		order_by="idx",
 	)
@@ -2551,9 +2551,6 @@ def get_assessments(batch: str) -> list:
 
 		elif assessment.assessment_type == "LMS Quiz":
 			assessment = get_quiz_details(assessment, member)
-
-		elif assessment.assessment_type == "LMS Programming Exercise":
-			assessment = get_exercise_details(assessment, member)
 
 	return assessments
 
@@ -2782,7 +2779,7 @@ def calculate_student_progress(batch: str, details: dict):
 	batch_courses = frappe.get_all("Batch Course", {"parent": batch}, ["course", "title"])
 	assessments = frappe.get_all(
 		"LMS Assessment",
-		filters={"parent": batch},
+		filters={"parent": batch, "assessment_type": ("in", ["LMS Assignment", "LMS Quiz"])},
 		fields=["name", "assessment_type", "assessment_name"],
 	)
 

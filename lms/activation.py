@@ -17,7 +17,6 @@ def get_sales_data(site_info):
 		"LMS Enrollment",
 		"LMS Quiz",
 		"LMS Assignment",
-		"LMS Programming Exercise",
 		"LMS Program",
 		"LMS Certificate",
 		"LMS Certificate Request",

@@ -77,10 +77,17 @@ def get_payment_link(
 		save_address(address)
 		return redirect_to
 
+	# Check if PayOS VietQR is enabled
+	payos_enabled = bool(
+		frappe.db.exists("DocType", "PayOS Settings")
+		and frappe.db.get_single_value("PayOS Settings", "enabled")
+	)
+	use_payos = payos_enabled and currency == "VND"
+
 	# Resolve the controller before writing anything: get_controller validates the
 	# gateway and fails with an actionable message, so a misconfigured gateway
 	# doesn't leave an orphan Address / LMS Payment row behind.
-	controller = get_controller(payment_gateway) if total_amount > 0 else None
+	controller = get_controller(payment_gateway) if (total_amount > 0 and not use_payos) else None
 
 	payment = record_payment(
 		address,
@@ -101,6 +108,10 @@ def get_payment_link(
 		telemetry.payment_received(payment.name)
 		complete_enrollment(payment.name, doctype, docname)
 		return redirect_to
+
+	if use_payos:
+		from lms.lms.integrations.payos import get_payos_payment_url
+		return get_payos_payment_url(payment, total_amount, title, redirect_to)
 
 	payment_details = {
 		"amount": total_amount,

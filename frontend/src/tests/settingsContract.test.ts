@@ -167,11 +167,9 @@ describe('the course progress descriptions', () => {
 			'enforce_video_completion',
 			'enforce_quiz_completion',
 			'enforce_assignment_completion',
-			'enforce_programming_exercise_completion',
 			'enforce_quiz_passing',
 			'enforce_open_ended_quiz_passing',
 			'enforce_assignment_passing',
-			'enforce_programming_exercise_passing',
 			'prevent_skipping_videos',
 		])
 	})
@@ -189,9 +187,7 @@ describe('the course progress descriptions', () => {
 			['enforce_open_ended_quiz_passing', 'enforce_quiz_completion'],
 			['enforce_assignment_passing', 'enforce_assignment_completion'],
 			[
-				'enforce_programming_exercise_passing',
-				'enforce_programming_exercise_completion',
-			],
+					],
 		])
 	})
 

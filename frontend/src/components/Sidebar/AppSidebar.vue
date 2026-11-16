@@ -62,11 +62,12 @@
 				:isSidebarCollapsed="sidebarStore.isSidebarCollapsed"
 			/>
 			<TrialCard v-if="!sidebarStore.isSidebarCollapsed" />
-			<GettingStartedBanner
-				v-if="showOnboarding && !isOnboardingStepsCompleted"
-				:isSidebarCollapsed="sidebarStore.isSidebarCollapsed"
-				appName="learning"
-			/>
+			<div v-if="showOnboarding && !isOnboardingStepsCompleted" v-vietnamese-help>
+				<GettingStartedBanner
+					:isSidebarCollapsed="sidebarStore.isSidebarCollapsed"
+					appName="learning"
+				/>
+			</div>
 			<div
 				v-if="readOnlyMode && sidebarStore.isSidebarCollapsed"
 				class="mt-4 flex ps-2"
@@ -87,7 +88,7 @@
 			<SidebarItem
 				v-if="showOnboarding"
 				class="mt-2"
-				:label="__('Help')"
+				:label="__('Trợ giúp')"
 				icon="lucide-circle-help"
 				:active="false"
 				:onClick="toggleHelp"
@@ -100,13 +101,14 @@
 			/>
 		</div>
 		<HelpModal
+			v-vietnamese-help
 			class="getting-started"
 			data-testid="onboarding-help-modal"
 			v-if="showOnboarding && showHelpModal"
 			v-model="showHelpModal"
 			v-model:articles="articles"
 			appName="learning"
-			title="Frappe Learning"
+			title="AI Coaching Vietnam"
 			:logo="LMSLogo"
 			:afterSkip="(step) => capture('onboarding_step_skipped_' + step)"
 			:afterSkipAll="() => capture('onboarding_steps_skipped')"
@@ -126,6 +128,7 @@
 import { getSidebarLinks } from '@/utils'
 import { usersStore } from '@/stores/user'
 import { seesOnboarding } from '@/utils/onboarding'
+import { vVietnameseHelp } from '@/utils/helpVietnamese'
 import { useSidebar } from '@/stores/sidebar'
 import { useSettings } from '@/stores/settings'
 import {
@@ -295,7 +298,7 @@ const getFirstBatch = async () => {
 const steps = reactive([
 	{
 		name: 'create_first_course',
-		title: __('Create your first course'),
+		title: __('Tạo khóa học đầu tiên'),
 		icon: markRaw(h(BookOpen, iconProps)),
 		completed: false,
 		onClick: () => {
@@ -307,7 +310,7 @@ const steps = reactive([
 	},
 	{
 		name: 'create_first_chapter',
-		title: __('Add your first chapter'),
+		title: __('Thêm chương đầu tiên'),
 		icon: markRaw(h(FolderTree, iconProps)),
 		completed: false,
 		dependsOn: 'create_first_course',
@@ -327,7 +330,7 @@ const steps = reactive([
 	},
 	{
 		name: 'create_first_lesson',
-		title: __('Add your first lesson'),
+		title: __('Thêm bài học đầu tiên'),
 		icon: markRaw(h(FileText, iconProps)),
 		completed: false,
 		dependsOn: 'create_first_chapter',
@@ -347,7 +350,7 @@ const steps = reactive([
 	},
 	{
 		name: 'create_first_quiz',
-		title: __('Create your first quiz'),
+		title: __('Tạo bài kiểm tra đầu tiên'),
 		icon: markRaw(h(CircleHelp, iconProps)),
 		completed: false,
 		dependsOn: 'create_first_course',
@@ -358,7 +361,7 @@ const steps = reactive([
 	},
 	{
 		name: 'invite_students',
-		title: __('Invite your team and students'),
+		title: __('Mời thành viên và học viên'),
 		icon: markRaw(h(InviteIcon, iconProps)),
 		completed: false,
 		onClick: () => {
@@ -368,7 +371,7 @@ const steps = reactive([
 	},
 	{
 		name: 'create_first_batch',
-		title: __('Create your first batch'),
+		title: __('Tạo lớp học đầu tiên'),
 		icon: markRaw(h(Users, iconProps)),
 		completed: false,
 		onClick: () => {
@@ -379,7 +382,7 @@ const steps = reactive([
 	},
 	{
 		name: 'add_batch_student',
-		title: __('Add students to your batch'),
+		title: __('Thêm học viên vào lớp học'),
 		icon: markRaw(h(UserPlus, iconProps)),
 		completed: false,
 		dependsOn: 'create_first_batch',
@@ -400,7 +403,7 @@ const steps = reactive([
 	},
 	{
 		name: 'add_batch_course',
-		title: __('Add courses to your batch'),
+		title: __('Thêm khóa học vào lớp học'),
 		icon: markRaw(h(BookText, iconProps)),
 		completed: false,
 		dependsOn: 'create_first_batch',
@@ -424,68 +427,68 @@ const steps = reactive([
 
 const articles = ref([
 	{
-		title: __('Introduction'),
+		title: __('Giới thiệu'),
 		opened: false,
 		subArticles: [
-			{ name: 'introduction', title: __('Introduction') },
-			{ name: 'setting-up', title: __('Setting up') },
+			{ name: 'introduction', title: __('Giới thiệu') },
+			{ name: 'setting-up', title: __('Thiết lập ban đầu') },
 		],
 	},
 	{
-		title: __('Creating a course'),
+		title: __('Tạo khóa học'),
 		opened: false,
 		subArticles: [
-			{ name: 'create-a-course', title: __('Create a course') },
-			{ name: 'add-a-chapter', title: __('Add a chapter') },
-			{ name: 'add-a-lesson', title: __('Add a lesson') },
+			{ name: 'create-a-course', title: __('Tạo khóa học') },
+			{ name: 'add-a-chapter', title: __('Thêm chương') },
+			{ name: 'add-a-lesson', title: __('Thêm bài học') },
 		],
 	},
 	{
-		title: __('Creating a batch'),
+		title: __('Tạo lớp học'),
 		opened: false,
 		subArticles: [
-			{ name: 'create-a-batch', title: __('Create a batch') },
-			{ name: 'create-a-live-class', title: __('Create a live class') },
+			{ name: 'create-a-batch', title: __('Tạo lớp học') },
+			{ name: 'create-a-live-class', title: __('Tạo buổi học trực tuyến') },
 		],
 	},
 	{
-		title: __('Learning Paths'),
+		title: __('Lộ trình học tập'),
 		opened: false,
-		subArticles: [{ name: 'add-a-program', title: __('Add a program') }],
+		subArticles: [{ name: 'add-a-program', title: __('Thêm chương trình đào tạo') }],
 	},
 	{
-		title: __('Assessments'),
+		title: __('Đánh giá'),
 		opened: false,
 		subArticles: [
-			{ name: 'quizzes', title: __('Quizzes') },
-			{ name: 'assignments', title: __('Assignments') },
+			{ name: 'quizzes', title: __('Bài kiểm tra') },
+			{ name: 'assignments', title: __('Bài tập') },
 		],
 	},
 	{
-		title: __('Certification'),
+		title: __('Chứng chỉ'),
 		opened: false,
 		subArticles: [
-			{ name: 'issue-a-certificate', title: __('Issue a Certificate') },
+			{ name: 'issue-a-certificate', title: __('Cấp chứng chỉ') },
 			{
 				name: 'custom-certificate-templates',
-				title: __('Custom Certificate Templates'),
+				title: __('Tùy chỉnh mẫu chứng chỉ'),
 			},
 		],
 	},
 	{
-		title: __('Monetization'),
+		title: __('Thanh toán và doanh thu'),
 		opened: false,
 		subArticles: [
 			{
 				name: 'setting-up-payment-gateway',
-				title: __('Setting up payment gateway'),
+				title: __('Thiết lập cổng thanh toán'),
 			},
 		],
 	},
 	{
-		title: __('Settings'),
+		title: __('Cài đặt'),
 		opened: false,
-		subArticles: [{ name: 'roles', title: __('Roles') }],
+		subArticles: [{ name: 'roles', title: __('Vai trò') }],
 	},
 ])
 

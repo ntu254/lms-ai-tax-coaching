@@ -45,23 +45,15 @@ vi.mock('@/stores/user', () => ({
 vi.mock('@/stores/settings', () => ({ useSettings: () => ({}) }))
 vi.mock('@/router', () => ({ default: { push: vi.fn() } }))
 vi.mock('@/components/AssessmentPlugin.vue', () => ({ default: {} }))
-vi.mock('@/components/Modals/ProgrammingExerciseModal.vue', () => ({
-	default: {},
-}))
 
 vi.mock('@/components/QuizBlock.vue', () => ({ default: recorder('quiz') }))
 vi.mock('@/components/Assignment.vue', () => ({
 	default: recorder('assignment'),
 }))
-vi.mock(
-	'@/pages/ProgrammingExercises/ProgrammingExerciseSubmission.vue',
-	() => ({ default: recorder('exercise') })
-)
 
 import { mountBlock } from '@/utils/blockMount'
 import { Quiz } from '@/utils/quiz'
 import { Assignment } from '@/utils/assignment'
-import { Program } from '@/utils/program'
 
 type Tool = { render: () => HTMLDivElement; destroy: () => void }
 let tools: Tool[] = []
@@ -78,8 +70,6 @@ const quizTool = () =>
 	new Quiz({ data: { quiz: 'weekly-quiz' }, readOnly: false })
 const assignmentTool = () =>
 	new Assignment({ data: { assignment: 'ASG-1' }, readOnly: false })
-const exerciseTool = () =>
-	new Program({ data: { exercise: 'EX-1' }, api: {}, readOnly: false })
 
 beforeEach(() => {
 	Object.assign(window, { translatedMessages: {} })
@@ -102,11 +92,6 @@ beforeEach(() => {
 			title: 'Weekly essay',
 			question: '<p>Write about your week.</p>',
 			type: 'PDF',
-		},
-		'LMS Programming Exercise': {
-			title: 'FizzBuzz',
-			problem_statement: '<p>Print the numbers.</p>',
-			language: 'Python',
 		},
 	})
 })
@@ -183,31 +168,9 @@ describe('assessment blocks in the lesson editor', () => {
 		).toBe(true)
 	})
 
-	it('summarises the exercise without its test cases or the code runner', async () => {
-		const wrapper = await renderInEditor(exerciseTool())
-
-		expectPreview(wrapper)
-		expect(calls).toEqual([
-			{
-				method: 'frappe.client.get_value',
-				args: {
-					doctype: 'LMS Programming Exercise',
-					filters: { name: 'EX-1' },
-					fieldname: ['title', 'problem_statement', 'language'],
-				},
-			},
-		])
-		expect(wrapper.textContent).toContain('Print the numbers.')
-		expect(
-			wrapper.querySelector('[data-testid="block-preview-language"]')
-				?.textContent
-		).toContain('Python')
-		expect(document.querySelector('script[src*="livecode"]')).toBeNull()
-	})
-
 	it('shows a skeleton while the read is in flight', async () => {
 		hold.pending = true
-		for (const tool of [quizTool(), assignmentTool(), exerciseTool()]) {
+		for (const tool of [quizTool(), assignmentTool()]) {
 			const wrapper = await renderInEditor(tool)
 			expect(
 				wrapper.querySelector('[data-testid="block-preview-skeleton"]')

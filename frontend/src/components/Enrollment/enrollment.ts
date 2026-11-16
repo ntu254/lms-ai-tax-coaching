@@ -1,3 +1,4 @@
+import { formatMoney } from '@/utils/money'
 import type {
 	AddressChoice,
 	AddressField,
@@ -337,21 +338,7 @@ export const addressSummary = (address: AddressChoice | null): string => {
 const isValidAmount = (amount: number | null): amount is number =>
 	typeof amount === 'number' && Number.isFinite(amount) && amount >= 0
 
-export const formatMoney = (
-	amount: number | null,
-	currency: string | null
-): string => {
-	if (amount === null) return ''
-	if (!currency) return String(amount)
-	try {
-		return new Intl.NumberFormat(undefined, {
-			style: 'currency',
-			currency,
-		}).format(amount)
-	} catch {
-		return `${amount} ${currency}`
-	}
-}
+export { formatMoney }
 
 export const listPaymentLabel = (
 	choice: PaymentChoice | undefined,

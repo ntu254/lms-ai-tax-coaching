@@ -50,7 +50,6 @@ describe('AssessmentForm type picker', () => {
 		).toEqual([
 			{ label: 'Test', value: 'LMS Quiz' },
 			{ label: 'Aufgabe', value: 'LMS Assignment' },
-			{ label: 'Programmieraufgabe', value: 'LMS Programming Exercise' },
 		])
 	})
 })

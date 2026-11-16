@@ -141,7 +141,6 @@ PERMISSION_DOCTYPES = (
 	"LMS Quiz",
 	"LMS Assignment",
 	"LMS Program",
-	"Job Opportunity",
 )
 
 
@@ -340,7 +339,6 @@ def verify_billing_access(doctype, name, billing_type):
 
 
 # nosemgrep: security.guest-whitelisted-method - pre-existing grant, unchanged by this branch; guests see only open job posts. Flagged only because semgrep ci re-scans the whole function when its body changes.
-@frappe.whitelist(allow_guest=True)
 def get_job_details(job: str):
 	if not isinstance(job, str):
 		frappe.throw(_("Job must be a string."))
@@ -396,7 +394,6 @@ def get_own_assignment_submission(assignment: str):
 	)
 
 
-@frappe.whitelist()
 def get_application_users(applications: list | str) -> list:
 	"""Applicant display details per application the caller may read. Applicants are
 	identified by application, not by email; send_job_application_email reaches them."""
@@ -426,7 +423,6 @@ def get_application_users(applications: list | str) -> list:
 	return [{"application": row.name, **users.get(row.user, {})} for row in visible]
 
 
-@frappe.whitelist(methods=["POST"])
 @rate_limit(limit=60, seconds=60 * 60)
 def send_job_application_email(application: str, subject: str, message: str):
 	"""Email an applicant, as the job's poster or a Moderator. The address is looked
@@ -502,7 +498,6 @@ def asks_only_open(status) -> bool:
 
 
 # nosemgrep: security.guest-whitelisted-method - pre-existing grant, unchanged by this branch; guests are served only when guest access is on. Flagged only because the body changed.
-@frappe.whitelist(allow_guest=True)
 @guest_access_required(list)
 def get_job_opportunities(
 	filters: dict = None,
@@ -546,7 +541,6 @@ def get_job_opportunities(
 
 
 # nosemgrep: security.guest-whitelisted-method - pre-existing grant, unchanged by this branch; guests are served only when guest access is on. Flagged only because the body changed.
-@frappe.whitelist(allow_guest=True)
 @guest_access_required(int)
 def get_job_opportunities_count(filters: dict = None, or_filters: dict = None):
 	filters, or_filters = sanitize_job_filters(filters, or_filters)
@@ -595,6 +589,9 @@ def get_branding():
 			settings.update({field: json.loads(json.dumps(file_info))})
 		else:
 			settings.update({field: value})
+
+	if not settings.get("app_name"):
+		settings["app_name"] = "AI Coaching Vietnam"
 
 	return settings
 
@@ -2743,9 +2740,7 @@ def get_lms_settings():
 		"prevent_skipping_videos",
 		"contact_us_email",
 		"contact_us_url",
-		"livecode_url",
 		"disable_pwa",
-		"allow_job_posting",
 		"demo_data_present",
 		"lesson_dwell_time",
 		"enforce_video_completion",
@@ -3178,7 +3173,6 @@ def _redact_expected(case, author: bool) -> str | None:
 	return case.expected_output
 
 
-@frappe.whitelist()
 def get_programming_exercise(exercise: str) -> dict:
 	"""Return an exercise with hidden cases' expected output blanked (not dropped, as
 	`frappe.client.get` would), so the frontend can tell withheld from absent."""
@@ -3209,7 +3203,6 @@ def _exercise_for_viewer(doc, author: bool) -> dict:
 	}
 
 
-@frappe.whitelist()
 def evaluate_programming_exercise(exercise: str, outputs: list) -> list[dict]:
 	"""Score a run server-side. The browser runs the code, so it holds each input,
 	but it must never hold a hidden case's expected output."""
@@ -3246,7 +3239,6 @@ def _score_test_case(case, produced, author: bool) -> dict:
 	}
 
 
-@frappe.whitelist(methods=["POST"])
 def create_programming_exercise_submission(exercise: str, submission: str, code: str):
 	frappe.only_for(["Moderator", "Course Creator", "Batch Evaluator", "LMS Student"])
 	if submission == "new":
@@ -3444,7 +3436,7 @@ def get_progress_distribution(progressList: list):
 @frappe.whitelist(allow_guest=True)
 def get_pwa_manifest():
 	"""Web app manifest for installing the LMS as a PWA."""
-	title = frappe.db.get_single_value("Website Settings", "app_name") or "Frappe Learning"
+	title = frappe.db.get_single_value("Website Settings", "app_name") or "AI Coaching Vietnam"
 	route = get_lms_route()
 
 	# `display` was absent, so it defaulted to "browser" and the installed app
@@ -3568,7 +3560,6 @@ def fetch_activity_dates(user: str):
 		"LMS Course Progress",
 		"LMS Quiz Submission",
 		"LMS Assignment Submission",
-		"LMS Programming Exercise Submission",
 	]
 
 	all_dates = []
@@ -4240,7 +4231,6 @@ def get_upcoming_batches():
 	)
 
 
-@frappe.whitelist(methods=["POST"])
 def delete_programming_exercise(exercise: str):
 	frappe.has_permission("LMS Programming Exercise", "delete", doc=exercise, throw=True)
 	# The rows link to the exercise, so they go first. The exercise's authors may
@@ -4305,12 +4295,10 @@ def get_course_assessment_progress(course: str, member: str):
 
 	quizzes = get_course_quiz_progress(course, member)
 	assignments = get_course_assignment_progress(course, member)
-	programming_exercises = get_course_programming_exercise_progress(course, member)
 
 	return {
 		"quizzes": quizzes,
 		"assignments": assignments,
-		"exercises": programming_exercises,
 	}
 
 
@@ -4625,3 +4613,11 @@ def set_system_preferences(language: str = None, time_zone: str = None):
 		frappe.db.set_single_value("System Settings", "time_zone", time_zone)
 
 	frappe.clear_cache()
+
+
+@frappe.whitelist(allow_guest=True)
+def guest_ai_chat(message: str, history: list | None = None) -> dict:
+	from lms.lms.ai_coach import guest_ai_chat as _chat
+
+	return _chat(message, history)
+

@@ -1,6 +1,6 @@
 <template>
 	<NoPermission v-if="!$user.data" />
-	<div v-else-if="profile.data">
+	<div v-else-if="profile.data" class="learner-profile">
 		<PageHeader :breadcrumbs="breadcrumbs">
 			<template #actions>
 				<HeaderButton
@@ -24,7 +24,6 @@
 					<ProfileAvatar
 						:image="profile.data.user_image"
 						:full-name="profile.data.full_name"
-						:open-to="profile.data.open_to"
 					/>
 				</div>
 				<div class="mt-5 md:mt-0 md:ms-6 text-center md:text-start">

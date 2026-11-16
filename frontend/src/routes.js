@@ -6,9 +6,14 @@
 // actually registers.
 export const routes = [
 	{
+		path: '/component-showcase',
+		name: 'ComponentShowcase',
+		component: () => import('@/pages/ComponentShowcase.vue'),
+	},
+	{
 		path: '/',
 		name: 'Home',
-		component: () => import('@/pages/Home/Home.vue'),
+		component: () => import('@/pages/Home/HomeEntry.vue'),
 	},
 	{
 		path: '/courses',
@@ -195,29 +200,6 @@ export const routes = [
 		],
 	},
 	{
-		path: '/job-openings',
-		name: 'Jobs',
-		component: () => import('@/pages/Jobs.vue'),
-	},
-	{
-		path: '/job-openings/:job',
-		name: 'JobDetail',
-		component: () => import('@/pages/JobDetail.vue'),
-		props: true,
-	},
-	{
-		path: '/job-openings/:job/applications',
-		name: 'JobApplications',
-		component: () => import('@/pages/JobApplications.vue'),
-		props: true,
-	},
-	{
-		path: '/job-opening/:jobName/edit',
-		name: 'JobForm',
-		component: () => import('@/pages/Forms/JobForm.vue'),
-		props: true,
-	},
-	{
 		path: '/certified-participants',
 		name: 'CertifiedParticipants',
 		component: () => import('@/pages/CertifiedParticipants.vue'),
@@ -384,58 +366,6 @@ export const routes = [
 		path: '/persona',
 		name: 'PersonaForm',
 		component: () => import('@/pages/Forms/PersonaForm.vue'),
-	},
-	{
-		path: '/programming-exercises',
-		name: 'ProgrammingExercises',
-		component: () =>
-			import('@/pages/ProgrammingExercises/ProgrammingExercises.vue'),
-	},
-	{
-		// A page rather than a child of the list: the form is not drawn over
-		// the list any more, so it has no parent to render inside.
-		path: '/programming-exercises/new',
-		name: 'NewProgrammingExercise',
-		component: () => import('@/pages/Forms/ProgrammingExerciseForm.vue'),
-	},
-	{
-		// See the assignment form above: an exercise is named from its title
-		// too, so the segment is needed here for the same reason.
-		path: '/programming-exercises/edit/:exerciseID',
-		name: 'ProgrammingExerciseForm',
-		component: () => import('@/pages/Forms/ProgrammingExerciseForm.vue'),
-		props: true,
-	},
-	{
-		path: '/programming-exercises/submissions',
-		name: 'ProgrammingExerciseSubmissions',
-		component: () =>
-			import(
-				'@/pages/ProgrammingExercises/ProgrammingExerciseSubmissions.vue'
-			),
-		props: true,
-	},
-	{
-		// Outside the plural namespace for the same reason its assignment
-		// counterpart is, and it keeps :exerciseID for the same reason too.
-		path: '/programming-exercise-submission/:exerciseID/:submissionID',
-		name: 'ProgrammingExerciseSubmission',
-		component: () =>
-			import(
-				'@/pages/ProgrammingExercises/ProgrammingExerciseSubmission.vue'
-			),
-		props: true,
-	},
-	{
-		path: '/programming-exercises/:exerciseID/submission/:submissionID',
-		redirect: (to) => ({
-			name: 'ProgrammingExerciseSubmission',
-			params: {
-				exerciseID: to.params.exerciseID,
-				submissionID: to.params.submissionID,
-			},
-			query: to.query,
-		}),
 	},
 	{
 		path: '/data-import',

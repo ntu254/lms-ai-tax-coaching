@@ -11,11 +11,11 @@
 				{{ __('Add') }}
 			</Button>
 		</div>
-		<div v-if="assessments.data?.length" class="text-sm">
+		<div v-if="visibleAssessments.length" class="text-sm">
 			<ResponsiveListView
 				docked-banner
 				:columns="assessmentColumns"
-				:rows="assessments.data"
+				:rows="visibleAssessments"
 				row-key="name"
 				class="sm:border sm:rounded-6"
 				:options="listOptions"
@@ -50,7 +50,7 @@
 			icon="lucide-clipboard-list"
 			:message="
 				__(
-					'Add quizzes, assignments or programming exercises for students to complete during this batch.'
+					'Add quizzes or assignments for students to complete during this batch.'
 				)
 			"
 		/>
@@ -105,6 +105,10 @@ const assessments = createResource({
 	cache: ['batchAssessments', props.batch],
 })
 
+const visibleAssessments = computed(() =>
+	(assessments.data || []).filter((row) => row.assessment_type !== 'LMS Programming Exercise')
+)
+
 const route = useRoute()
 const router = useRouter()
 
@@ -150,24 +154,6 @@ const getRowRoute = (row) => {
 				params: {
 					assignmentID: row.assessment_name,
 					submissionName: 'new',
-				},
-			}
-		}
-	} else if (row.assessment_type == 'LMS Programming Exercise') {
-		if (row.submission) {
-			return {
-				name: 'ProgrammingExerciseSubmission',
-				params: {
-					exerciseID: row.assessment_name,
-					submissionID: row.submission.name,
-				},
-			}
-		} else {
-			return {
-				name: 'ProgrammingExerciseSubmission',
-				params: {
-					exerciseID: row.assessment_name,
-					submissionID: 'new',
 				},
 			}
 		}
@@ -231,8 +217,6 @@ const getAssessmentTypeLabel = (type) => {
 		return __('Assignment')
 	} else if (type == 'LMS Quiz') {
 		return __('Quiz')
-	} else if (type == 'LMS Programming Exercise') {
-		return __('Programming Exercise')
 	}
 }
 </script>

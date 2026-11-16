@@ -87,6 +87,7 @@ import type { CourseInstructorInfo } from '@/types'
 
 const props = defineProps<{
 	instructors: CourseInstructorInfo[]
+	learner?: boolean
 }>()
 
 const focusedKey = ref<string | null>(null)
@@ -135,6 +136,7 @@ const hiddenPeerCount = computed<number>(() =>
 )
 
 const headerLabel = computed<string>(() => {
+	if (props.learner) return __('Giảng viên')
 	const n = props.instructors?.length || 0
 	if (n <= 1) return __('Course creator')
 	if (n <= 4) return __('Taught by')

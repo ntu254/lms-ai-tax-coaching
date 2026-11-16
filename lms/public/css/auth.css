@@ -1,0 +1,87 @@
+/* Authentication appearance follows the LMS landing page; Frappe retains form behavior. */
+body[data-path="login"] {
+  --auth-ink: #0b1220; --auth-text: #344054; --auth-muted: #667085; --auth-border: #e8ebf2;
+  --auth-accent: #b54708; --auth-coral: #ff5b55; --auth-orange: #ff7417; --auth-focus: #9a3412;
+  background: linear-gradient(120deg, #fff 0%, #fffaf6 48%, #f5f2ff 100%); color: var(--auth-ink);
+}
+body[data-path="login"] .page-content-wrapper { min-height: 100vh; display: flex; align-items: center; padding: 40px 24px; }
+body[data-path="login"] main.container { width: min(1200px, 100%); max-width: 1200px; padding: 0; }
+body[data-path="login"] .page-header-wrapper, body[data-path="login"] .page-breadcrumbs, body[data-path="login"] .web-footer { display: none; }
+body[data-path="login"] .page_content { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 690px; background: #fff; border: 1px solid var(--auth-border); border-radius: 28px 28px 12px 28px; overflow: clip; box-shadow: 0 24px 80px rgba(16,24,40,.1); }
+body[data-path="login"] .page_content::before { content: ""; display: block; min-height: 100%; background: #fff5ed url('/assets/lms/images/auth-learning.png') center / cover no-repeat; }
+body[data-path="login"] .page_content > div { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 32px clamp(32px, 5vw, 72px) 52px; }
+body[data-path="login"] .auth-brand-bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; width: 100%; max-width: 420px; margin: 0 auto 48px; }
+body[data-path="login"] .auth-brand { display: flex; align-items: center; gap: 10px; color: var(--auth-ink); font-size: 14px; font-weight: 700; text-decoration: none; }
+body[data-path="login"] .auth-brand img { width: 76px; height: 48px; object-fit: contain; }
+body[data-path="login"] .auth-home { color: var(--auth-accent); font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; }
+body[data-path="login"] .auth-home:hover { text-decoration: underline; }
+body[data-path="login"] .login-content.page-card { max-width: 420px; width: 100%; margin: auto; padding: 0; border: 0; box-shadow: none; background: transparent; }
+body[data-path="login"] .page-card-head { gap: 0 !important; }
+body[data-path="login"] .page-card-head .app-logo { display: none; }
+body[data-path="login"] .page-card-head h4 { color: var(--auth-ink) !important; font-size: clamp(30px, 3vw, 38px) !important; line-height: 1.15; letter-spacing: -.035em; }
+body[data-path="login"] .page-card-subtitle { color: var(--auth-muted) !important; line-height: 1.6; }
+body[data-path="login"] .form-signin { gap: 24px !important; }
+body[data-path="login"] .form-group label { color: var(--auth-text) !important; font-weight: 600; }
+body[data-path="login"] .email-field, body[data-path="login"] .password-field { width: 100%; }
+body[data-path="login"] .form-control, body[data-path="login"] #signup_user_category_select [data-slot="trigger"] { width: 100%; min-height: 48px; padding: 12px 14px; background: #fff; color: var(--auth-ink); border: 1px solid #d0d5dd; border-radius: 12px; box-shadow: none; }
+body[data-path="login"] .form-control:focus, body[data-path="login"] #signup_user_category_select [data-slot="trigger"]:focus-visible { border-color: var(--auth-accent); outline: 3px solid rgba(181,71,8,.2); outline-offset: 2px; }
+body[data-path="login"] .page-card-actions .es-button[data-variant="solid"] { min-height: 48px; border: 0; border-radius: 12px 12px 5px 12px; background: linear-gradient(115deg,var(--auth-coral),var(--auth-orange)); color: #fff; font-weight: 700; box-shadow: 0 8px 20px rgba(255,116,23,.2); }
+body[data-path="login"] .page-card-actions .es-button[data-variant="solid"]:hover:not(:disabled) { filter: brightness(.9); }
+body[data-path="login"] .page-card-actions .es-button:disabled { opacity: .55; }
+body[data-path="login"] a { color: var(--auth-accent); }
+body[data-path="login"] a:focus-visible, body[data-path="login"] button:focus-visible { outline: 3px solid var(--auth-focus); outline-offset: 3px; }
+body[data-path="login"] .sign-up-message a, body[data-path="login"] a[href="#forgot"] { color: var(--auth-accent) !important; font-weight: 700; }
+body[data-path="login"] .social-login-buttons .es-button, body[data-path="login"] .btn-login-option { min-height: 48px; border: 1px solid #d0d5dd; border-radius: 12px; background: #fff; color: var(--auth-ink); }
+@media (max-width: 767px) {
+  body[data-path="login"] .page-content-wrapper { align-items: flex-start; padding: 16px; }
+  body[data-path="login"] .page_content { display: flex; flex-direction: column; min-height: 0; border-radius: 20px; }
+  body[data-path="login"] .page_content::before { min-height: 160px; background-position: center 65%; }
+  body[data-path="login"] .page_content > div { padding: 24px 22px 36px; }
+  body[data-path="login"] .auth-brand-bar { margin-bottom: 28px; }
+  body[data-path="login"] .auth-brand img { width: 58px; height: 36px; }
+  body[data-path="login"] .auth-brand { gap: 6px; font-size: 12px; }
+  body[data-path="login"] .auth-home { font-size: 12px; }
+}
+/* Match the landing hero: light gradient canvas, raised image and coral-orange action. */
+body[data-path="login"] {
+  --auth-accent: #a83e05;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+body[data-path="login"] .page_content {
+  background: linear-gradient(120deg, #fff 0%, #fffaf6 48%, #f5f2ff 100%);
+}
+body[data-path="login"] .page_content::before {
+  align-self: center;
+  min-height: 0;
+  height: 500px;
+  margin: 52px;
+  border: 12px solid #fff;
+  border-radius: 28px 28px 12px 28px;
+  background-position: center;
+  box-shadow: 0 24px 80px rgba(16,24,40,.13);
+  transform: rotate(-2deg);
+}
+body[data-path="login"] .page_content > div {
+  background: #fff;
+}
+@media (max-width: 767px) {
+  body[data-path="login"] .page_content::before {
+    align-self: auto;
+    height: 170px;
+    min-height: 170px;
+    margin: 24px 24px 0;
+    border-width: 8px;
+    border-radius: 18px 18px 8px 18px;
+    transform: none;
+    background-position: center 65%;
+  }
+  body[data-path="login"] .page_content > div { background: transparent; }
+}
+/* Keep the brand bar and the form title in the same place in every auth state. */
+body[data-path="login"] .page_content > div { justify-content: flex-start; padding-top: 56px; }
+body[data-path="login"] .auth-brand-bar { margin-bottom: 32px; }
+body[data-path="login"] .login-content.page-card { margin: 0 auto; }
+@media (max-width: 767px) {
+  body[data-path="login"] .page_content > div { padding-top: 24px; }
+  body[data-path="login"] .auth-brand-bar { margin-bottom: 28px; }
+}

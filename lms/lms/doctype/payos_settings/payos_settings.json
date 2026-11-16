@@ -1,0 +1,99 @@
+{
+ "actions": [],
+ "creation": "2026-03-01 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "enabled",
+  "client_id",
+  "api_key",
+  "checksum_key",
+  "sb_webhook",
+  "webhook_url",
+  "webhook_status",
+  "auto_enroll",
+  "notify_realtime"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "K\u00edch ho\u1ea1t PayOS (VietQR)"
+  },
+  {
+   "fieldname": "client_id",
+   "fieldtype": "Data",
+   "label": "Client ID",
+   "reqd": 1
+  },
+  {
+   "fieldname": "api_key",
+   "fieldtype": "Password",
+   "label": "API Key",
+   "reqd": 1
+  },
+  {
+   "fieldname": "checksum_key",
+   "fieldtype": "Password",
+   "label": "Checksum Key",
+   "reqd": 1
+  },
+  {
+   "fieldname": "sb_webhook",
+   "fieldtype": "Section Break",
+   "label": "C\u1ea5u h\u00ecnh Webhook t\u1ef1 \u0111\u1ed9ng"
+  },
+  {
+   "fieldname": "webhook_url",
+   "fieldtype": "Data",
+   "label": "Webhook URL",
+   "read_only": 1
+  },
+  {
+   "default": "Ch\u01b0a x\u00e1c th\u1ef1c",
+   "fieldname": "webhook_status",
+   "fieldtype": "Data",
+   "label": "Tr\u1ea1ng th\u00e1i Webhook",
+   "read_only": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "auto_enroll",
+   "fieldtype": "Check",
+   "label": "T\u1ef1 \u0111\u1ed9ng ghi danh ngay khi nh\u1eadn Webhook (3-5s)"
+  },
+  {
+   "default": "1",
+   "fieldname": "notify_realtime",
+   "fieldtype": "Check",
+   "label": "B\u1eafn t\u00edn hi\u1ec7u Realtime (Socket.io) c\u1eadp nh\u1eadt m\u00e0n h\u00ecnh ngay l\u1eadp t\u1ee9c"
+  }
+ ],
+ "issingle": 1,
+ "modified": "2026-03-01 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "LMS",
+ "name": "PayOS Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Moderator",
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

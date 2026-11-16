@@ -5,6 +5,11 @@ import { defineComponent, h } from 'vue'
 
 vi.stubGlobal('__', (text: string) => text)
 
+vi.mock('@framework/ui/telemetry/index', () => ({
+	useTelemetry: () => ({ capture: () => {} }),
+}))
+vi.mock('@framework/ui/components/Onboarding/index', () => ({}))
+
 // frappe patches String.prototype.format onto the page at runtime; both
 // header titles use it.
 String.prototype.format = function (this: string, ...args: unknown[]): string {
@@ -81,16 +86,6 @@ const makeRouter = () =>
 				name: 'AssignmentSubmissions',
 				component: Stub,
 			},
-			{
-				path: '/programming-exercises',
-				name: 'ProgrammingExercises',
-				component: Stub,
-			},
-			{
-				path: '/programming-exercises/submissions',
-				name: 'ProgrammingExerciseSubmissions',
-				component: Stub,
-			},
 		],
 	})
 
@@ -120,15 +115,9 @@ const submissionsLinkTarget = (wrapper: ReturnType<typeof mount>) => {
 
 // Static imports: a runtime import() of a variable skips vite's `@/` alias.
 import Assignments from '@/pages/Assignments.vue'
-import ProgrammingExercises from '@/pages/ProgrammingExercises/ProgrammingExercises.vue'
 
 const cases = [
 	{ name: 'Assignments', page: Assignments, route: 'AssignmentSubmissions' },
-	{
-		name: 'ProgrammingExercises',
-		page: ProgrammingExercises,
-		route: 'ProgrammingExerciseSubmissions',
-	},
 ]
 
 // Guards a missing or hidden Submissions button on the assessment lists.

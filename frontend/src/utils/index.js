@@ -2,7 +2,6 @@ import { call, toast } from 'frappe-ui'
 import { AUDIO_EXTENSIONS } from '@/utils/audio'
 import { ASSESSMENT_BLOCK_SELECTOR } from '@/utils/blockMount'
 import { Quiz } from '@/utils/quiz'
-import { Program } from '@/utils/program'
 import { Assignment } from '@/utils/assignment'
 import { Upload } from '@/utils/upload'
 import { Markdown } from '@/utils/markdownParser'
@@ -31,6 +30,7 @@ import Table from '@editorjs/table'
 import DOMPurify from 'dompurify'
 import { decodeEntities } from './inertHtml'
 import { escapeHTML } from '@/utils/format'
+import { formatMoney } from '@/utils/money'
 
 const readOnlyMode = window.read_only_mode
 
@@ -64,14 +64,7 @@ export function formatNumber(number) {
 }
 
 export function formatNumberIntoCurrency(number, currency) {
-	if (number) {
-		return number.toLocaleString('en-IN', {
-			maximumFractionDigits: 0,
-			style: 'currency',
-			currency: currency,
-		})
-	}
-	return ''
+	return formatMoney(number, currency)
 }
 
 // create a function that formats numbers in thousands to k
@@ -179,12 +172,6 @@ export function getEditorTools(
 		// config and on into the iframe URL.
 		assignment: {
 			class: Assignment,
-			config: { studentView },
-		},
-		// Renders its submission in an iframe too, so Student View travels the
-		// same way it does for assignments.
-		program: {
-			class: Program,
 			config: { studentView },
 		},
 		markdown: {
@@ -526,9 +513,6 @@ const getSidebarItems = (forMobile = false) => {
 					icon: 'Home',
 					to: 'Home',
 					activeFor: ['Home'],
-					condition: () => {
-						return userResource?.data
-					},
 				},
 				{
 					label: 'Search',
@@ -585,12 +569,6 @@ const getSidebarItems = (forMobile = false) => {
 					},
 				},
 				{
-					label: 'Jobs',
-					icon: 'Briefcase',
-					to: 'Jobs',
-					activeFor: ['Jobs', 'JobDetail'],
-				},
-				{
 					label: 'Statistics',
 					icon: 'TrendingUp',
 					to: 'Statistics',
@@ -645,19 +623,6 @@ const getSidebarItems = (forMobile = false) => {
 						'Assignments',
 						'AssignmentSubmissions',
 						'AssignmentSubmission',
-					],
-				},
-				{
-					label: 'Programming Exercises',
-					icon: 'Code',
-					to: 'ProgrammingExercises',
-					condition: () => {
-						return !forMobile && isAdmin()
-					},
-					activeFor: [
-						'ProgrammingExercises',
-						'ProgrammingExerciseSubmissions',
-						'ProgrammingExerciseSubmission',
 					],
 				},
 			],

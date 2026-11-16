@@ -53,7 +53,6 @@ const ROUTE_BUILDERS: Record<
 		name: 'BatchDetail',
 		params: { batchName: name },
 	}),
-	'Job Opportunity': (name) => ({ name: 'JobDetail', params: { job: name } }),
 	'LMS Quiz': (name) => ({ name: 'QuizForm', params: { quizID: name } }),
 	'LMS Assignment': (name) => ({
 		name: 'AssignmentForm',

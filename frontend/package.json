@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "node scripts/generate-component-inventory.mjs && vite",
     "serve": "vite preview",
-    "build": "vite build --base=/assets/lms/frontend/ && yarn copy-html-entry && yarn build:signup-select",
+    "build": "node scripts/generate-component-inventory.mjs && vite build --base=/assets/lms/frontend/ && yarn copy-html-entry && yarn build:signup-select",
     "build:signup-select": "vite build --config vite.signup-select.config.js",
     "copy-html-entry": "cp ../lms/public/frontend/index.html ../lms/www/_lms.html",
     "test": "vitest run",

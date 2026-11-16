@@ -1,0 +1,46 @@
+{
+  "originalRequest": "Giao diện của người học hiện tại chưa đủ để thương mại, phần giao diện người học tôi nghĩ không nên dùng sidebar mà nên dùng header nav còn nhưng tab nào sidebar có thể gộp thì sao ko gộp thành popover cho gọn cần có một trang home landing page, màu sắc brand là cam oral chữ trắng, tham khao UI UX hiện tại để đảm bảo tính nhất quán UI các component hiện tại đều sài của frapper ui và tỉnh chỉnh lại cho phù hợp với dự án, bạn cần thông tin gì thì cứ hỏi tôi",
+  "subject": "Giao diện học viên và trang chủ giới thiệu nền tảng học tập",
+  "pageType": "landing_page",
+  "scope": "Thiết kế lại điều hướng và trải nghiệm dành cho học viên, đồng thời bổ sung trang chủ landing page; giữ sự nhất quán với các màn hình và thành phần hiện có.",
+  "primaryGoal": "Tạo trải nghiệm học tập chuyên nghiệp, sẵn sàng thương mại và giúp người học dễ khám phá, tiếp tục học.",
+  "audience": "Người đang tìm khóa học và học viên hiện tại.",
+  "offer": "Nền tảng học tập với khóa học, nhóm học, lớp trực tiếp và đánh giá.",
+  "primaryAction": "Khám phá khóa học; với học viên đã đăng nhập, tiếp tục khóa học.",
+  "creativeControl": "Chủ động lựa chọn hướng thiết kế thương mại và tinh chỉnh thành phần trong giới hạn thương hiệu và giao diện hiện có.",
+  "requiredContent": [
+    "Điều hướng đầu trang: các mục học viên quan trọng, nhóm mục liên quan vào popover, tài khoản và điều hướng phù hợp trên di động.",
+    "Giới thiệu nền tảng: thông điệp học tập rõ ràng và hành động khám phá khóa học.",
+    "Khóa học: danh sách khóa học nổi bật hoặc khóa học của học viên dựa trên dữ liệu có sẵn, cùng liên kết xem tất cả.",
+    "Nhóm học: các nhóm sắp diễn ra hoặc nhóm học viên đã tham gia.",
+    "Tiếp tục học: truy cập nhanh nội dung và tiến độ học hiện có.",
+    "Lớp trực tiếp sắp tới: lịch và thông tin lớp khi có dữ liệu.",
+    "Đánh giá sắp tới: những đánh giá cần chú ý khi có dữ liệu.",
+    "Cách học: giới thiệu khả năng học qua bài học, bài kiểm tra và bài tập dựa trên tính năng hiện có.",
+    "Chứng nhận: giới thiệu khả năng nhận chứng chỉ khi khóa học có hỗ trợ.",
+    "Chân trang: liên kết điều hướng và hỗ trợ phù hợp với thông tin thực tế của dự án."
+  ],
+  "constraints": [
+    "Ưu tiên thành phần frappe-ui và điều chỉnh phù hợp dự án.",
+    "Tham chiếu giao diện hiện tại để bảo đảm tính nhất quán; bảo toàn chức năng và quyền truy cập hiện có.",
+    "Thiết kế đáp ứng desktop và mobile, hỗ trợ dịch nội dung và chế độ sáng/tối hiện có.",
+    "Mỗi phần landing page cần dùng ảnh tham chiếu được cung cấp hoặc lựa chọn cho bố cục desktop và mobile.",
+    "Có hiệu ứng xuất hiện và cuộn phù hợp; chuyển trạng thái điều hướng và popover rõ ràng.",
+    "Không tạo thông tin khách hàng, chứng thực hoặc kết quả đo lường chưa được xác minh."
+  ],
+  "brandInputs": [
+    "Cam oral và chữ trắng theo yêu cầu người dùng; chưa có mã màu cụ thể.",
+    "Giao diện hiện tại dùng frappe-ui, tông trung tính, thẻ bo góc và biểu tượng Lucide; nguồn: frontend/src/components/Sidebar/AppSidebar.vue và frontend/src/pages/Home/StudentHome.vue.",
+    "Ứng dụng hỗ trợ sáng, tối và theo hệ thống; nguồn: frontend/src/utils/theme.ts."
+  ],
+  "assumptions": [
+    "Hiểu ‘cam oral’ là màu cam chủ đạo; sắc độ cụ thể sẽ được chọn sau khi xem ảnh tham chiếu.",
+    "Trang chủ phục vụ cả khách tìm khóa học và học viên hiện tại, với nội dung cá nhân hóa theo trạng thái đăng nhập và dữ liệu sẵn có.",
+    "Chỉ thay điều hướng dành cho học viên; các luồng quản trị và giảng viên giữ nguyên phạm vi hiện tại.",
+    "Các phần có dữ liệu động chỉ hiển thị khi có nội dung phù hợp; không dựng dữ liệu chứng minh hoặc thành tích giả."
+  ],
+  "unresolved": [
+    "Mã màu cam và tài sản thương hiệu cụ thể chưa được cung cấp."
+  ],
+  "explicitAnswers": []
+}

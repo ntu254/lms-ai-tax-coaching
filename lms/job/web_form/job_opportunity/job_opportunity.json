@@ -26,7 +26,7 @@
  "name": "job-opportunity",
  "owner": "Administrator",
  "payment_button_label": "Buy Now",
- "published": 1,
+ "published": 0,
  "route": "job-opportunity",
  "show_attachments": 0,
  "show_list": 1,

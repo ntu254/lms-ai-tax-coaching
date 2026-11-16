@@ -52,16 +52,6 @@
 				:ariaLabel="__('Category')"
 				@update:modelValue="updateParticipants()"
 			/>
-			<ToggleFilter
-				:modelValue="openToWork"
-				:label="__('Open to Work')"
-				@update:modelValue="setOpenToWork"
-			/>
-			<ToggleFilter
-				:modelValue="hiring"
-				:label="__('Hiring')"
-				@update:modelValue="setHiring"
-			/>
 		</template>
 
 		<template #card="{ row }">
@@ -119,7 +109,6 @@ import {
 	usePageMeta,
 } from 'frappe-ui'
 import ClearableCombobox from '@/components/Controls/ClearableCombobox.vue'
-import ToggleFilter from '@/components/Controls/ToggleFilter.vue'
 import { computed, inject, onMounted, ref, watch } from 'vue'
 import { sessionStore } from '../stores/session'
 import { useRouter } from 'vue-router'
@@ -134,8 +123,6 @@ import { serverTime } from '@/utils/dayjs'
 const filters = ref({})
 const currentCategory = ref('')
 const nameFilter = ref('')
-const openToWork = ref(false)
-const hiring = ref(false)
 const { brand } = sessionStore()
 const memberCount = ref(0)
 const dayjs = inject('$dayjs')
@@ -208,16 +195,6 @@ const getMemberCount = () => {
 	})
 }
 
-const setOpenToWork = (value) => {
-	openToWork.value = value
-	updateParticipants()
-}
-
-const setHiring = (value) => {
-	hiring.value = value
-	updateParticipants()
-}
-
 const categories = createListResource({
 	doctype: 'LMS Certificate',
 	url: 'lms.lms.api.get_certification_categories',
@@ -248,12 +225,6 @@ const updateFilters = () => {
 		...(nameFilter.value && {
 			member_name: ['like', `%${nameFilter.value}%`],
 		}),
-		...(openToWork.value && {
-			open_to_work: true,
-		}),
-		...(hiring.value && {
-			hiring: true,
-		}),
 	}
 }
 
@@ -262,8 +233,6 @@ const setQueryParams = () => {
 	let filterKeys = {
 		category: currentCategory.value,
 		name: nameFilter.value,
-		'open-to-work': openToWork.value,
-		hiring: hiring.value,
 	}
 
 	Object.keys(filterKeys).forEach((key) => {
@@ -291,10 +260,6 @@ const setFiltersFromQuery = () => {
 	let queries = new URLSearchParams(location.search)
 	nameFilter.value = queries.get('name') || ''
 	currentCategory.value = queries.get('category') || ''
-	// Read the key setQueryParams writes; `open-to-opportunities` was never
-	// written, so the filter could not survive a reload.
-	openToWork.value = queries.get('open-to-work') === 'true'
-	hiring.value = queries.get('hiring') === 'true'
 }
 
 const breadcrumbs = computed(() => [

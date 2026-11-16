@@ -3,14 +3,14 @@ import frappe
 from . import __version__ as app_version
 
 app_name = "frappe_lms"
-app_title = "Learning"
-app_publisher = "Frappe"
-app_description = "Open Source Learning Management System built with Frappe Framework"
+app_title = "AI Coaching Vietnam"
+app_publisher = "AI Coaching Vietnam"
+app_description = "Học viện Huấn luyện & Đào tạo Thuế, Kế toán và Quản trị Tài chính Doanh nghiệp Thực chiến"
 app_icon_url = "/assets/lms/images/lms-logo.png"
-app_icon_title = "Learning"
+app_icon_title = "AI Coaching Vietnam"
 app_icon_route = "/lms"
 app_color = "grey"
-app_email = "jannat@frappe.io"
+app_email = "contact@aicoaching.vn"
 app_license = "AGPL"
 required_apps = ["frappe/payments"]
 
@@ -30,8 +30,8 @@ def get_lms_path():
 # app_include_js = "/assets/lms/js/lms.js"
 
 # include js, css files in header of web template
-# web_include_css = "/assets/lms/css/lms.css"
-web_include_js = []
+web_include_css = ["/assets/lms/css/auth.css?v=20261115-3"]
+web_include_js = ["/assets/lms/js/auth.js?v=20261115-5"]
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "lms/public/scss/website"
@@ -112,10 +112,12 @@ permission_query_conditions = {
 	"LMS Batch Enrollment": "lms.lms.doctype.lms_batch_enrollment.lms_batch_enrollment.get_permission_query_conditions",
 	"LMS Quiz": "lms.lms.permissions.quiz_query_conditions",
 	"LMS Assignment": "lms.lms.permissions.assignment_query_conditions",
-	"LMS Programming Exercise": "lms.lms.permissions.programming_exercise_query_conditions",
+	"LMS Programming Exercise": "lms.lms.retired_features.query_conditions",
 	"LMS Quiz Submission": "lms.lms.permissions.quiz_submission_query_conditions",
 	"LMS Assignment Submission": "lms.lms.permissions.assignment_submission_query_conditions",
-	"LMS Programming Exercise Submission": "lms.lms.permissions.programming_exercise_submission_query_conditions",
+	"LMS Programming Exercise Submission": "lms.lms.retired_features.query_conditions",
+	"Job Opportunity": "lms.lms.retired_features.query_conditions",
+	"LMS Job Application": "lms.lms.retired_features.query_conditions",
 }
 
 has_permission = {
@@ -137,11 +139,13 @@ has_permission = {
 	"File": "lms.lms.permissions.file_has_permission",
 	"LMS Quiz": "lms.lms.permissions.assessment_has_permission",
 	"LMS Assignment": "lms.lms.permissions.assessment_has_permission",
-	"LMS Programming Exercise": "lms.lms.permissions.assessment_has_permission",
+	"LMS Programming Exercise": "lms.lms.retired_features.has_permission",
 	"LMS Question": "lms.lms.permissions.has_authored_content_permission",
 	"LMS Quiz Submission": "lms.lms.permissions.assessment_submission_has_permission",
 	"LMS Assignment Submission": "lms.lms.permissions.assessment_submission_has_permission",
-	"LMS Programming Exercise Submission": "lms.lms.permissions.assessment_submission_has_permission",
+	"LMS Programming Exercise Submission": "lms.lms.retired_features.has_permission",
+	"Job Opportunity": "lms.lms.retired_features.has_permission",
+	"LMS Job Application": "lms.lms.retired_features.has_permission",
 }
 
 # DocType Class
@@ -228,7 +232,6 @@ scheduler_events = {
 		"lms.lms.day1_email.send_day1_email",
 	],
 	"daily": [
-		"lms.job.doctype.job_opportunity.job_opportunity.update_job_openings",
 		"lms.lms.doctype.lms_payment.lms_payment.send_payment_reminder",
 		"lms.lms.doctype.lms_batch.lms_batch.send_batch_start_reminder",
 		"lms.lms.doctype.lms_live_class.lms_live_class.send_live_class_reminder",
@@ -275,6 +278,12 @@ website_route_rules = [
 ]
 
 website_redirects = [
+	{
+		"source": "/",
+		"target": f"/{get_lms_path()}",
+		"redirect_http_status": 302,
+		"forward_query_parameters": True,
+	},
 	{"source": "/update-profile", "target": "/edit-profile"},
 	{"source": "/courses", "target": f"/{get_lms_path()}/courses"},
 	{
@@ -285,12 +294,6 @@ website_redirects = [
 	{
 		"source": r"/batches/(.*)",
 		"target": f"/{get_lms_path()}/batches",
-		"match_with_query_string": True,
-	},
-	{"source": "/job-openings", "target": f"/{get_lms_path()}/job-openings"},
-	{
-		"source": r"/job-openings/(.*)",
-		"target": f"/{get_lms_path()}/job-openings",
 		"match_with_query_string": True,
 	},
 	{"source": "/statistics", "target": f"/{get_lms_path()}/statistics"},
@@ -316,7 +319,10 @@ jinja = {
 
 extend_bootinfo = [
 	"lms.lms.utils.extend_bootinfo",
+	"lms.lms.desk.remove_studio_navigation",
 ]
+
+before_request = ["lms.lms.desk.disable_studio_requests"]
 ## Specify the additional tabs to be included in the user profile page.
 ## Each entry must be a subclass of lms.lms.plugins.ProfileTab
 # profile_tabs = []
@@ -371,7 +377,11 @@ require_type_annotated_api_methods = True
 # Hook contract + admin setup: ../raven-membership-provider.md
 # TODO: that page is an interim capture. Publish it at docs.frappe.io/learning
 # (specs/extensibility.md: "A hook isn't shipped until the docs exist") and delete it.
-# LMS contributes its rule types + evaluator to the standalone `raven_integration`
+# Exempt external payment webhooks from CSRF checks
+ignore_csrf = [
+	"lms.lms.integrations.payos.payos_webhook",
+]
+
 # app via the `raven_membership_providers` hook. See lms/raven_provider.py.
 raven_membership_providers = ["lms.raven_provider.get_provider"]
 
@@ -393,10 +403,8 @@ standard_sidebar_items = [
 	{"name1": "programs", "is_standard": 1, "item_type": "Built-in"},
 	{"name1": "batches", "is_standard": 1, "item_type": "Built-in"},
 	{"name1": "certifications", "is_standard": 1, "item_type": "Built-in"},
-	{"name1": "jobs", "is_standard": 1, "item_type": "Built-in"},
 	{"name1": "statistics", "is_standard": 1, "item_type": "Built-in"},
 	{"name1": "contact_us", "is_standard": 1, "item_type": "Built-in"},
 	{"name1": "quizzes", "is_standard": 1, "item_type": "Built-in"},
 	{"name1": "assignments", "is_standard": 1, "item_type": "Built-in"},
-	{"name1": "programming_exercises", "is_standard": 1, "item_type": "Built-in"},
 ]

@@ -140,9 +140,23 @@ export default defineConfig(async ({ mode }) => {
 			// ...ConditionGroup.vue". Reproduce it by pointing the link at a copy of
 			// apps/frappe/ui that has no node_modules beside it.
 			preserveSymlinks: true,
-			alias: {
-				'@': path.resolve(import.meta.dirname, 'src'),
-			},
+			alias: [
+				{ find: '@', replacement: path.resolve(import.meta.dirname, 'src') },
+				{
+					find: 'face-api.js',
+					replacement: path.resolve(
+						import.meta.dirname,
+						'src/tests/framework-ui-mock/face-api-mock.js'
+					),
+				},
+				{
+					find: /^.*sites\/common_site_config\.json$/,
+					replacement: path.resolve(
+						import.meta.dirname,
+						'src/common_site_config.json'
+					),
+				},
+			],
 			// Force one copy of prosemirror; duplicate copies break tiptap's
 			// instanceof checks and crash the list buttons.
 			dedupe: [

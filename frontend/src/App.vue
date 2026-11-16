@@ -1,6 +1,6 @@
 <template>
 	<FrappeUIProvider>
-		<Layout class="isolate text-p-base">
+		<Layout class="isolate text-p-base" :class="{ 'learner-theme': isLearner }" v-bind="isLearner ? { learner: true } : {}">
 			<router-view :route="background" />
 		</Layout>
 		<router-view v-if="background" />
@@ -26,16 +26,22 @@ import { useDialogLayering } from '@/composables/dialogLayering'
 import DesktopLayout from './components/Layouts/pages/desktop/DesktopLayout.vue'
 import MobileLayout from './components/Layouts/pages/mobile/MobileLayout.vue'
 import NoSidebarLayout from './components/Layouts/pages/desktop/NoSidebarLayout.vue'
+import PublicCourseLayout from './components/Layouts/pages/PublicCourseLayout.vue'
 import InstallPrompt from './components/InstallPrompt.vue'
 import NotificationPanel from '@/components/Notifications/NotificationPanel.vue'
 import ContinueCoursePanel from '@/components/ContinueCoursePanel.vue'
 import { showHelpModal } from '@framework/ui/components/Onboarding/index'
 import { seesOnboarding } from '@/utils/onboarding'
 import { usersStore } from '@/stores/user'
+import { sessionStore } from '@/stores/session'
+import './styles/learner-theme.css'
 
 const { isMobile } = useScreenSize()
 const route = useRoute()
 const { userResource } = usersStore()
+const session = sessionStore()
+const isCourseExperience = computed(() => ['Courses', 'CourseDetail', 'Lesson', 'CourseCertification', 'QuizPage', 'QuizSubmission', 'AssignmentSubmission', 'Batches', 'BatchDetail', 'Programs', 'ProgramDetail'].includes(route.name) || route.path.startsWith('/courses/') || route.path.startsWith('/batches/') || route.path.startsWith('/programs/'))
+const isLearner = computed(() => Boolean(!isCourseExperience.value && session.isLoggedIn && userResource.data?.is_student && !userResource.data?.is_system_manager && !userResource.data?.is_instructor && !userResource.data?.is_moderator && !userResource.data?.is_evaluator))
 
 // The panel lives here, not in the sidebar, so it shows on every layout: the
 // mobile one and the pages without a sidebar have no AppSidebar. Only people
@@ -115,10 +121,15 @@ const layoutRoute = computed(() => background.value ?? route)
 const noSidebar = computed(
 	() =>
 		Boolean(layoutRoute.value.query.fromLesson) ||
-		layoutRoute.value.path === '/persona'
+		layoutRoute.value.path === '/persona' ||
+		layoutRoute.value.name === 'ComponentShowcase' ||
+		(layoutRoute.value.name === 'Home' && !session.isLoggedIn)
 )
 
 const Layout = computed(() => {
+	if (!session.isLoggedIn && ['Billing'].includes(layoutRoute.value.name)) {
+		return PublicCourseLayout
+	}
 	if (noSidebar.value) {
 		return NoSidebarLayout
 	}

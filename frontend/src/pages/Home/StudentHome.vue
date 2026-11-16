@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="learner-home-section">
 		<div class="mt-10 space-y-10">
 			<UpcomingEvaluations :forHome="true" />
 			<div v-if="myLiveClasses.data?.length">
@@ -44,7 +44,7 @@
 				>
 					<span class="flex items-center gap-x-1 text-ink-gray-6 text-xs">
 						<span>
-							{{ __('See all') }}
+							{{ isLearner ? __('Xem tất cả') : __('See all') }}
 						</span>
 						<span class="lucide-move-right size-3 rtl:rotate-180" />
 					</span>
@@ -58,6 +58,11 @@
 					:to="{ name: 'CourseDetail', params: { courseName: course.name } }"
 				/>
 			</div>
+		</div>
+
+		<div v-if="myCourses.data && !myCourses.data.length" class="learner-empty mt-10">
+			<p>{{ __('Chưa có khóa học để hiển thị.') }}</p>
+			<router-link :to="{ name: 'Courses' }">{{ __('Khám phá khóa học') }}</router-link>
 		</div>
 
 		<div v-if="myBatches.data?.length" class="mt-10">
@@ -76,7 +81,7 @@
 				>
 					<span class="flex items-center gap-x-1 text-ink-gray-6 text-xs">
 						<span>
-							{{ __('See all') }}
+							{{ isLearner ? __('Xem tất cả') : __('See all') }}
 						</span>
 						<span class="lucide-move-right size-3 rtl:rotate-180" />
 					</span>
@@ -94,7 +99,7 @@
 	</div>
 </template>
 <script setup lang="ts">
-import { inject } from 'vue'
+import { computed, inject } from 'vue'
 import { createResource } from 'frappe-ui'
 import CourseCard from '@/components/CourseCard.vue'
 import BatchCard from '@/pages/Batches/components/BatchCard.vue'
@@ -102,6 +107,7 @@ import UpcomingEvaluations from '@/components/UpcomingEvaluations.vue'
 import LiveClassCard from '@/pages/Home/LiveClassCard.vue'
 
 const user = inject<any>('$user')
+const isLearner = computed(() => user.data?.is_student && !user.data?.is_system_manager && !user.data?.is_instructor && !user.data?.is_moderator && !user.data?.is_evaluator)
 
 const props = defineProps<{
 	myLiveClasses: any

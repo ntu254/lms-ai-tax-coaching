@@ -260,13 +260,6 @@ const accessSections = [
 					'If checked, users will not be able to install the application as a Progressive Web App.',
 				type: 'checkbox',
 			},
-			{
-				label: 'Allow Job Posting',
-				name: 'allow_job_posting',
-				description:
-					'If enabled, users can post job openings on the job board. Else only admins can post jobs.',
-				type: 'checkbox',
-			},
 		],
 	},
 	// Not a notification gate. It decides whether a booking carries a calendar

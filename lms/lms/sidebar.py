@@ -14,10 +14,8 @@ LEGACY_VISIBILITY_FIELDS = (
 	"courses",
 	"batches",
 	"certifications",
-	"jobs",
 	"statistics",
 	"notifications",
-	"programming_exercises",
 )
 
 # Everything a row owns, and the only fields copied when the table is rebuilt.
@@ -249,6 +247,8 @@ def get_sidebar_rows(settings) -> list[dict]:
 	"""
 	rows = []
 	for row in settings.sidebar_items:
+		if row.item_type == "Built-in" and row.name1 in {"jobs", "programming_exercises"}:
+			continue
 		hidden = cint(row.hidden)
 		rows.append(
 			{

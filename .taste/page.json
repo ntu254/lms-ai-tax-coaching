@@ -1,0 +1,518 @@
+{
+  "version": 1,
+  "page": {
+    "title": "Trang chủ học tập",
+    "route": "/",
+    "description": "Trang giới thiệu nền tảng và giúp người học khám phá khóa học hoặc tiếp tục học."
+  },
+  "architecture": {
+    "contract": "Trang giúp người tìm khóa học chọn khóa học phù hợp, qua đó dẫn họ tới danh sách khóa học để bắt đầu học.",
+    "mode": "persuade_convert",
+    "novelty": "low",
+    "grid": "Lưới tối đa 1440px, 12 cột trên màn hình rộng, 6 cột trung bình và 4 cột nhỏ, dùng khoảng cách của hệ thương hiệu.",
+    "signatureRule": "Theo hero neo: tiêu đề lớn ở bên phải chiếm khoảng 56% chiều rộng, mô tả và hành động ở bên trái chiếm khoảng 23%; trên mobile xếp tiêu đề trước mô tả và hành động.",
+    "rhythm": "Hero thoáng, tiếp theo là danh sách khóa học và cách học; nội dung cá nhân xuất hiện theo dữ liệu và quyền, kết thúc bằng hành động khám phá."
+  },
+  "navigation": [
+    {
+      "label": "Trang chủ",
+      "target": "/"
+    },
+    {
+      "label": "Khóa học",
+      "target": "Courses"
+    },
+    {
+      "label": "Nhóm học",
+      "target": "Batches"
+    },
+    {
+      "label": "Học tập",
+      "target": "learner_menu"
+    },
+    {
+      "label": "Tài khoản",
+      "target": "account_menu"
+    }
+  ],
+  "navigationDesign": {
+    "layoutCase": "reference-navigation",
+    "layout": "Theo mitchy-01-hero: logo hiện có bên trái, liên kết dạng pill ở giữa, popover và hành động chính bên phải.",
+    "behavior": [
+      "Nhóm các mục sidebar học viên liên quan vào popover, giữ nguyên liên kết và quyền hiện có.",
+      "Hỗ trợ bàn phím, Escape, focus rõ ràng và đóng khi chọn mục.",
+      "Khách thấy hành động khám phá khóa học; học viên thấy lối tiếp tục học khi có dữ liệu."
+    ],
+    "transformation": {
+      "compact": "Logo trái và nút menu phải; menu chứa đầy đủ liên kết và tài khoản.",
+      "medium": "Giữ các liên kết quan trọng, chuyển mục còn lại vào popover.",
+      "expanded": "Liên kết chính ở giữa, popover và hành động bên phải."
+    }
+  },
+  "sections": [
+    {
+      "id": "hero",
+      "layoutFamily": "hero",
+      "layoutCases": [
+        "mitchy-01-hero"
+      ],
+      "referenceDirectionId": "mitchy-01-hero",
+      "purpose": "Giới thiệu nền tảng và hành động chính.",
+      "userQuestion": "Tôi có thể bắt đầu học ở đâu?",
+      "stage": "orient",
+      "dependencies": [],
+      "evidence": [
+        "frontend/src/pages/Home/StudentHome.vue"
+      ],
+      "copy": {
+        "heading": "Học theo cách\ncủa bạn",
+        "body": [
+          "Khám phá khóa học, theo dõi tiến độ và tiếp tục từ bài học gần nhất."
+        ],
+        "callsToAction": [
+          {
+            "label": "Khám phá khóa học",
+            "target": "Courses"
+          }
+        ]
+      },
+      "layout": "Ảnh desktop 1506×1045: hero cao khoảng 62% ảnh, tiêu đề hai dòng bên phải rộng 56%, mô tả và CTA bên trái rộng 23%, không chồng lấp; ảnh ngang kế tiếp rộng 97% bắt đầu dưới hero. Ảnh mobile 1223×1286: tiêu đề hai dòng rộng 82%, sau đó là mô tả và CTA căn trái; không có media trong phần hero hiển thị.",
+      "motion": {
+        "purpose": "spatial_continuity",
+        "trigger": "load",
+        "behavior": "Tiêu đề và khối mô tả hiện bằng opacity và dịch nhẹ, lệch nhau 80ms.",
+        "durationMs": 600,
+        "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "reducedMotion": "Hiện ngay trạng thái cuối."
+      },
+      "componentNeeds": [],
+      "assetNeeds": [],
+      "transformation": {
+        "compact": "Tiêu đề, mô tả và CTA xếp dọc.",
+        "medium": "Hai khối cân đối, cho phép xuống dòng tự nhiên.",
+        "expanded": "Tiêu đề lớn bên phải, mô tả và CTA bên trái."
+      }
+    },
+    {
+      "id": "courses",
+      "layoutFamily": "feature",
+      "layoutCases": [
+        "stodio-05-services"
+      ],
+      "referenceDirectionId": "stodio-05-services",
+      "purpose": "Cho người xem chọn từ các khóa học thực.",
+      "userQuestion": "Có những khóa học nào?",
+      "stage": "evaluate",
+      "dependencies": [
+        "hero"
+      ],
+      "evidence": [
+        "frontend/src/pages/Home/StudentHome.vue",
+        "frontend/src/components/CourseCard.vue"
+      ],
+      "copy": {
+        "heading": "Khám phá\nkhóa học",
+        "body": [
+          "Chọn khóa học để xem nội dung và thông tin đăng ký."
+        ],
+        "callsToAction": [
+          {
+            "label": "Xem tất cả khóa học",
+            "target": "Courses"
+          }
+        ]
+      },
+      "layout": "Ảnh desktop 1436×1096: tiêu đề hai dòng chiếm khoảng 50% chiều rộng bên trái, mô tả ở 25% bên phải; danh sách dọc chiếm khoảng 50% bên dưới, không có media lớn hoặc chồng lấp. Không có ảnh mobile được xác minh: suy ra một cột với tiêu đề, mô tả và danh sách. Hiển thị tối đa bốn khóa học thực bằng liên kết và dữ liệu sẵn có; ảnh khóa học chỉ dùng khi bản ghi cung cấp ảnh hợp lệ, không phụ thuộc ảnh tĩnh chưa có.",
+      "motion": {
+        "purpose": "explanation",
+        "trigger": "scroll_enter",
+        "behavior": "Các mục danh sách hiện bằng opacity và dịch lên nhẹ, cách nhau 80ms, tối đa 240ms, chạy một lần.",
+        "durationMs": 550,
+        "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "reducedMotion": "Hiện ngay danh sách."
+      },
+      "componentNeeds": [],
+      "assetNeeds": [],
+      "transformation": {
+        "compact": "Một cột, giữ tên, thông tin và liên kết từng khóa học.",
+        "medium": "Tiêu đề và mô tả xếp trên danh sách.",
+        "expanded": "Tiêu đề trái, mô tả phải, danh sách dọc phía dưới."
+      }
+    },
+    {
+      "id": "continue_learning",
+      "layoutFamily": "about",
+      "layoutCases": [
+        "mitchy-03-about"
+      ],
+      "referenceDirectionId": "mitchy-03-about",
+      "purpose": "Đưa học viên trở lại khóa học đang học.",
+      "userQuestion": "Tôi tiếp tục từ đâu?",
+      "stage": "continue",
+      "dependencies": [
+        "courses"
+      ],
+      "evidence": [
+        "frontend/src/components/ContinueCoursePanel.vue"
+      ],
+      "copy": {
+        "heading": "Tiếp tục từ\nbài học gần nhất",
+        "body": [
+          "Xem tiến độ và quay lại khóa học của bạn."
+        ],
+        "callsToAction": [
+          {
+            "label": "Tiếp tục học",
+            "target": "current_lesson"
+          }
+        ]
+      },
+      "layout": "Ảnh desktop 1506×1045: tiêu đề khoảng 52% chiều rộng bên trái, một media ngang khoảng 23% bên phải và mô tả bên dưới; không chồng lấp. Mobile 936×1681: tiêu đề toàn chiều rộng, media rộng khoảng 90%, rồi mô tả. Thay khung media bằng bảng tiến độ HTML thực gồm tên khóa học, tiến độ và hành động; chỉ hiện khi có dữ liệu. Không cần ảnh chụp hoặc ảnh tĩnh.",
+      "motion": {
+        "purpose": "spatial_continuity",
+        "trigger": "scroll_enter",
+        "behavior": "Bảng tiến độ hiện bằng opacity và dịch nhẹ trong khung, chạy một lần.",
+        "durationMs": 600,
+        "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "reducedMotion": "Hiện ngay tiến độ."
+      },
+      "componentNeeds": [],
+      "assetNeeds": [],
+      "transformation": {
+        "compact": "Tiêu đề, tiến độ và hành động xếp dọc.",
+        "medium": "Tiêu đề và tiến độ cạnh nhau khi đủ chỗ.",
+        "expanded": "Tiêu đề lớn trái, bảng tiến độ và mô tả phải."
+      }
+    },
+    {
+      "id": "learning_methods",
+      "layoutFamily": "about",
+      "layoutCases": [
+        "vistal-06-studio"
+      ],
+      "referenceDirectionId": "vistal-06-studio",
+      "purpose": "Giải thích cách học và thực hành.",
+      "userQuestion": "Tôi học và thực hành như thế nào?",
+      "stage": "explain",
+      "dependencies": [
+        "courses"
+      ],
+      "evidence": [
+        "frontend/src/pages/Courses/CourseDetail.vue",
+        "frontend/src/components/StudentLessonSidebar.vue"
+      ],
+      "copy": {
+        "heading": "Học từng bài,\nthực hành theo khóa",
+        "body": [
+          "Theo dõi bài học, làm bài kiểm tra và nộp bài tập khi khóa học có yêu cầu."
+        ],
+        "callsToAction": [
+          {
+            "label": "Khám phá khóa học",
+            "target": "Courses"
+          }
+        ]
+      },
+      "layout": "Ảnh desktop 1161×1355: nhãn trái chiếm khoảng 30%, tiêu đề hai dòng và đoạn văn ở cột phải khoảng 60%; một ảnh dọc bên dưới rộng 60% trang và cao khoảng 68% ảnh tham chiếu. Mobile 1003×1568: nhãn, tiêu đề ba dòng, mô tả rồi ảnh rộng 87%; không chồng lấp. Dùng ảnh học tập đã chuẩn bị trong khung dọc.",
+      "motion": {
+        "purpose": "explanation",
+        "trigger": "scroll_enter",
+        "behavior": "Chữ rise, sau đó ảnh hiện trong khung bằng opacity và dịch nhẹ, lệch 80ms, chạy một lần.",
+        "durationMs": 650,
+        "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "reducedMotion": "Hiện ngay chữ và ảnh."
+      },
+      "componentNeeds": [],
+      "assetNeeds": [
+        "learning_context_photo"
+      ],
+      "transformation": {
+        "compact": "Nhãn, tiêu đề, mô tả và ảnh xếp dọc.",
+        "medium": "Cột nhãn thu hẹp, giữ thứ tự nội dung.",
+        "expanded": "Nhãn trái, chữ và ảnh lớn ở phải."
+      }
+    },
+    {
+      "id": "batches",
+      "layoutFamily": "about",
+      "layoutCases": [
+        "vistal-03-about"
+      ],
+      "referenceDirectionId": "vistal-03-about",
+      "purpose": "Giới thiệu nhóm học thực.",
+      "userQuestion": "Có nhóm học nào phù hợp với tôi?",
+      "stage": "evaluate",
+      "dependencies": [
+        "courses"
+      ],
+      "evidence": [
+        "frontend/src/pages/Home/StudentHome.vue"
+      ],
+      "copy": {
+        "heading": "Học cùng\nnhóm của bạn",
+        "body": [
+          "Xem các nhóm học sắp diễn ra hoặc nhóm bạn đã tham gia."
+        ],
+        "callsToAction": [
+          {
+            "label": "Xem nhóm học",
+            "target": "Batches"
+          }
+        ]
+      },
+      "layout": "Ảnh desktop 1229×1280: tiêu đề căn giữa ba dòng rộng khoảng 60%, mô tả và CTA bên dưới, ba thẻ chồng ở giữa phía dưới, thẻ giữa rộng khoảng 29%. Mobile 724×2172: nội dung căn giữa, tiêu đề sáu dòng và ba thẻ chồng bên dưới. Dựng các thẻ bằng HTML với tên, lịch và liên kết từ bản ghi nhóm thực; sử dụng ảnh của bản ghi nếu có, không phụ thuộc ảnh chưa được cung cấp. Giảm chồng lấp để nội dung và liên kết đọc được; không dựng bản ghi giả.",
+      "motion": {
+        "purpose": "spatial_continuity",
+        "trigger": "scroll_enter",
+        "behavior": "Các thẻ hiện lần lượt bằng opacity và dịch nhẹ, lệch 80ms, chạy một lần.",
+        "durationMs": 550,
+        "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "reducedMotion": "Hiện ngay các thẻ."
+      },
+      "componentNeeds": [],
+      "assetNeeds": [],
+      "transformation": {
+        "compact": "Tiêu đề căn giữa, thẻ xếp để không che tương tác.",
+        "medium": "Ba thẻ cân đối với ít chồng lấp.",
+        "expanded": "Cụm tối đa ba thẻ dưới nội dung căn giữa."
+      }
+    },
+    {
+      "id": "live_classes",
+      "layoutFamily": "feature",
+      "layoutCases": [
+        "meridian-04-services"
+      ],
+      "referenceDirectionId": "meridian-04-services",
+      "purpose": "Cho học viên thấy lịch lớp trực tiếp.",
+      "userQuestion": "Lớp trực tiếp nào sắp diễn ra?",
+      "stage": "continue",
+      "dependencies": [
+        "batches"
+      ],
+      "evidence": [
+        "frontend/src/pages/Home/LiveClassCard.vue",
+        "frontend/src/pages/Home/StudentHome.vue"
+      ],
+      "copy": {
+        "heading": "Lớp trực tiếp\nsắp tới",
+        "body": [
+          "Xem thời gian và mở thông tin lớp học của bạn."
+        ],
+        "callsToAction": []
+      },
+      "layout": "Ảnh desktop 1505×1045: tiêu đề hai dòng ở trên trái, ba cột gần vuông chiếm khoảng 30% chiều rộng mỗi cột, nội dung dưới media; mobile 724×2172 xếp ba mục dọc. Chuyển ba khung media thành tối đa ba thẻ lịch HTML chứa tên, ngày giờ và hành động thực, vì đây là dữ liệu giao diện; không dùng ảnh giả. Chỉ hiện khi có lớp.",
+      "motion": {
+        "purpose": "none",
+        "trigger": "none",
+        "behavior": "Danh sách hiển thị ngay; điều khiển có phản hồi theo hệ chung.",
+        "durationMs": 0,
+        "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "reducedMotion": "Không thay đổi."
+      },
+      "componentNeeds": [],
+      "assetNeeds": [],
+      "transformation": {
+        "compact": "Các thẻ lịch xếp dọc, giữ đủ thông tin.",
+        "medium": "Hai cột nếu đủ chỗ.",
+        "expanded": "Tối đa ba cột theo tham chiếu."
+      }
+    },
+    {
+      "id": "evaluations",
+      "layoutFamily": "faq",
+      "layoutCases": [
+        "mitchy-08-faq"
+      ],
+      "referenceDirectionId": "mitchy-08-faq",
+      "purpose": "Đưa đánh giá sắp tới vào tầm nhìn của học viên.",
+      "userQuestion": "Tôi có đánh giá nào cần chú ý?",
+      "stage": "continue",
+      "dependencies": [
+        "live_classes"
+      ],
+      "evidence": [
+        "frontend/src/components/UpcomingEvaluations.vue"
+      ],
+      "copy": {
+        "heading": "Đánh giá\nsắp tới",
+        "body": [
+          "Xem thông tin đánh giá của bạn."
+        ],
+        "callsToAction": []
+      },
+      "layout": "Ảnh desktop 1436×1096: tiêu đề hai dòng trái, mô tả phải, danh sách bên trái rộng khoảng 45% và khung bên phải khoảng 45%; không chồng lấp. Thay ảnh bằng chi tiết đánh giá thực trong HTML. Không có ảnh mobile xác minh: xếp tiêu đề, mô tả, danh sách và chi tiết theo thứ tự. Chỉ hiện khi có đánh giá.",
+      "motion": {
+        "purpose": "state_change",
+        "trigger": "state_change",
+        "behavior": "Nếu có mở chi tiết, opacity thay đổi trong 160ms mà không trì hoãn nội dung.",
+        "durationMs": 160,
+        "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "reducedMotion": "Đổi trạng thái tức thời."
+      },
+      "componentNeeds": [],
+      "assetNeeds": [],
+      "transformation": {
+        "compact": "Danh sách và chi tiết xếp dọc, giữ trạng thái đã mở.",
+        "medium": "Hai cột khi đủ chỗ.",
+        "expanded": "Danh sách và chi tiết ở hai cột tương đương."
+      }
+    },
+    {
+      "id": "certificates",
+      "layoutFamily": "about",
+      "layoutCases": [
+        "mitchy-03-about"
+      ],
+      "referenceDirectionId": "mitchy-03-about",
+      "purpose": "Giải thích khả năng nhận chứng chỉ.",
+      "userQuestion": "Tôi có thể nhận chứng chỉ không?",
+      "stage": "explain",
+      "dependencies": [
+        "learning_methods"
+      ],
+      "evidence": [
+        "frontend/src/pages/Courses/CourseCertification.vue"
+      ],
+      "copy": {
+        "heading": "Ghi nhận kết quả\nhọc tập",
+        "body": [
+          "Một số khóa học có chứng chỉ khi đáp ứng điều kiện của khóa học."
+        ],
+        "callsToAction": [
+          {
+            "label": "Khám phá khóa học",
+            "target": "Courses"
+          }
+        ]
+      },
+      "layout": "Ảnh desktop 1506×1045: tiêu đề lớn khoảng 52% bên trái, khung nội dung khoảng 23% bên phải, mô tả dưới khung, không chồng lấp; mobile 936×1681: tiêu đề, khung rộng 90%, mô tả xếp dọc. Dùng nội dung điều kiện chứng chỉ thực trong khung HTML; bỏ hàng logo vì không có bằng chứng đối tác.",
+      "motion": {
+        "purpose": "none",
+        "trigger": "none",
+        "behavior": "Nội dung hiển thị ngay.",
+        "durationMs": 0,
+        "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "reducedMotion": "Không thay đổi."
+      },
+      "componentNeeds": [],
+      "assetNeeds": [],
+      "transformation": {
+        "compact": "Tiêu đề và thông tin xếp dọc.",
+        "medium": "Hai cột khi đủ chỗ.",
+        "expanded": "Tiêu đề trái và thông tin chứng chỉ phải."
+      }
+    },
+    {
+      "id": "start",
+      "layoutFamily": "cta",
+      "layoutCases": [
+        "mitchy-11-cta"
+      ],
+      "referenceDirectionId": "mitchy-11-cta",
+      "purpose": "Dẫn đến danh sách khóa học.",
+      "userQuestion": "Bước tiếp theo là gì?",
+      "stage": "act",
+      "dependencies": [
+        "courses",
+        "learning_methods"
+      ],
+      "evidence": [
+        "frontend/src/pages/Courses/Courses.vue"
+      ],
+      "copy": {
+        "heading": "Chọn khóa học\nđể bắt đầu",
+        "body": [],
+        "callsToAction": [
+          {
+            "label": "Khám phá khóa học",
+            "target": "Courses"
+          }
+        ]
+      },
+      "layout": "Ảnh desktop 1942×809: tiêu đề căn giữa trong vùng rộng khoảng 75%, CTA ở giữa bên dưới, không có media. Mobile 1314×1216: tiêu đề và CTA xếp giữa trang. Tách CTA khỏi chữ để không che nội dung.",
+      "motion": {
+        "purpose": "feedback",
+        "trigger": "press",
+        "behavior": "Nút đổi màu và viền trong 160ms.",
+        "durationMs": 160,
+        "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "reducedMotion": "Thay đổi tức thời."
+      },
+      "componentNeeds": [],
+      "assetNeeds": [],
+      "transformation": {
+        "compact": "Tiêu đề và CTA căn giữa, không chồng lấp.",
+        "medium": "Giữ căn giữa với chiều rộng đọc phù hợp.",
+        "expanded": "Tiêu đề lớn giữa vùng tương phản, CTA bên dưới."
+      }
+    },
+    {
+      "id": "footer",
+      "layoutFamily": "footer",
+      "layoutCases": [
+        "mitchy-12-footer"
+      ],
+      "referenceDirectionId": "mitchy-12-footer",
+      "purpose": "Cung cấp điều hướng cuối trang.",
+      "userQuestion": "Tôi tìm các trang khác ở đâu?",
+      "stage": "continue",
+      "dependencies": [
+        "start"
+      ],
+      "evidence": [
+        "frontend/src/routes.js",
+        "frontend/src/components/Icons/LMSLogo.vue"
+      ],
+      "copy": {
+        "heading": "Học tập",
+        "body": [
+          "Khóa học",
+          "Nhóm học",
+          "Trang chủ"
+        ],
+        "callsToAction": [
+          {
+            "label": "Khám phá khóa học",
+            "target": "Courses"
+          }
+        ]
+      },
+      "layout": "Ảnh desktop 1760×864: panel rộng 96%, các nhóm liên kết phía trên, nhận diện lớn phía dưới; không có media. Mobile 838×1856: liên kết xếp dọc trước nhận diện. Chỉ dùng liên kết và nhận diện đã có, không tạo địa chỉ hay mạng xã hội.",
+      "motion": {
+        "purpose": "none",
+        "trigger": "none",
+        "behavior": "Chân trang hiển thị ngay.",
+        "durationMs": 0,
+        "easing": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "reducedMotion": "Không thay đổi."
+      },
+      "componentNeeds": [],
+      "assetNeeds": [],
+      "transformation": {
+        "compact": "Liên kết và nhận diện xếp dọc.",
+        "medium": "Liên kết chia nhóm, nhận diện bên dưới.",
+        "expanded": "Nhóm liên kết nằm ngang, nhận diện ở hàng dưới."
+      }
+    }
+  ],
+  "responsive": [
+    "Giữ nội dung, thứ tự đọc và quyền truy cập trên mọi kích thước; nội dung cá nhân chỉ hiện đúng người dùng.",
+    "Không để khoảng trống khi phần dữ liệu có điều kiện không hiển thị.",
+    "Bố cục mobile chưa có ảnh tham chiếu phải được kiểm tra trực quan."
+  ],
+  "interactions": [
+    "Ưu tiên frappe-ui cho menu và popover; hỗ trợ bàn phím, focus và nhãn truy cập.",
+    "Dùng route và dữ liệu thực của ứng dụng; không tạo khóa học, nhóm học hoặc tiến độ giả.",
+    "Reveals quan sát từng nhóm với threshold 0 và rootMargin dưới dương, chạy một lần; CSS mặc định hiển thị nội dung.",
+    "Chỉ chuẩn bị trạng thái ẩn cho phần còn dưới viewport; bỏ quan sát khi kích hoạt, tổng stagger tối đa 240ms, dọn observer và animation thuộc trang khi cần."
+  ],
+  "acceptanceCriteria": [
+    "Khách có thể tới danh sách khóa học; học viên có thể tiếp tục học khi có dữ liệu.",
+    "Header học viên giữ các mục và quyền hiện có; luồng quản trị và giảng viên không bị thay đổi ngoài phạm vi.",
+    "Dữ liệu khóa học, nhóm học, lớp trực tiếp và đánh giá là dữ liệu thực; ảnh động từ bản ghi chỉ dùng khi hợp lệ.",
+    "Ảnh học tập đã chuẩn bị được dùng đúng khung; font Figtree và giấy phép vẫn cần được lấy và xác minh trước khi hoàn thiện.",
+    "Kiểm tra hero khi tải, ít nhất hai reveal sau cuộn và reduced motion trong trình duyệt; cuộn nhanh xuống lên hai lần, tải lại giữa trang, resize và đổi reduced motion khi đang chạy. Nội dung đã xem luôn hiện và không phát lại.",
+    "Kiểm tra tương phản, bàn phím, dịch nội dung, chế độ sáng tối và trạng thái không có dữ liệu."
+  ]
+}

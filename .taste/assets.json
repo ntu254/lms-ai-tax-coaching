@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "id": "learning_context_photo",
+      "kind": "image",
+      "status": "ready",
+      "purpose": "Minh họa bối cảnh học tập cho phần cách học.",
+      "requirements": [
+        "Ảnh minh họa do máy tạo, không mô tả học viên thực của nền tảng.",
+        "PNG 1086×1448, dùng trong khung dọc."
+      ],
+      "role": "photography",
+      "sectionIds": [
+        "learning_methods"
+      ],
+      "aspectRatio": "3:4",
+      "composition": "Người trưởng thành nhìn từ phía sau đang học tại bàn gần cửa sổ, chủ thể ở nửa dưới giữa; phần trên thoáng, ánh sáng tự nhiên và chi tiết cam. Chữ nằm ngoài ảnh.",
+      "source": {
+        "kind": "generated",
+        "reference": "image_gen: exec-b1a1b97f-a3c8-4242-874f-ff787d30c694",
+        "license": "Ảnh được tạo cho dự án bằng công cụ image_gen."
+      },
+      "destination": "frontend/public/brand/learning-context.png"
+    },
+    {
+      "id": "figtree_variable",
+      "kind": "font",
+      "status": "needed",
+      "purpose": "Kiểu chữ chung cho tiêu đề, nội dung và điều khiển.",
+      "requirements": [
+        "Tải tệp Figtree biến thiên hỗ trợ trọng lượng 400–800 cùng giấy phép OFL từ nguồn chính thức.",
+        "Không tìm thấy tệp Figtree trong frontend; kết nối tới kho Google Fonts và Google Fonts CSS đều thất bại.",
+        "Kiểm tra Content-Type, magic bytes và font được tải thực sự trong trình duyệt trước khi sử dụng."
+      ],
+      "role": "font",
+      "sectionIds": [
+        "hero",
+        "courses",
+        "continue_learning",
+        "learning_methods",
+        "batches",
+        "live_classes",
+        "evaluations",
+        "certificates",
+        "start",
+        "footer"
+      ]
+    }
+  ]
+}

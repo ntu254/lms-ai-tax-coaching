@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-col h-full">
+	<div class="learner-lesson-sidebar flex flex-col h-full">
 		<div
 			v-if="!hideHeader || withProgress"
 			class="bg-surface-gray-1 px-5 py-5 border-b"

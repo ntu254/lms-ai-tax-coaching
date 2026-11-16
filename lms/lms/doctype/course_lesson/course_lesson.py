@@ -527,7 +527,6 @@ def lesson_requirements_met(lesson: str, member: str, rules: dict) -> bool:
 	return (
 		get_quiz_progress(lesson, member, rules["quiz"], rules["open_ended_quiz"])
 		and get_assignment_progress(lesson, member, rules["assignment"])
-		and get_programming_exercise_progress(lesson, member, rules["programming_exercise"])
 	)
 
 

@@ -25,12 +25,10 @@ const BUILT_IN_LABELS: Record<string, () => string> = {
 	programs: () => __('Programs'),
 	batches: () => __('Batches'),
 	certifications: () => __('Certifications'),
-	jobs: () => __('Jobs'),
 	statistics: () => __('Statistics'),
 	contact_us: () => __('Contact Us'),
 	quizzes: () => __('Quizzes'),
 	assignments: () => __('Assignments'),
-	programming_exercises: () => __('Programming Exercises'),
 }
 
 export const builtInLabel = (name1: string): string =>
@@ -47,12 +45,10 @@ const BUILT_IN_ICONS: Record<string, string> = {
 	programs: 'Route',
 	batches: 'Users',
 	certifications: 'GraduationCap',
-	jobs: 'Briefcase',
 	statistics: 'TrendingUp',
 	contact_us: 'Mail',
 	quizzes: 'CircleHelp',
 	assignments: 'Pencil',
-	programming_exercises: 'Code',
 }
 
 export const builtInIcon = (name1: string): string | undefined =>

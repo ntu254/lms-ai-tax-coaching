@@ -50,12 +50,14 @@ export async function guardNavigation(to, from, next) {
 	}
 
 	if (!isLoggedIn) {
-		if (to.name == 'Home') router.push({ name: 'Courses' })
-
-		await settings.promise
-		if (!settings.data.allow_guest_access) {
-			window.location.href = '/login'
-			return
+		try {
+			await settings.promise
+			if (settings.data && !settings.data.allow_guest_access) {
+				window.location.href = '/login'
+				return
+			}
+		} catch (error) {
+			// Backend offline or error: allow guest viewing of landing page
 		}
 	}
 

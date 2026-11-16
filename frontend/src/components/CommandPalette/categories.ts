@@ -38,7 +38,6 @@ export const CATEGORIES: Category[] = [
 		icon: 'lucide-route',
 		listRoute: 'Programs',
 	},
-	{ id: 'jobs', label: 'Jobs', icon: 'lucide-briefcase', listRoute: 'Jobs' },
 	{
 		id: 'quizzes',
 		label: 'Quizzes',
@@ -125,12 +124,6 @@ export const NAV_TARGETS: NavTarget[] = [
 		label: 'Statistics',
 		icon: 'lucide-trending-up',
 		route: 'Statistics',
-	},
-	{
-		id: 'programming-exercises',
-		label: 'Programming Exercises',
-		icon: 'lucide-code',
-		route: 'ProgrammingExercises',
 	},
 ]
 

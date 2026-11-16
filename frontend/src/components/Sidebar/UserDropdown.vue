@@ -49,9 +49,11 @@ const frappeCloudBaseEndpoint = 'https://frappecloud.com'
 const $dialog = createDialog
 
 const appName = computed(() =>
-	branding.data?.app_name && branding.data.app_name != 'Frappe'
+	branding.data?.app_name &&
+	branding.data.app_name !== 'Frappe' &&
+	branding.data.app_name !== 'Learning'
 		? branding.data.app_name
-		: 'Learning'
+		: 'AI Coaching Vietnam'
 )
 
 // SidebarHeader passes no slots through to its Dropdown, so the check that
@@ -127,7 +129,7 @@ const userDropdownOptions = computed(() => {
 			options: [
 				{
 					icon: 'lucide-user',
-					label: 'My Profile',
+					label: __('Hồ sơ của tôi'),
 					onClick: () => {
 						router.push(`/user/${userResource.data?.username}`)
 					},
@@ -170,7 +172,7 @@ const userDropdownOptions = computed(() => {
 				},
 				{
 					icon: 'lucide-settings',
-					label: 'Settings',
+					label: __('Cài đặt'),
 					onClick: () => {
 						pushSettingsHash(router)
 					},
@@ -193,7 +195,7 @@ const userDropdownOptions = computed(() => {
 					},
 				},
 				{
-					label: 'Clear Demo Data',
+					label: __('Xóa dữ liệu mẫu'),
 					icon: 'lucide-trash-2',
 					onClick: () => {
 						clearDemoDataConfirmation()
@@ -207,7 +209,7 @@ const userDropdownOptions = computed(() => {
 				},
 				{
 					icon: FrappeCloudIcon,
-					label: 'Login to Frappe Cloud',
+					label: __('Đăng nhập Frappe Cloud'),
 					onClick: () => {
 						$dialog({
 							title: __('Login to Frappe Cloud?'),
@@ -230,7 +232,7 @@ const userDropdownOptions = computed(() => {
 				},
 				{
 					icon: 'lucide-log-out',
-					label: 'Log out',
+					label: __('Đăng xuất'),
 					onClick: () => {
 						logout.submit().then(() => {
 							isLoggedIn = false
@@ -242,7 +244,7 @@ const userDropdownOptions = computed(() => {
 				},
 				{
 					icon: 'lucide-log-in',
-					label: 'Log in',
+					label: __('Đăng nhập'),
 					onClick: () => {
 						window.location.href = '/login'
 					},

@@ -107,44 +107,6 @@
 			</div>
 		</div>
 	</AssessmentCard>
-
-	<AssessmentCard v-else>
-		<AssessmentCardHeader
-			:icon="icon"
-			:title="label"
-			:subtitle="details.doc.title"
-			preview
-		>
-			<Button variant="solid" size="sm" disabled>{{ __('Run code') }}</Button>
-		</AssessmentCardHeader>
-		<div
-			class="grid grid-cols-1 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)]"
-		>
-			<div
-				class="min-w-0 space-y-2 border-b border-outline-gray-1 p-3.5 md:border-b-0 md:border-e"
-			>
-				<div class="text-sm text-ink-gray-6">{{ __('Problem') }}</div>
-				<div
-					v-safe-html:rich="details.doc.problem_statement"
-					class="ProseMirror prose prose-sm max-w-none !whitespace-normal prose-pre:bg-surface-gray-3 prose-pre:text-ink-gray-9"
-				></div>
-			</div>
-			<div class="flex min-w-0 flex-col">
-				<div
-					class="flex h-11 shrink-0 items-center gap-x-1.5 border-b border-outline-gray-1 bg-surface-gray-1 px-3"
-				>
-					<span class="lucide-file size-3.5 shrink-0 text-ink-gray-5" />
-					<span
-						data-testid="block-preview-language"
-						class="truncate font-mono text-xs text-ink-gray-7"
-					>
-						{{ details.doc.language }}
-					</span>
-				</div>
-				<div class="min-h-[8rem] flex-1 bg-surface-gray-1" />
-			</div>
-		</div>
-	</AssessmentCard>
 </template>
 
 <script setup lang="ts">
@@ -157,19 +119,13 @@ import QuizStats from '@/components/Assessment/QuizStats.vue'
 import { attemptsAllowedLabel, formatQuizSubtitle } from '@/utils/quizSummary'
 import type { QuizDetails } from '@/types/quiz'
 
-export type PreviewKind = 'quiz' | 'assignment' | 'exercise'
+export type PreviewKind = 'quiz' | 'assignment'
 
 type AssignmentSummary = { title: string; question: string; type: string }
-type ExerciseSummary = {
-	title: string
-	problem_statement: string
-	language: string
-}
 
 type Details =
 	| { kind: 'quiz'; doc: QuizDetails }
 	| { kind: 'assignment'; doc: AssignmentSummary }
-	| { kind: 'exercise'; doc: ExerciseSummary }
 
 const props = defineProps<{ kind: PreviewKind; name: string }>()
 
@@ -178,13 +134,11 @@ const uploadTypes = ['PDF', 'Image', 'Document', 'Audio']
 const icon = {
 	quiz: 'lucide-circle-help',
 	assignment: 'lucide-notebook-pen',
-	exercise: 'lucide-code-xml',
 }[props.kind]
 
 const label = {
 	quiz: __('Quiz'),
 	assignment: __('Assignment'),
-	exercise: __('Programming Exercise'),
 }[props.kind]
 
 const loading = ref(true)
@@ -212,8 +166,6 @@ const quizSummary = computed(() => {
 	}
 })
 
-// Only the fields the card shows: an exercise's test cases (and their expected
-// output) are never requested.
 const fetchDetails = async (): Promise<Details | null> => {
 	if (props.kind == 'quiz') {
 		const doc = await call<QuizDetails>('frappe.client.get', {
@@ -233,12 +185,7 @@ const fetchDetails = async (): Promise<Details | null> => {
 		)
 		return doc ? { kind: 'assignment', doc } : null
 	}
-	const doc = await call<ExerciseSummary | null>('frappe.client.get_value', {
-		doctype: 'LMS Programming Exercise',
-		filters: { name: props.name },
-		fieldname: ['title', 'problem_statement', 'language'],
-	})
-	return doc ? { kind: 'exercise', doc } : null
+	return null
 }
 
 onMounted(async () => {

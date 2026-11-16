@@ -8,6 +8,7 @@ from lms.lms.sidebar import seed_sidebar_items
 
 
 def after_install():
+	set_default_currency_for_new_install()
 	create_batch_source()
 	give_discussions_permission()
 	give_user_list_permission()
@@ -15,6 +16,14 @@ def after_install():
 	ensure_batch_enrollment_index()
 	ensure_enrollment_unique_constraints()
 	build_search_index()
+
+
+def set_default_currency_for_new_install():
+	"""Default new LMS installations to VND without replacing a chosen currency."""
+	if not frappe.db.get_single_value("LMS Settings", "default_currency") and frappe.db.exists(
+		"Currency", "VND"
+	):
+		frappe.db.set_single_value("LMS Settings", "default_currency", "VND")
 
 
 def build_search_index():

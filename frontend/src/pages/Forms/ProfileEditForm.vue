@@ -36,13 +36,6 @@
 					<FormControl v-model="profile.twitter" :label="__('Twitter ID')" />
 				</div>
 				<div class="space-y-4">
-					<FormControl
-						v-model="profile.open_to"
-						type="select"
-						:options="[{ label: '', value: '' }, 'Work', 'Hiring']"
-						:label="__('Open to')"
-						:placeholder="__('Looking for new work or hiring talent?')"
-					/>
 					<Link
 						:label="__('Language')"
 						v-model="profile.language"
@@ -136,7 +129,6 @@ const profile = reactive({
 	language: '',
 	bio: '',
 	image: '',
-	open_to: '',
 	linkedin: '',
 	github: '',
 	twitter: '',

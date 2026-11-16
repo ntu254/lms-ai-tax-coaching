@@ -45,8 +45,6 @@ const DOCTYPE_LABELS: Record<string, () => string> = {
 	'LMS Batch Enrollment': () => __('Batch Enrollment'),
 	'LMS Quiz Submission': () => __('Quiz Submission'),
 	'LMS Assignment Submission': () => __('Assignment Submission'),
-	'LMS Programming Exercise Submission': () =>
-		__('Programming Exercise Submission'),
 	Member: () => __('User'),
 }
 
@@ -125,10 +123,6 @@ const referenceDoctypeOptions = (): SelectOption[] => [
 	{ label: __('User'), value: 'Member' },
 	{ label: __('Quiz Submission'), value: 'LMS Quiz Submission' },
 	{ label: __('Assignment Submission'), value: 'LMS Assignment Submission' },
-	{
-		label: __('Programming Exercise Submission'),
-		value: 'LMS Programming Exercise Submission',
-	},
 	{ label: __('Course Enrollment'), value: 'LMS Enrollment' },
 	{ label: __('Batch Enrollment'), value: 'LMS Batch Enrollment' },
 ]

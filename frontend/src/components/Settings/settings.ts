@@ -58,7 +58,7 @@ export const settingsTree: SettingsGroup[] = [
 				page: { kind: 'custom', component: markRaw(Preferences) },
 			},
 			{
-				label: 'Signup',
+				label: 'Đăng ký',
 				slug: 'signup',
 				icon: 'lucide-log-in',
 				page: {
@@ -67,7 +67,7 @@ export const settingsTree: SettingsGroup[] = [
 					save: 'auto',
 					sections: [
 						{
-							label: 'Signup',
+							label: 'Đăng ký',
 							fields: [
 								{
 									label: 'Identify User Category',
@@ -143,10 +143,6 @@ export const settingsTree: SettingsGroup[] = [
 											label: 'Assignments',
 											name: 'enforce_assignment_completion',
 										},
-										{
-											label: 'Programming exercises',
-											name: 'enforce_programming_exercise_completion',
-										},
 									],
 								},
 								{
@@ -175,11 +171,6 @@ export const settingsTree: SettingsGroup[] = [
 											caution:
 												'The lesson completes only after an instructor grades it.',
 										},
-										{
-											label: 'Programming exercises',
-											name: 'enforce_programming_exercise_passing',
-											requires: 'enforce_programming_exercise_completion',
-										},
 									],
 								},
 								{
@@ -204,7 +195,7 @@ export const settingsTree: SettingsGroup[] = [
 				page: badgesSettingsPage,
 			},
 			{
-				label: 'Badge Assignments',
+				label: 'Cấp huy hiệu',
 				slug: 'badge-assignments',
 				icon: 'lucide-badge-check',
 				records: true,

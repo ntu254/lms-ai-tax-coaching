@@ -23,6 +23,8 @@ type ResourceOpts = {
 
 // Every createResource() call in the component lands here so the test can assert
 // what fired, when, and with which params.
+let outlineData: unknown[] | null = null
+
 const resources: Array<
 	ResourceOpts & {
 		fetch: ReturnType<typeof vi.fn>
@@ -35,7 +37,7 @@ vi.mock('frappe-ui', () => ({
 	createResource: (opts: ResourceOpts) => {
 		const resource = {
 			...opts,
-			data: null,
+			data: opts.url === 'lms.lms.utils.get_course_outline' ? outlineData : null,
 			loading: false,
 			fetch: vi.fn(),
 			reload: vi.fn(),
@@ -96,6 +98,7 @@ const mountOverview = (course: { data: { name: string } | null }) =>
 
 beforeEach(() => {
 	resources.length = 0
+	outlineData = null
 })
 
 describe('CourseOverview outline resource', () => {
@@ -131,6 +134,13 @@ describe('CourseOverview outline resource', () => {
 	// A `cache` key would be snapshotted at setup (undefined on a cold load),
 	// and frappe-ui shares one instance per key, so a fixed key here leaks one
 	// course's outline into another. The resource must be created without one.
+	it('shows learners a notice beside enrollment when the loaded outline is empty', () => {
+		outlineData = []
+		const wrapper = mountOverview(reactive({ data: { name: 'COURSE-1' } }))
+		expect(wrapper.findAll('.learner-course-notice')).toHaveLength(2)
+		expect(wrapper.find('.learner-course-notice').text()).toContain('Nội dung khóa học sẽ sớm ra mắt')
+	})
+
 	it('does not register a global cache key', () => {
 		mountOverview(reactive({ data: null }))
 

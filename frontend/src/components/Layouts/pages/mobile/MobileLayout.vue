@@ -1,5 +1,6 @@
 <template>
 	<div class="relative flex h-dvh flex-col">
+		<LearnerHeader v-if="learner" />
 		<a
 			href="#scrollContainer"
 			@click.prevent="skipToContent('scrollContainer')"
@@ -67,6 +68,8 @@
 // can't do that job, since Chromium drops a flex column's bottom padding
 // from the scrollable area, hiding the last row under the bar.
 import { skipToContent } from '@/utils/a11y'
+import LearnerHeader from '@/components/Public/LearnerHeader.vue'
+defineProps({ learner: { type: Boolean, default: false } })
 import { useRouter } from 'vue-router'
 import { ref, computed, watch } from 'vue'
 import { storeToRefs } from 'pinia'

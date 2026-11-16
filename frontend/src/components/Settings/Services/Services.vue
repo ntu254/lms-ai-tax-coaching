@@ -9,25 +9,6 @@
 		@save="save"
 	>
 		<div class="divide-y divide-outline-elevation-2">
-			<div class="pb-3">
-				<div class="text-p-base-medium text-ink-gray-7 mb-2">
-					{{ __('Livecode URL') }}
-				</div>
-				<FormControl
-					type="text"
-					class="w-full"
-					:model-value="lmsSource.doc?.livecode_url"
-					:aria-label="__('Livecode URL')"
-					@update:model-value="(value: string) => setLmsField('livecode_url', value)"
-				/>
-				<div class="text-p-sm text-ink-gray-6 mt-1">
-					{{
-						__(
-							"Address of the LiveCode server that runs the code learners write in programming exercises. Leave it blank to use Frappe's hosted server, or see https://docs.frappe.io/learning/falcon-self-hosting-guide to host your own."
-						)
-					}}
-				</div>
-			</div>
 			<div class="py-3">
 				<div class="text-p-base-medium text-ink-gray-7 mb-2">
 					{{ __('Unsplash Access Key') }}
@@ -43,7 +24,7 @@
 				<div class="text-p-sm text-ink-gray-6 mt-1">
 					{{
 						__(
-							'Allows users to pick a profile cover image from Unsplash. https://unsplash.com/documentation#getting-started.'
+							'Cho phép người dùng chọn ảnh bìa hồ sơ từ Unsplash. https://unsplash.com/documentation#getting-started.'
 						)
 					}}
 				</div>
@@ -61,13 +42,13 @@
 							{{ __('Enable') }}
 						</div>
 						<div class="text-p-sm text-ink-gray-6">
-							{{ __('Turns on Google API access for this site.') }}
+							{{ __('Bật quyền truy cập Google API cho trang web này.') }}
 						</div>
 					</div>
 					<BooleanSwitch
 						size="sm"
 						:model-value="Boolean(googleSource?.doc?.enable)"
-						:aria-label="__('Enable Google API')"
+						:aria-label="__('Bật Google API')"
 						@update:model-value="
 							(value) => setGoogleField('enable', value ? 1 : 0)
 						"
@@ -96,7 +77,7 @@
 						:error="clientSecretError"
 						:placeholder="
 							hasExistingSecret
-								? __('Saved, leave blank to keep it')
+								? __('Đã lưu, để trống nếu không muốn thay đổi')
 								: __('Client Secret')
 						"
 						:aria-label="__('Client Secret')"
@@ -140,7 +121,7 @@ const setGoogleField = (field: 'enable' | 'client_id', value: unknown) => {
 }
 
 const setLmsField = (
-	field: 'livecode_url' | 'unsplash_access_key',
+	field: 'unsplash_access_key',
 	value: unknown
 ) => {
 	if (lmsSource.doc) lmsSource.doc[field] = value

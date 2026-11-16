@@ -1,0 +1,292 @@
+{
+  "version": 1,
+  "foundation": {
+    "strategy": "extend",
+    "existingAssets": [
+      "frontend/src/components/Icons/LMSLogo.vue",
+      "lms/public/images/lms-logo.png",
+      "frontend/src/index.css",
+      "frontend/src/utils/theme.ts",
+      "frontend/src/components/Sidebar/AppSidebar.vue"
+    ],
+    "assetActions": [
+      {
+        "asset": "frontend/src/components/Icons/LMSLogo.vue",
+        "action": "protect",
+        "reason": "Biểu tượng hiện có dùng dấu sách trắng trên nền xanh cố định; giữ nguyên nhận diện cho đến khi có tài sản thương hiệu thay thế được xác minh."
+      },
+      {
+        "asset": "lms/public/images/lms-logo.png",
+        "action": "preserve",
+        "reason": "Tài sản logo hiện có của dự án."
+      },
+      {
+        "asset": "frappe-ui và frontend/src/index.css",
+        "action": "evolve",
+        "reason": "Giữ nền tảng component và mở rộng vai trò màu, điều hướng cho giao diện học viên."
+      },
+      {
+        "asset": "frontend/src/utils/theme.ts",
+        "action": "preserve",
+        "reason": "Đã hỗ trợ chế độ sáng, tối và theo hệ thống."
+      },
+      {
+        "asset": "Điều hướng học viên trong AppSidebar.vue",
+        "action": "evolve",
+        "reason": "Chuyển các mục phù hợp sang header và popover theo yêu cầu, giữ quyền truy cập hiện có."
+      }
+    ],
+    "lockedDecisions": [
+      "Cam là màu thương hiệu chủ đạo, chữ trắng trên các bề mặt cam khi đạt độ tương phản.",
+      "Ưu tiên frappe-ui và biểu tượng Lucide hiện có.",
+      "Giữ hỗ trợ giao diện sáng, tối và theo hệ thống.",
+      "Dùng header nav cho học viên, gộp các mục liên quan vào popover."
+    ],
+    "assumptions": [
+      "Không có mã cam chính xác được cung cấp; màu hạt giống là lựa chọn ban đầu cần kiểm tra tương phản.",
+      "Logo xanh hiện có được bảo vệ, không tự đổi màu hoặc thay bằng logo giả.",
+      "Chưa xác minh được kiểu chữ thương hiệu riêng; chọn Figtree theo nhóm sans của ảnh neo.",
+      "Ảnh neo chủ yếu dùng nền sáng ấm, chữ đen lớn, nút pill và ảnh bo góc; chế độ tối được bổ sung độc lập để tương thích sản phẩm."
+    ]
+  },
+  "creativeDirection": {
+    "summary": "Giao diện học tập rõ ràng với tiêu đề sans đậm, không gian rộng, nền trung tính ấm và điểm nhấn cam có chức năng.",
+    "traits": [
+      {
+        "quality": "Tiêu đề lớn, chắc và ngắn",
+        "boundary": "không làm giảm khả năng đọc tiếng Việt hoặc ép chữ tràn màn hình"
+      },
+      {
+        "quality": "Điều hướng gọn và dễ nhận biết",
+        "boundary": "không ẩn các hành động học tập thiết yếu"
+      },
+      {
+        "quality": "Bề mặt sáng, ấm và có phân cấp",
+        "boundary": "không trang trí mỗi thẻ bằng một màu riêng"
+      }
+    ],
+    "productiveTension": "Quy mô chữ nổi bật của trang giới thiệu đi cùng độ rõ ràng và tính quen thuộc của công cụ học tập.",
+    "signatureDevice": {
+      "description": "Tiêu đề lớn chia dòng, đi kèm một dấu nhấn cam nhỏ ở cuối, rút từ bố cục hero tham chiếu.",
+      "status": "candidate",
+      "invariants": [
+        "Chỉ dùng tại tiêu đề nổi bật, không thay thế dấu câu có nghĩa.",
+        "Giữ điểm nhấn cam nhỏ so với chữ và không đưa vào logo hiện có.",
+        "Không lặp lại ở mọi tiêu đề."
+      ]
+    },
+    "restraint": "Để khoảng trắng và phân cấp chữ tạo nhịp; dùng cam tập trung cho hành động và trạng thái.",
+    "avoid": [
+      "Sao chép logo hoặc nội dung của ảnh tham chiếu.",
+      "Viền lưới dày đặc, gradient trang trí và thẻ bao đoạn văn thông thường.",
+      "Nhiều hệ kiểu chữ hoặc biểu tượng tự vẽ."
+    ]
+  },
+  "colorPalette": [
+    {
+      "name": "Light Canvas",
+      "value": "#FCF6EE",
+      "usage": "Dominant. canvas token in the light theme."
+    },
+    {
+      "name": "Light Surface",
+      "value": "#FFFDFA",
+      "usage": "Dominant. surface token in the light theme."
+    },
+    {
+      "name": "Light Surface alt",
+      "value": "#E3DDD5",
+      "usage": "Supporting. surface alt token in the light theme."
+    },
+    {
+      "name": "Light Text",
+      "value": "#15110B",
+      "usage": "Semantic. text token in the light theme."
+    },
+    {
+      "name": "Light Text muted",
+      "value": "#514C46",
+      "usage": "Semantic. text muted token in the light theme."
+    },
+    {
+      "name": "Light Divider",
+      "value": "#C9C3BB",
+      "usage": "Semantic. divider token in the light theme."
+    },
+    {
+      "name": "Light Control border",
+      "value": "#6D6861",
+      "usage": "Semantic. control border token in the light theme."
+    },
+    {
+      "name": "Light Accent",
+      "value": "#C83E0A",
+      "usage": "Sparse accent. accent token in the light theme."
+    },
+    {
+      "name": "Light Accent hover",
+      "value": "#A93000",
+      "usage": "Semantic. accent hover token in the light theme."
+    },
+    {
+      "name": "Light On accent",
+      "value": "#FFFFFF",
+      "usage": "Semantic. on accent token in the light theme."
+    },
+    {
+      "name": "Light Accent text",
+      "value": "#771F00",
+      "usage": "Sparse accent. accent text token in the light theme."
+    },
+    {
+      "name": "Light Focus ring",
+      "value": "#A42E00",
+      "usage": "Semantic. focus ring token in the light theme."
+    },
+    {
+      "name": "Dark Canvas",
+      "value": "#070604",
+      "usage": "Dominant. canvas token in the dark theme."
+    },
+    {
+      "name": "Dark Surface",
+      "value": "#110F0C",
+      "usage": "Dominant. surface token in the dark theme."
+    },
+    {
+      "name": "Dark Surface alt",
+      "value": "#2B2926",
+      "usage": "Supporting. surface alt token in the dark theme."
+    },
+    {
+      "name": "Dark Text",
+      "value": "#EDEBE7",
+      "usage": "Semantic. text token in the dark theme."
+    },
+    {
+      "name": "Dark Text muted",
+      "value": "#A09E9A",
+      "usage": "Semantic. text muted token in the dark theme."
+    },
+    {
+      "name": "Dark Divider",
+      "value": "#44423F",
+      "usage": "Semantic. divider token in the dark theme."
+    },
+    {
+      "name": "Dark Control border",
+      "value": "#888682",
+      "usage": "Semantic. control border token in the dark theme."
+    },
+    {
+      "name": "Dark Accent",
+      "value": "#F47742",
+      "usage": "Sparse accent. accent token in the dark theme."
+    },
+    {
+      "name": "Dark Accent hover",
+      "value": "#FF976D",
+      "usage": "Semantic. accent hover token in the dark theme."
+    },
+    {
+      "name": "Dark On accent",
+      "value": "#000000",
+      "usage": "Semantic. on accent token in the dark theme."
+    },
+    {
+      "name": "Dark Accent text",
+      "value": "#F57E4C",
+      "usage": "Sparse accent. accent text token in the dark theme."
+    },
+    {
+      "name": "Dark Focus ring",
+      "value": "#F27540",
+      "usage": "Semantic. focus ring token in the dark theme."
+    }
+  ],
+  "typefaces": [
+    {
+      "family": "Figtree",
+      "source": "Google Fonts, https://github.com/google/fonts/tree/main/ofl/figtree; cần lấy tệp font và giấy phép trước khi xây dựng",
+      "roles": [
+        "Tiêu đề",
+        "Nội dung",
+        "Điều khiển"
+      ],
+      "weights": [
+        400,
+        500,
+        600,
+        700,
+        800
+      ]
+    }
+  ],
+  "interfaceDirection": "Một hệ sans với tiêu đề lớn đậm, tracking hơi chặt và nội dung dễ đọc; nhãn ngắn dùng cùng font, cỡ nhỏ và chữ thường theo câu. Nội dung giới hạn khoảng 1440px, lề linh hoạt; hero thoáng, khu vực học tập đặc hơn. Nút và điều hướng dạng pill, thẻ nội dung bo vừa, ảnh cắt trong khung bo; viền mảnh và bóng rất nhẹ. Màu cam xuất hiện trên CTA, focus, trạng thái chọn và một cách xử lý lặp lại cho nội dung nổi bật. Các trạng thái hover, focus-visible, active và disabled phải phân biệt rõ; kiểm tra tỷ lệ tương phản chữ trắng trên cam trước khi dùng.",
+  "designTokens": {
+    "typeScale": {
+      "display": "clamp(3.5rem, 2rem + 6vw, 8rem)",
+      "h1": "clamp(2.75rem, 1.8rem + 4vw, 5.5rem)",
+      "h2": "clamp(2rem, 1.4rem + 2.5vw, 4rem)",
+      "h3": "clamp(1.25rem, 1.1rem + 0.6vw, 1.75rem)",
+      "body": "1rem",
+      "small": "0.875rem",
+      "label": "0.875rem"
+    },
+    "radius": {
+      "scale": [
+        "6px",
+        "12px",
+        "24px"
+      ],
+      "pill": "999px"
+    },
+    "spacing": {
+      "section": "clamp(4rem, 7vw, 7rem)",
+      "gutter": "clamp(1.25rem, 3vw, 3rem)",
+      "stack": "1.5rem"
+    },
+    "buttons": {
+      "primary": "Pill cao 48px, nền cam đủ tương phản với chữ trắng, nhãn chữ thường theo câu, đậm vừa.",
+      "secondary": "Pill cao 48px, nền trong suốt, viền trung tính 1px, nhãn chữ thường theo câu."
+    },
+    "surfaces": "Chế độ sáng bắt đầu bằng nền xám ấm sáng, nội dung và thẻ trung tính sáng; dùng một vùng tối tương phản khi phù hợp. Chế độ tối dùng nền than ấm và thẻ than sáng hơn, chữ sáng. Thẻ có cùng bán kính và viền nhẹ, không bóng nặng; media nằm trong khung bo, chỉ dùng thẻ cho nội dung liên quan hoặc tương tác."
+  },
+  "imageDirection": {
+    "summary": "Hình ảnh hỗ trợ việc học và thể hiện sản phẩm trong khung ảnh bo góc rộng theo tham chiếu.",
+    "subjects": [
+      "Hình khóa học thực có nguồn hợp lệ",
+      "Người học và bối cảnh học tập phù hợp",
+      "Ảnh chụp giao diện thực khi có thể xác minh"
+    ],
+    "treatment": "Ảnh tự nhiên, cắt có chủ đích, đủ độ phân giải; dùng cùng quy tắc bo góc và phân cấp màu trên cả trang.",
+    "avoid": [
+      "Ảnh mang hàm ý người mẫu là học viên hoặc giảng viên thực khi chưa xác minh.",
+      "Sơ đồ trang trí không có thông tin.",
+      "Dùng ảnh tham chiếu làm nền thay cho giao diện."
+    ]
+  },
+  "motionDirection": {
+    "summary": "Chuyển động ngắn, nhất quán và giữ nguyên bố cục; nội dung luôn đọc được khi giảm chuyển động hoặc lỗi script.",
+    "principles": [
+      "Giới thiệu hero khi tải trang; tiêu đề và nội dung phụ lần lượt hiện bằng opacity và dịch chuyển nhẹ, 500–700ms với lệch 80ms, ease-out.",
+      "Dẫn mắt khi cuộn vào hai nhóm nội dung sau hero; nhóm chữ rise và ảnh hiện trong khung bằng opacity cùng dịch chuyển nhẹ, 450–700ms, ease-out; chạy một lần, quan sát từng nhóm với threshold 0 và rootMargin dưới dương.",
+      "Làm rõ thao tác khi nhấn hoặc mở điều hướng và popover; màu, viền và opacity thay đổi trong 120–200ms, ease-out; nội dung điều khiển luôn truy cập được bằng bàn phím.",
+      "Giữ ổn định khi cuộn nhanh, đổi kích thước hoặc khôi phục vị trí; chỉ chuẩn bị phần chưa vào viewport, bỏ quan sát ngay khi kích hoạt, tổng stagger tối đa 240ms; giảm chuyển động hiển thị trạng thái cuối ngay và dọn observer cùng animation do trang sở hữu."
+    ],
+    "avoid": [
+      "transition: all",
+      "Phóng từ tỷ lệ không",
+      "Thông tin chỉ xuất hiện khi hover",
+      "Scroll-jacking, lặp hiệu ứng khi cuộn ngược, ẩn nội dung mặc định hoặc biến đổi ancestor của phần tử sticky."
+    ]
+  },
+  "voice": {
+    "summary": "Tiếng Việt rõ ràng, trực tiếp và khuyến khích hành động; mô tả tính năng dựa trên khả năng thực tế.",
+    "avoid": [
+      "Cam kết kết quả chưa được chứng minh.",
+      "Lời chứng thực hoặc liên kết thương hiệu bịa đặt.",
+      "Thuật ngữ kỹ thuật nội bộ trong giao diện học viên."
+    ]
+  }
+}

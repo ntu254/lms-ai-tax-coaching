@@ -1,7 +1,7 @@
 <template>
 	<PageHeader :breadcrumbs="breadcrumbs" />
 	<PageBody :title="__('Billing Details')">
-		<div v-if="access.data?.access && orderSummary.data" class="px-5 pb-10">
+		<div v-if="access.data?.access && orderSummary.data" class="learner-billing-content px-5 pb-10">
 			<div class="flex flex-col lg:flex-row justify-between">
 				<div class="flex flex-col lg:order-last mb-10 lg:mt-10 lg:w-1/4">
 					<div class="h-fit bg-surface-gray-2 rounded-5 p-5 space-y-4">

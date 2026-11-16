@@ -1,5 +1,5 @@
 <template>
-	<div v-if="lesson.data" class="">
+	<div v-if="lesson.data" class="learner-lesson-view">
 		<PageHeader :breadcrumbs="breadcrumbs">
 			<template #actions>
 				<CertificationLinks :courseName="courseName" />

@@ -24,6 +24,11 @@ vi.mock('face-api.js', () => ({
 	TinyFaceDetectorOptions: class {},
 }))
 
+vi.mock('@framework/ui/telemetry/index', () => ({
+	useTelemetry: () => ({ capture: () => {} }),
+}))
+vi.mock('@framework/ui/components/Onboarding/index', () => ({}))
+
 // A test that prints is a test with a problem nobody is looking at: a Vue
 // warning, a missing stub, a rejected promise caught and logged. Every console
 // call is recorded instead of printed and fails the test that made it. A test
@@ -147,8 +152,10 @@ if (typeof window !== 'undefined') {
 		document.body.innerHTML = ''
 		restoreAttributes(document.documentElement, htmlAttributes)
 		restoreAttributes(document.body, bodyAttributes)
-		localStorage.clear()
-		sessionStorage.clear()
+		try {
+			localStorage?.clear?.()
+			sessionStorage?.clear?.()
+		} catch {}
 		if (window.location.href !== href)
 			window.history.replaceState(null, '', href)
 		for (const [key, descriptor] of Object.entries(globals)) {

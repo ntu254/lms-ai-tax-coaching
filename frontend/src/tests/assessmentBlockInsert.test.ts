@@ -30,10 +30,6 @@ vi.mock('@/components/Controls/Link.vue', () => ({
 }))
 vi.mock('@/components/QuizBlock.vue', () => ({ default: {} }))
 vi.mock('@/components/Assignment.vue', () => ({ default: {} }))
-vi.mock(
-	'@/pages/ProgrammingExercises/ProgrammingExerciseSubmission.vue',
-	() => ({ default: {} })
-)
 vi.mock('@/components/Assessment/AssessmentBlockPreview.vue', () => ({
 	default: {
 		props: ['kind', 'name'],
@@ -43,7 +39,6 @@ vi.mock('@/components/Assessment/AssessmentBlockPreview.vue', () => ({
 
 import { Quiz } from '@/utils/quiz'
 import { Assignment } from '@/utils/assignment'
-import { Program } from '@/utils/program'
 
 type Tool = {
 	wrapper: HTMLDivElement
@@ -68,17 +63,6 @@ const blockTools = [
 		create: (data: object) =>
 			new Assignment({
 				data,
-				readOnly: false,
-				block: { dispatchChange },
-			} as any),
-	},
-	{
-		kind: 'exercise',
-		saved: { exercise: 'picked-1' },
-		create: (data: object) =>
-			new Program({
-				data,
-				api: {},
 				readOnly: false,
 				block: { dispatchChange },
 			} as any),

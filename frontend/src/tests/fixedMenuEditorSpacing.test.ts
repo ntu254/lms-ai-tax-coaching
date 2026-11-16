@@ -32,7 +32,6 @@ const FILES = [
 	'components/Assignment.vue',
 	'components/Modals/DiscussionModal.vue',
 	'pages/Forms/ProfileEditForm.vue',
-	'pages/JobApplications.vue',
 ]
 
 const FIXED_MENU = /^fixed-?menu$/i

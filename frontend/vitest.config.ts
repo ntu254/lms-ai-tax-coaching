@@ -106,6 +106,14 @@ export default defineConfig({
 		preserveSymlinks: true,
 		alias: {
 			'@': path.resolve(path.dirname(fileURLToPath(import.meta.url)), 'src'),
+			'face-api.js': path.resolve(
+				path.dirname(fileURLToPath(import.meta.url)),
+				'src/tests/framework-ui-mock/face-api-mock.js'
+			),
+			'@framework/ui': path.resolve(
+				path.dirname(fileURLToPath(import.meta.url)),
+				'src/tests/framework-ui-mock'
+			),
 		},
 		// Match vite.config.js so tests load one ProseMirror and CodeMirror/Lezer
 		// like the build.

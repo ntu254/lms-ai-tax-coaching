@@ -15,7 +15,7 @@ from lms.lms.telemetry import DEMO_COURSE_TITLE, send
 from lms.lms.utils import get_lms_route
 
 SENT_KEY = "lms_day1_email_sent"
-REPLY_TO = "jannat@frappe.io"
+REPLY_TO = "contact@aicoaching.vn"
 EARLIEST_HOURS = 20
 LATEST_HOURS = 48
 QUIET_HOURS = 12
@@ -75,7 +75,7 @@ class Day1Email:
 				"create_course",
 				_("Your first course is one step away"),
 				_(
-					"I noticed you set up Frappe Learning yesterday. The next step is your first course: give it a name and add a lesson, and it starts taking shape."
+					"I noticed you set up AI Coaching Vietnam yesterday. The next step is your first course: give it a name and add a lesson, and it starts taking shape."
 				),
 				_("Create your course"),
 				"courses/new",

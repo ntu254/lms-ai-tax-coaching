@@ -25,6 +25,12 @@ export const PRIMARY_LABELS: readonly string[] = [
 // `pickPrimaryTabs` still hides any the admin has switched off.
 export const GUEST_TABS: readonly NavLink[] = [
 	{
+		label: 'Home',
+		icon: 'Home',
+		to: 'Home',
+		activeFor: ['Home'],
+	},
+	{
 		label: 'Courses',
 		icon: 'BookOpen',
 		to: 'Courses',
@@ -35,12 +41,6 @@ export const GUEST_TABS: readonly NavLink[] = [
 		icon: 'Users',
 		to: 'Batches',
 		activeFor: ['Batches', 'BatchDetail'],
-	},
-	{
-		label: 'Jobs',
-		icon: 'Briefcase',
-		to: 'Jobs',
-		activeFor: ['Jobs', 'JobDetail'],
 	},
 	{
 		label: 'Statistics',
@@ -75,9 +75,8 @@ const SECTION_MAP: Record<string, readonly string[]> = {
 		'Batches',
 		'Quizzes',
 		'Assignments',
-		'Programming Exercises',
 	],
-	DISCOVER: ['Jobs', 'Statistics'],
+	DISCOVER: ['Statistics'],
 }
 
 // Session actions belong to the account group no matter which list they
@@ -103,7 +102,6 @@ export function sectionFor(label: string): string {
 // to shorten a label that does not fit, rather than letting `truncate` clip a
 // word.
 const SHORT_TAB_LABELS: Record<string, string> = {
-	'Programming Exercises': 'Exercises',
 }
 
 export function tabLabel(label: string): string {

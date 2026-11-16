@@ -1,0 +1,22 @@
+/* Learner-facing course surfaces; authoring and administration retain their existing styles. */
+.learner-courses { min-height:100%; background:#f7f8fc; color:#0b1220; }
+.learner-courses-hero { padding:48px max(24px,calc((100% - 1200px)/2)); background:linear-gradient(120deg,#fff 0%,#fffaf6 48%,#f5f2ff 100%); }
+.learner-courses-hero p { margin:0 0 12px; color:#a83e05; font-size:13px; font-weight:700; }
+.learner-courses-hero h1 { margin:0; color:#0b1220; font-size:clamp(30px,3vw,42px); line-height:1.2; font-weight:800; letter-spacing:-1px; }
+.learner-courses-hero span { display:block; margin-top:12px; color:#667085; font-size:15px; line-height:1.6; }
+.learner-courses [data-testid="page-header-block"] { width:min(1240px,100%); margin:0 auto; padding:32px 20px 24px; gap:20px; }
+.learner-courses [data-testid="page-header-block"] h1 { font-size:22px; font-weight:700; }
+.learner-courses [data-testid="page-header-block"] .course-search-input input[type="text"] { min-height:42px; border:1px solid #d0d5dd; border-radius:10px; background:#fff; }
+.learner-courses .grid { width:min(1200px,100%); margin-inline:auto; }
+.public-course-layout .learner-courses > .header-frame { display:none; }
+.public-course-layout .header-frame { position:static; }
+.learner-course-overview { max-width:1240px; margin-inline:auto; padding:40px 20px 64px; }
+.learner-course-overview h1 { font-size:clamp(30px,3vw,40px); line-height:1.2; letter-spacing:-1px; }
+.learner-course-overview h2 { color:#0b1220; }
+.learner-course-overview aside > div, .learner-course-overview .md\:hidden > div { border:1px solid #e8ebf2; border-radius:18px; background:#fff; box-shadow:0 8px 32px rgba(16,24,40,.07); overflow:hidden; }
+.learner-course-overview aside a[data-variant="solid"], .learner-course-overview aside button[data-variant="solid"], .learner-course-overview .md\:hidden a[data-variant="solid"], .learner-course-overview .md\:hidden button[data-variant="solid"] { background:linear-gradient(115deg,#ff5b55,#ff7417); color:#fff; border-radius:12px 12px 5px 12px; min-height:44px; }
+@media(max-width:650px) { .learner-courses-hero { padding:36px 20px; }.learner-courses [data-testid="page-header-block"] { padding:24px 20px 18px; }.learner-course-overview { padding:28px 20px 48px; } }
+
+.learner-course-overview :is(aside, .md\:hidden) :is(a, button).bg-surface-gray-10 { background:linear-gradient(115deg,#ff5b55,#ff7417); color:#fff; border-radius:12px 12px 5px 12px; min-height:44px; }
+
+.learner-course-notice { padding:12px 14px; margin-bottom:12px; border:1px solid #ffdfc6; border-radius:12px; background:#fff5ed; color:#8f3909; font-size:13px; line-height:1.5; }

@@ -1,9 +1,9 @@
 <template>
-	<div class="w-full p-5">
-		<div class="space-y-2">
+	<div class="w-full p-5" :class="{ 'learner-home': !isAdmin && !user.data?.is_system_manager }">
+		<div class="space-y-2" :class="{ 'learner-home-intro': !isAdmin && !user.data?.is_system_manager }">
 			<div class="flex items-center justify-between">
 				<h1 class="text-2xl-bold text-ink-gray-9">
-					{{ __('Hey') }}, {{ user.data?.full_name }} 👋
+					{{ isLearner ? __('Xin chào') : __('Hey') }}, {{ user.data?.full_name }} 👋
 				</h1>
 				<div>
 					<button
@@ -11,7 +11,7 @@
 						type="button"
 						@click="showStreakModal = true"
 						:aria-label="
-							__('View learning streak: {0} days').format(
+							(isLearner ? __('Xem chuỗi học tập: {0} ngày') : __('View learning streak: {0} days')).format(
 								streakInfo.data?.current_streak || 0
 							)
 						"
@@ -82,6 +82,8 @@ const isAdmin = computed(() => {
 		user.data?.is_evaluator
 	)
 })
+
+const isLearner = computed(() => user.data?.is_student && !isAdmin.value && !user.data?.is_system_manager)
 
 const isHomeLoading = computed(() => {
 	if (isAdmin.value) {
@@ -169,7 +171,7 @@ const subtitle = computed(() => {
 				evalSuffix
 			)
 		}
-		return __('Resume where you left off')
+		return isLearner.value ? __('Tiếp tục hành trình học tập của bạn') : __('Resume where you left off')
 	}
 })
 

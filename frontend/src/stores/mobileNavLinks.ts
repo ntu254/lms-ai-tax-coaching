@@ -121,7 +121,6 @@ export async function loadMobileNavLinks(
 	if (canAssess(viewer)) {
 		addLink(others, 'Quizzes', 'CircleHelp', 'Quizzes')
 		addLink(others, 'Assignments', 'Pencil', 'Assignments')
-		addLink(others, 'Programming Exercises', 'Code', 'ProgrammingExercises')
 	}
 
 	addSessionLinks(others, viewer)

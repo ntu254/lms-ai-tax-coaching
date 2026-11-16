@@ -136,7 +136,6 @@ describe('loadMobileNavLinks', () => {
 		expect(labels(otherLinks)).toEqual([
 			'Quizzes',
 			'Assignments',
-			'Programming Exercises',
 			'Notifications',
 			'Profile',
 			'Log out',

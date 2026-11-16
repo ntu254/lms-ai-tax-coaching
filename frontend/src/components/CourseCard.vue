@@ -68,7 +68,7 @@
 							</span>
 							<span class="sr-only">
 								{{
-									__('{0} enrolled').format(formatAmount(course.enrollments))
+									__('{0} học viên đã ghi danh').format(formatAmount(course.enrollments))
 								}}
 							</span>
 						</span>
@@ -85,7 +85,7 @@
 							<span aria-hidden="true">{{ formatRating(course.rating) }}</span>
 							<span class="sr-only">
 								{{
-									__('Rated {0} out of 5').format(formatRating(course.rating))
+									__('Đánh giá {0} trên 5').format(formatRating(course.rating))
 								}}
 							</span>
 						</span>
@@ -191,8 +191,8 @@ const props = defineProps({
 
 const lessonCount = computed(() =>
 	props.course.lessons == 1
-		? __('1 lesson')
-		: __('{0} lessons').format(props.course.lessons)
+		? __('1 bài học')
+		: __('{0} bài học').format(props.course.lessons)
 )
 
 const gradientColor = computed(() => {

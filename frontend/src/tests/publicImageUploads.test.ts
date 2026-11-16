@@ -296,7 +296,6 @@ const MANIFEST: Record<string, Privacy[]> = {
 	'components/Courses/CourseThumbnailField.vue': ['public', 'public'],
 	// Deliberately not readable by other users.
 	'components/Assignment.vue': ['private', 'private', 'private'],
-	'components/Modals/JobApplicationModal.vue': ['private'],
 	'pages/Forms/ChapterForm.vue': ['private'],
 	'components/Notes/Notes.vue': ['private'],
 	// A gateway's attachment keeps the privacy SettingsFields gave it before the
@@ -335,10 +334,7 @@ const MANIFEST: Record<string, Privacy[]> = {
 	'pages/Forms/NewBatchForm.vue': ['undeclared'],
 	'components/Courses/CourseOverviewSection.vue': ['undeclared'],
 	'pages/Forms/NewCourseForm.vue': ['undeclared'],
-	'pages/JobApplications.vue': ['undeclared'],
-	'pages/Forms/JobForm.vue': ['undeclared'],
 	'pages/Forms/ProfileEditForm.vue': ['undeclared'],
-	'pages/Forms/ProgrammingExerciseForm.vue': ['undeclared'],
 }
 
 describe('every uploader has the privacy the manifest states', () => {

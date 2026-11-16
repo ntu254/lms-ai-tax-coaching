@@ -60,7 +60,6 @@ vi.mock('@/components/Controls/Link.vue', () => stub())
 vi.mock('@/components/Controls/Select.vue', () => stub())
 vi.mock('@/components/Controls/ClearableCombobox.vue', () => stub())
 vi.mock('@/components/Controls/ToggleFilter.vue', () => stub())
-vi.mock('@/components/JobCard.vue', () => stub())
 vi.mock('@/components/UserAvatar.vue', () => stub())
 vi.mock('@/pages/Batches/components/BatchCard.vue', () => stub())
 vi.mock('@/components/Layouts/pages/ListPage.vue', () => ({
@@ -124,11 +123,6 @@ beforeEach(() => {
 })
 
 describe('search box reloads once per typed value', () => {
-	it('Jobs', async () => {
-		const delta = await reloadsForOneSearch('@/pages/Jobs.vue')
-		expect(delta['lms.lms.api.get_job_opportunities']).toBe(1)
-		expect(delta['lms.lms.api.get_job_opportunities_count']).toBe(1)
-	})
 
 	it('Batches', async () => {
 		const delta = await reloadsForOneSearch('@/pages/Batches/Batches.vue')
@@ -139,14 +133,6 @@ describe('search box reloads once per typed value', () => {
 	it('CertifiedParticipants', async () => {
 		const delta = await reloadsForOneSearch('@/pages/CertifiedParticipants.vue')
 		expect(delta['lms.lms.api.get_certified_participants']).toBe(1)
-	})
-
-	it('ProgrammingExercises', async () => {
-		const delta = await reloadsForOneSearch(
-			'@/pages/ProgrammingExercises/ProgrammingExercises.vue'
-		)
-		expect(delta['LMS Programming Exercise']).toBe(1)
-		expect(delta['frappe.client.get_count']).toBe(1)
 	})
 })
 

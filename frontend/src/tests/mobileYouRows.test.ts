@@ -41,7 +41,6 @@ const SIDEBAR = [
 const OTHER = [
 	link('Quizzes', 'CircleHelp', 'Quizzes'),
 	link('Assignments', 'Pencil', 'Assignments'),
-	link('Programming Exercises', 'Code', 'ProgrammingExercises'),
 	link('Notifications', 'Bell', 'Notifications'),
 	link('Profile', 'UserRound'),
 	link('Log out', 'LogOut'),
@@ -99,9 +98,8 @@ describe('destinations', () => {
 			'Batches',
 			'Quizzes',
 			'Assignments',
-			'Programming Exercises',
-			'Jobs',
 			'Statistics',
+			'Jobs',
 			'Contact Us',
 		])
 	})
@@ -269,9 +267,8 @@ describe('every icon the page can draw', () => {
 			'lucide-users',
 			'lucide-circle-help',
 			'lucide-pencil',
-			'lucide-code',
-			'lucide-briefcase',
 			'lucide-trending-up',
+			'lucide-briefcase',
 			'lucide-mail',
 			'lucide-bell',
 			'lucide-sun-moon',

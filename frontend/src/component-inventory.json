@@ -1,0 +1,1002 @@
+[
+  {
+    "name": "GuestAiChatbot",
+    "path": "src/components/AiChatbot/GuestAiChatbot.vue",
+    "group": "AiChatbot"
+  },
+  {
+    "name": "AssessmentBlock",
+    "path": "src/components/Assessment/AssessmentBlock.vue",
+    "group": "Assessment"
+  },
+  {
+    "name": "AssessmentBlockPreview",
+    "path": "src/components/Assessment/AssessmentBlockPreview.vue",
+    "group": "Assessment"
+  },
+  {
+    "name": "AssessmentCard",
+    "path": "src/components/Assessment/AssessmentCard.vue",
+    "group": "Assessment"
+  },
+  {
+    "name": "AssessmentCardHeader",
+    "path": "src/components/Assessment/AssessmentCardHeader.vue",
+    "group": "Assessment"
+  },
+  {
+    "name": "AssignmentUploadPrompt",
+    "path": "src/components/Assessment/AssignmentUploadPrompt.vue",
+    "group": "Assessment"
+  },
+  {
+    "name": "FeedbackBanner",
+    "path": "src/components/Assessment/FeedbackBanner.vue",
+    "group": "Assessment"
+  },
+  {
+    "name": "OptionRow",
+    "path": "src/components/Assessment/OptionRow.vue",
+    "group": "Assessment"
+  },
+  {
+    "name": "QuizStats",
+    "path": "src/components/Assessment/QuizStats.vue",
+    "group": "Assessment"
+  },
+  {
+    "name": "AssessmentPlugin",
+    "path": "src/components/AssessmentPlugin.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "Assignment",
+    "path": "src/components/Assignment.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "AudioBlock",
+    "path": "src/components/AudioBlock.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "BlockEditor",
+    "path": "src/components/BlockEditor.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "BottomSheet",
+    "path": "src/components/BottomSheet.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "CardLink",
+    "path": "src/components/CardLink.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "CertificationLinks",
+    "path": "src/components/CertificationLinks.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "ChapterRow",
+    "path": "src/components/ChapterRow.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "ChartEmptyState",
+    "path": "src/components/ChartEmptyState.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "CollapsibleSection",
+    "path": "src/components/CollapsibleSection.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "CommandPalette",
+    "path": "src/components/CommandPalette/CommandPalette.vue",
+    "group": "CommandPalette"
+  },
+  {
+    "name": "ContactUsEmail",
+    "path": "src/components/ContactUsEmail.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "ContinueCoursePanel",
+    "path": "src/components/ContinueCoursePanel.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "BooleanSwitch",
+    "path": "src/components/Controls/BooleanSwitch.vue",
+    "group": "Controls"
+  },
+  {
+    "name": "CautionIcon",
+    "path": "src/components/Controls/CautionIcon.vue",
+    "group": "Controls"
+  },
+  {
+    "name": "ChildTable",
+    "path": "src/components/Controls/ChildTable.vue",
+    "group": "Controls"
+  },
+  {
+    "name": "ClearableCombobox",
+    "path": "src/components/Controls/ClearableCombobox.vue",
+    "group": "Controls"
+  },
+  {
+    "name": "IconPicker",
+    "path": "src/components/Controls/IconPicker.vue",
+    "group": "Controls"
+  },
+  {
+    "name": "ImageUploader",
+    "path": "src/components/Controls/ImageUploader.vue",
+    "group": "Controls"
+  },
+  {
+    "name": "ImageUploadField",
+    "path": "src/components/Controls/ImageUploadField.vue",
+    "group": "Controls"
+  },
+  {
+    "name": "Link",
+    "path": "src/components/Controls/Link.vue",
+    "group": "Controls"
+  },
+  {
+    "name": "MultiLink",
+    "path": "src/components/Controls/MultiLink.vue",
+    "group": "Controls"
+  },
+  {
+    "name": "RoleSwitches",
+    "path": "src/components/Controls/RoleSwitches.vue",
+    "group": "Controls"
+  },
+  {
+    "name": "Select",
+    "path": "src/components/Controls/Select.vue",
+    "group": "Controls"
+  },
+  {
+    "name": "SwitchRow",
+    "path": "src/components/Controls/SwitchRow.vue",
+    "group": "Controls"
+  },
+  {
+    "name": "ToggleFilter",
+    "path": "src/components/Controls/ToggleFilter.vue",
+    "group": "Controls"
+  },
+  {
+    "name": "Uploader",
+    "path": "src/components/Controls/Uploader.vue",
+    "group": "Controls"
+  },
+  {
+    "name": "VideoPreviewField",
+    "path": "src/components/Controls/VideoPreviewField.vue",
+    "group": "Controls"
+  },
+  {
+    "name": "CourseCard",
+    "path": "src/components/CourseCard.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "CourseCardOverlay",
+    "path": "src/components/CourseCardOverlay.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "CourseCreatorCard",
+    "path": "src/components/CourseCreatorCard.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "CourseEditorEmptyState",
+    "path": "src/components/CourseEditorEmptyState.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "CourseInstructors",
+    "path": "src/components/CourseInstructors.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "CourseOutline",
+    "path": "src/components/CourseOutline.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "CourseReviews",
+    "path": "src/components/CourseReviews.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "CourseDetailsSection",
+    "path": "src/components/Courses/CourseDetailsSection.vue",
+    "group": "Courses"
+  },
+  {
+    "name": "CourseInstructorsField",
+    "path": "src/components/Courses/CourseInstructorsField.vue",
+    "group": "Courses"
+  },
+  {
+    "name": "CourseOverviewSection",
+    "path": "src/components/Courses/CourseOverviewSection.vue",
+    "group": "Courses"
+  },
+  {
+    "name": "CourseThumbnailField",
+    "path": "src/components/Courses/CourseThumbnailField.vue",
+    "group": "Courses"
+  },
+  {
+    "name": "LearnerCourseCard",
+    "path": "src/components/Courses/LearnerCourseCard.vue",
+    "group": "Courses"
+  },
+  {
+    "name": "CreateOutline",
+    "path": "src/components/CreateOutline.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "DiscussionReplies",
+    "path": "src/components/DiscussionReplies.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "Discussions",
+    "path": "src/components/Discussions.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "EmptyStateActions",
+    "path": "src/components/EmptyStateActions.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "EnrollPaymentPanel",
+    "path": "src/components/Enrollment/EnrollPaymentPanel.vue",
+    "group": "Enrollment"
+  },
+  {
+    "name": "EnrollSelectionBanner",
+    "path": "src/components/Enrollment/EnrollSelectionBanner.vue",
+    "group": "Enrollment"
+  },
+  {
+    "name": "EnrollSelectStep",
+    "path": "src/components/Enrollment/EnrollSelectStep.vue",
+    "group": "Enrollment"
+  },
+  {
+    "name": "EnrollStudentsForm",
+    "path": "src/components/Enrollment/EnrollStudentsForm.vue",
+    "group": "Enrollment"
+  },
+  {
+    "name": "EnrollStudentTable",
+    "path": "src/components/Enrollment/EnrollStudentTable.vue",
+    "group": "Enrollment"
+  },
+  {
+    "name": "StudentPicker",
+    "path": "src/components/Enrollment/StudentPicker.vue",
+    "group": "Enrollment"
+  },
+  {
+    "name": "RichTextEditorField",
+    "path": "src/components/FormLayout/RichTextEditorField.vue",
+    "group": "FormLayout"
+  },
+  {
+    "name": "FormShell",
+    "path": "src/components/FormShell.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "HeaderButton",
+    "path": "src/components/HeaderButton.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "FrappeCloudIcon",
+    "path": "src/components/Icons/FrappeCloudIcon.vue",
+    "group": "Icons"
+  },
+  {
+    "name": "IndicatorIcon",
+    "path": "src/components/Icons/IndicatorIcon.vue",
+    "group": "Icons"
+  },
+  {
+    "name": "InviteIcon",
+    "path": "src/components/Icons/InviteIcon.vue",
+    "group": "Icons"
+  },
+  {
+    "name": "LMSLogo",
+    "path": "src/components/Icons/LMSLogo.vue",
+    "group": "Icons"
+  },
+  {
+    "name": "Play",
+    "path": "src/components/Icons/Play.vue",
+    "group": "Icons"
+  },
+  {
+    "name": "InstallPrompt",
+    "path": "src/components/InstallPrompt.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "JobCard",
+    "path": "src/components/JobCard.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "EmptyStateLayout",
+    "path": "src/components/Layouts/EmptyStateLayout.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "DesktopLayout",
+    "path": "src/components/Layouts/pages/desktop/DesktopLayout.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "NoSidebarLayout",
+    "path": "src/components/Layouts/pages/desktop/NoSidebarLayout.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "ListPage",
+    "path": "src/components/Layouts/pages/ListPage.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "MobileLayout",
+    "path": "src/components/Layouts/pages/mobile/MobileLayout.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "MobilePageLayout",
+    "path": "src/components/Layouts/pages/mobile/MobilePageLayout.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "PageBody",
+    "path": "src/components/Layouts/pages/PageBody.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "PageHeader",
+    "path": "src/components/Layouts/pages/PageHeader.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "PublicCourseLayout",
+    "path": "src/components/Layouts/pages/PublicCourseLayout.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "TabbedDetailPage",
+    "path": "src/components/Layouts/pages/TabbedDetailPage.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "SettingsCodeField",
+    "path": "src/components/Layouts/settings/desktop/SettingsCodeField.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "SettingsFields",
+    "path": "src/components/Layouts/settings/desktop/SettingsFields.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "SettingsFieldsPanel",
+    "path": "src/components/Layouts/settings/desktop/SettingsFieldsPanel.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "SettingsHeader",
+    "path": "src/components/Layouts/settings/desktop/SettingsHeader.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "SettingsLayout",
+    "path": "src/components/Layouts/settings/desktop/SettingsLayout.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "SettingsList",
+    "path": "src/components/Layouts/settings/desktop/SettingsList.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "SettingsListPanel",
+    "path": "src/components/Layouts/settings/desktop/SettingsListPanel.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "SettingsTable",
+    "path": "src/components/Layouts/settings/desktop/SettingsTable.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "SettingsRow",
+    "path": "src/components/Layouts/settings/mobile/SettingsRow.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "SettingsRowGroup",
+    "path": "src/components/Layouts/settings/mobile/SettingsRowGroup.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "SettingsRowList",
+    "path": "src/components/Layouts/settings/mobile/SettingsRowList.vue",
+    "group": "Layouts"
+  },
+  {
+    "name": "LessonContent",
+    "path": "src/components/LessonContent.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "LessonHelp",
+    "path": "src/components/LessonHelp.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "LessonNavButtons",
+    "path": "src/components/LessonNavButtons.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "LockedLessonNotice",
+    "path": "src/components/LockedLessonNotice.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "DiscussionModal",
+    "path": "src/components/Modals/DiscussionModal.vue",
+    "group": "Modals"
+  },
+  {
+    "name": "EditCoverImage",
+    "path": "src/components/Modals/EditCoverImage.vue",
+    "group": "Modals"
+  },
+  {
+    "name": "EvaluationModal",
+    "path": "src/components/Modals/EvaluationModal.vue",
+    "group": "Modals"
+  },
+  {
+    "name": "Event",
+    "path": "src/components/Modals/Event.vue",
+    "group": "Modals"
+  },
+  {
+    "name": "FeedbackModal",
+    "path": "src/components/Modals/FeedbackModal.vue",
+    "group": "Modals"
+  },
+  {
+    "name": "JobApplicationModal",
+    "path": "src/components/Modals/JobApplicationModal.vue",
+    "group": "Modals"
+  },
+  {
+    "name": "LiveClassAttendance",
+    "path": "src/components/Modals/LiveClassAttendance.vue",
+    "group": "Modals"
+  },
+  {
+    "name": "NewMemberModal",
+    "path": "src/components/Modals/NewMemberModal.vue",
+    "group": "Modals"
+  },
+  {
+    "name": "QuizInVideo",
+    "path": "src/components/Modals/QuizInVideo.vue",
+    "group": "Modals"
+  },
+  {
+    "name": "ReviewModal",
+    "path": "src/components/Modals/ReviewModal.vue",
+    "group": "Modals"
+  },
+  {
+    "name": "VideoStatistics",
+    "path": "src/components/Modals/VideoStatistics.vue",
+    "group": "Modals"
+  },
+  {
+    "name": "NoPermission",
+    "path": "src/components/NoPermission.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "InlineLessonMenu",
+    "path": "src/components/Notes/InlineLessonMenu.vue",
+    "group": "Notes"
+  },
+  {
+    "name": "Notes",
+    "path": "src/components/Notes/Notes.vue",
+    "group": "Notes"
+  },
+  {
+    "name": "NotificationPanel",
+    "path": "src/components/Notifications/NotificationPanel.vue",
+    "group": "Notifications"
+  },
+  {
+    "name": "NotPermitted",
+    "path": "src/components/NotPermitted.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "NumberChartGraph",
+    "path": "src/components/NumberChartGraph.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "PdfBlock",
+    "path": "src/components/PdfBlock.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "PersonaCard",
+    "path": "src/components/Persona/PersonaCard.vue",
+    "group": "Persona"
+  },
+  {
+    "name": "PersonaOutcomeStep",
+    "path": "src/components/Persona/PersonaOutcomeStep.vue",
+    "group": "Persona"
+  },
+  {
+    "name": "PersonaTagStep",
+    "path": "src/components/Persona/PersonaTagStep.vue",
+    "group": "Persona"
+  },
+  {
+    "name": "PersonaTextStep",
+    "path": "src/components/Persona/PersonaTextStep.vue",
+    "group": "Persona"
+  },
+  {
+    "name": "PersonaToolIcon",
+    "path": "src/components/PersonaToolIcon.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "ProctoringMonitor",
+    "path": "src/components/ProctoringMonitor.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "ProfileAvatar",
+    "path": "src/components/Profile/ProfileAvatar.vue",
+    "group": "Profile"
+  },
+  {
+    "name": "ProfileCover",
+    "path": "src/components/Profile/ProfileCover.vue",
+    "group": "Profile"
+  },
+  {
+    "name": "ProfileEvaluatorCalendar",
+    "path": "src/components/Profile/ProfileEvaluatorCalendar.vue",
+    "group": "Profile"
+  },
+  {
+    "name": "ProfileEvaluatorDay",
+    "path": "src/components/Profile/ProfileEvaluatorDay.vue",
+    "group": "Profile"
+  },
+  {
+    "name": "ProfileEvaluatorHours",
+    "path": "src/components/Profile/ProfileEvaluatorHours.vue",
+    "group": "Profile"
+  },
+  {
+    "name": "ProfileSocialLinks",
+    "path": "src/components/Profile/ProfileSocialLinks.vue",
+    "group": "Profile"
+  },
+  {
+    "name": "ProgramProgressSummary",
+    "path": "src/components/Programs/ProgramProgressSummary.vue",
+    "group": "Programs"
+  },
+  {
+    "name": "ProgressBar",
+    "path": "src/components/ProgressBar.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "LearnerHeader",
+    "path": "src/components/Public/LearnerHeader.vue",
+    "group": "Public"
+  },
+  {
+    "name": "PublicHeader",
+    "path": "src/components/Public/PublicHeader.vue",
+    "group": "Public"
+  },
+  {
+    "name": "Quiz",
+    "path": "src/components/Quiz.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "QuestionAnswers",
+    "path": "src/components/Quiz/QuestionAnswers.vue",
+    "group": "Quiz"
+  },
+  {
+    "name": "QuestionBankPanel",
+    "path": "src/components/Quiz/QuestionBankPanel.vue",
+    "group": "Quiz"
+  },
+  {
+    "name": "QuestionCard",
+    "path": "src/components/Quiz/QuestionCard.vue",
+    "group": "Quiz"
+  },
+  {
+    "name": "QuestionDialog",
+    "path": "src/components/Quiz/QuestionDialog.vue",
+    "group": "Quiz"
+  },
+  {
+    "name": "QuestionEditor",
+    "path": "src/components/Quiz/QuestionEditor.vue",
+    "group": "Quiz"
+  },
+  {
+    "name": "QuizActivityLog",
+    "path": "src/components/Quiz/QuizActivityLog.vue",
+    "group": "Quiz"
+  },
+  {
+    "name": "QuizBlock",
+    "path": "src/components/QuizBlock.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "RelatedCourses",
+    "path": "src/components/RelatedCourses.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "ResponsiveListView",
+    "path": "src/components/ResponsiveListView.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "RichTextEditor",
+    "path": "src/components/RichTextEditor.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "SectionEmptyState",
+    "path": "src/components/SectionEmptyState.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "BrandSettings",
+    "path": "src/components/Settings/BrandSettings.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "Categories",
+    "path": "src/components/Settings/Categories.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "CloudPanel",
+    "path": "src/components/Settings/CloudPanel.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "CouponForm",
+    "path": "src/components/Settings/Coupons/CouponForm.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "Coupons",
+    "path": "src/components/Settings/Coupons/Coupons.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "DiscardChangesDialog",
+    "path": "src/components/Settings/DiscardChangesDialog.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "EmailAccountDefaults",
+    "path": "src/components/Settings/EmailAccount/EmailAccountDefaults.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "EmailAccountForm",
+    "path": "src/components/Settings/EmailAccount/EmailAccountForm.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "EmailAccountsEmptyState",
+    "path": "src/components/Settings/EmailAccount/EmailAccountsEmptyState.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "EmailProviderPicker",
+    "path": "src/components/Settings/EmailAccount/EmailProviderPicker.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "GoogleCalendarDetail",
+    "path": "src/components/Settings/GoogleCalendar/GoogleCalendarDetail.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "MemberForm",
+    "path": "src/components/Settings/Members/MemberForm.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "Members",
+    "path": "src/components/Settings/Members/Members.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "PaymentGatewayForm",
+    "path": "src/components/Settings/PaymentGateways/PaymentGatewayForm.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "PaymentGateways",
+    "path": "src/components/Settings/PaymentGateways/PaymentGateways.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "Preferences",
+    "path": "src/components/Settings/Preferences.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "ChannelView",
+    "path": "src/components/Settings/Raven/ChannelView.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "DeleteConfirmDialog",
+    "path": "src/components/Settings/Raven/DeleteConfirmDialog.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "MassRemovalConfirmDialog",
+    "path": "src/components/Settings/Raven/MassRemovalConfirmDialog.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "RavenSettings",
+    "path": "src/components/Settings/Raven/RavenSettings.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "RavenSetupRow",
+    "path": "src/components/Settings/Raven/RavenSetupRow.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "RuleCondition",
+    "path": "src/components/Settings/Raven/RuleCondition.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "RuleConditionField",
+    "path": "src/components/Settings/Raven/RuleConditionField.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "RuleConditions",
+    "path": "src/components/Settings/Raven/RuleConditions.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "UnsavedChangesDialog",
+    "path": "src/components/Settings/Raven/UnsavedChangesDialog.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "WorkspaceChannels",
+    "path": "src/components/Settings/Raven/WorkspaceChannels.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "WorkspaceList",
+    "path": "src/components/Settings/Raven/WorkspaceList.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "WorkspaceMembers",
+    "path": "src/components/Settings/Raven/WorkspaceMembers.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "WorkspaceView",
+    "path": "src/components/Settings/Raven/WorkspaceView.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "Services",
+    "path": "src/components/Settings/Services/Services.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "Settings",
+    "path": "src/components/Settings/Settings.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "SidebarPageModal",
+    "path": "src/components/Settings/Sidebar/SidebarPageModal.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "SidebarSettings",
+    "path": "src/components/Settings/Sidebar/SidebarSettings.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "AddressModal",
+    "path": "src/components/Settings/Transactions/AddressModal.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "TransactionForm",
+    "path": "src/components/Settings/Transactions/TransactionForm.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "Transactions",
+    "path": "src/components/Settings/Transactions/Transactions.vue",
+    "group": "Settings"
+  },
+  {
+    "name": "ShortcutTooltip",
+    "path": "src/components/ShortcutTooltip.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "AppSidebar",
+    "path": "src/components/Sidebar/AppSidebar.vue",
+    "group": "Sidebar"
+  },
+  {
+    "name": "SidebarLink",
+    "path": "src/components/Sidebar/SidebarLink.vue",
+    "group": "Sidebar"
+  },
+  {
+    "name": "TrialCard",
+    "path": "src/components/Sidebar/TrialCard.vue",
+    "group": "Sidebar"
+  },
+  {
+    "name": "UserDropdown",
+    "path": "src/components/Sidebar/UserDropdown.vue",
+    "group": "Sidebar"
+  },
+  {
+    "name": "SkeletonLoader",
+    "path": "src/components/SkeletonLoader.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "StudentLessonSidebar",
+    "path": "src/components/StudentLessonSidebar.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "SubmissionsPage",
+    "path": "src/components/Submissions/SubmissionsPage.vue",
+    "group": "Submissions"
+  },
+  {
+    "name": "UnsplashImageBrowser",
+    "path": "src/components/UnsplashImageBrowser.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "UpcomingEvaluations",
+    "path": "src/components/UpcomingEvaluations.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "UploadPlugin",
+    "path": "src/components/UploadPlugin.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "UserAvatar",
+    "path": "src/components/UserAvatar.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "VideoBlock",
+    "path": "src/components/VideoBlock.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "VideoPreview",
+    "path": "src/components/VideoPreview.vue",
+    "group": "Chung"
+  },
+  {
+    "name": "AdminBatchDashboard",
+    "path": "src/pages/Batches/components/AdminBatchDashboard.vue",
+    "group": "pages/Batches"
+  },
+  {
+    "name": "Announcements",
+    "path": "src/pages/Batches/components/Announcements.vue",
+    "group": "pages/Batches"
+  },
+  {
+    "name": "Assessments",
+    "path": "src/pages/Batches/components/Assessments.vue",
+    "group": "pages/Batches"
+  },
+  {
+    "name": "BatchCard",
+    "path": "src/pages/Batches/components/BatchCard.vue",
+    "group": "pages/Batches"
+  },
+  {
+    "name": "BatchCourses",
+    "path": "src/pages/Batches/components/BatchCourses.vue",
+    "group": "pages/Batches"
+  },
+  {
+    "name": "BatchDashboard",
+    "path": "src/pages/Batches/components/BatchDashboard.vue",
+    "group": "pages/Batches"
+  },
+  {
+    "name": "BatchFeedback",
+    "path": "src/pages/Batches/components/BatchFeedback.vue",
+    "group": "pages/Batches"
+  },
+  {
+    "name": "BatchOverlay",
+    "path": "src/pages/Batches/components/BatchOverlay.vue",
+    "group": "pages/Batches"
+  },
+  {
+    "name": "BatchStudentProgress",
+    "path": "src/pages/Batches/components/BatchStudentProgress.vue",
+    "group": "pages/Batches"
+  },
+  {
+    "name": "LiveClass",
+    "path": "src/pages/Batches/components/LiveClass.vue",
+    "group": "pages/Batches"
+  }
+]

@@ -76,7 +76,6 @@ const EDITOR_FILES = [
 	'pages/Forms/NewBatchForm.vue',
 	'pages/Batches/BatchForm.vue',
 	'components/Courses/CourseOverviewSection.vue',
-	'pages/Forms/JobForm.vue',
 	'pages/Forms/EmailTemplateForm.vue',
 	'components/ContactUsEmail.vue',
 ]
@@ -122,14 +121,10 @@ describe('rich text editors', () => {
 })
 
 const FILTERS: Array<[string, string, string]> = [
-	['pages/Jobs.vue', 'Link', 'Country'],
-	['pages/Jobs.vue', 'Select', 'Type'],
-	['pages/Jobs.vue', 'Select', 'Work Mode'],
 	['pages/Assignments.vue', 'Select', 'Type'],
 	['pages/QuizSubmissions.vue', 'Link', 'Filter by Quiz'],
 	['pages/QuizSubmissions.vue', 'Link', 'Filter by Member'],
 	['pages/QuizSubmissions.vue', 'Link', 'Filter by Course'],
-	['pages/ProgrammingExercises/ProgrammingExercises.vue', 'Select', 'Type'],
 	['pages/Courses/CourseDashboard.vue', 'Select', 'Sort by'],
 	['components/Programs/ProgramProgressSummary.vue', 'FormControl', 'Search'],
 	['pages/Courses/Courses.vue', 'ClearableCombobox', 'Category'],
@@ -176,7 +171,7 @@ describe('named controls and focus outlines', () => {
 		expect(boundClass?.exp?.content).toMatch(/\bfocus:ring-2\b/)
 	})
 
-	it('names the marks input and tags trigger, and gives JobForm an h1', () => {
+	it('names the marks input and tags trigger', () => {
 		const marks = elements('pages/QuizSubmission.vue').find(
 			(e) => e.tag === 'FormControl' && attr(e, 'type') === 'number'
 		)!
@@ -184,8 +179,6 @@ describe('named controls and focus outlines', () => {
 		const file = 'components/Courses/CourseDetailsSection.vue'
 		const tags = elements(file).find((el) => el.tag === 'button')!
 		expectIdsDeclared(file, attr(tags, 'aria-labelledby') ?? '')
-		const h1 = elements('pages/Forms/JobForm.vue').find((e) => e.tag === 'h1')!
-		expect(attr(h1, 'class')).toContain('sr-only')
 	})
 
 	it('outlines the code box inputs on focus', () => {

@@ -1,5 +1,6 @@
 <template>
-	<div class="flex h-dvh w-screen">
+	<div class="flex h-dvh w-screen" :class="{ 'learner-desktop': learner }">
+		<LearnerHeader v-if="learner" />
 		<a
 			href="#main-content"
 			@click.prevent="skipToContent('main-content')"
@@ -22,4 +23,12 @@
 <script setup>
 import { skipToContent } from '@/utils/a11y'
 import AppSidebar from '@/components/Sidebar/AppSidebar.vue'
+import LearnerHeader from '@/components/Public/LearnerHeader.vue'
+defineProps({ learner: { type: Boolean, default: false } })
 </script>
+
+<style scoped>
+.learner-desktop { position:relative; width:100%; }
+.learner-desktop :deep(.learner-site-header) { position:absolute; inset:0 0 auto; }
+.learner-desktop > div, .learner-desktop > main { margin-top:68px; height:calc(100% - 68px); }
+</style>

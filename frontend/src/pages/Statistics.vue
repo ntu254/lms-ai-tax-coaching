@@ -9,37 +9,37 @@
 		</div>
 		<div v-else-if="chartDetails.data" class="p-5">
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-				<Tooltip :text="__('Published Courses')">
+				<Tooltip :text="__('Khóa học đã xuất bản')">
 					<NumberCard
-						title="Courses"
+						:title="__('Khóa học')"
 						:value="chartDetails.data.courses"
 						:format="compactNumber"
 					/>
 				</Tooltip>
-				<Tooltip :text="__('Active Members')">
+				<Tooltip :text="__('Thành viên đang hoạt động')">
 					<NumberCard
-						title="Signups"
+						:title="__('Đăng ký')"
 						:value="chartDetails.data.users"
 						:format="compactNumber"
 					/>
 				</Tooltip>
-				<Tooltip :text="__('Course Enrollments')">
+				<Tooltip :text="__('Lượt ghi danh khóa học')">
 					<NumberCard
-						title="Enrollments"
+						:title="__('Ghi danh')"
 						:value="chartDetails.data.enrollments"
 						:format="compactNumber"
 					/>
 				</Tooltip>
-				<Tooltip :text="__('Course Completions')">
+				<Tooltip :text="__('Lượt hoàn thành khóa học')">
 					<NumberCard
-						title="Completions"
+						:title="__('Hoàn thành')"
 						:value="chartDetails.data.completions"
 						:format="compactNumber"
 					/>
 				</Tooltip>
-				<Tooltip :text="__('Certified Members')">
+				<Tooltip :text="__('Học viên có chứng chỉ')">
 					<NumberCard
-						title="Certifications"
+						:title="__('Chứng chỉ')"
 						:value="chartDetails.data.certifications"
 						:format="compactNumber"
 					/>
@@ -52,8 +52,8 @@
 						:data="signupsChart.data"
 						x="date"
 						y="count"
-						title="Signups"
-						subtitle="Signups per day"
+						:title="__('Đăng ký')"
+						sub:title="__('Lượt đăng ký theo ngày')"
 						:x-axis="{ type: 'time', timeGrain: 'day' }"
 					/>
 					<ChartEmptyState
@@ -74,8 +74,8 @@
 						:data="enrollmentChart.data"
 						x="date"
 						y="count"
-						title="Enrollments"
-						subtitle="Enrollments per day"
+						:title="__('Ghi danh')"
+						sub:title="__('Lượt ghi danh theo ngày')"
 						:x-axis="{ type: 'time', timeGrain: 'day' }"
 					/>
 					<ChartEmptyState
@@ -96,8 +96,8 @@
 						:data="certification.data"
 						x="date"
 						y="count"
-						title="Certifications"
-						subtitle="Certifications per day"
+						:title="__('Chứng chỉ')"
+						sub:title="__('Chứng chỉ theo ngày')"
 						:x-axis="{ type: 'time', timeGrain: 'day' }"
 					/>
 					<ChartEmptyState
@@ -116,8 +116,8 @@
 						:data="courseCompletion.data"
 						category="label"
 						value="value"
-						title="Completions"
-						subtitle="Course Completion"
+						:title="__('Hoàn thành')"
+						sub:title="__('Hoàn thành khóa học')"
 						:center-label="__('Enrollments')"
 					/>
 					<ChartEmptyState

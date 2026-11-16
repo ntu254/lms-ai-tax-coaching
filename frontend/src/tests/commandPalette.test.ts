@@ -233,7 +233,7 @@ describe('categories and role-gated rows', () => {
 		it('offers a browse row for each category the user may see', async () => {
 			await mountPalette()
 			expect(titles()).toEqual(
-				expect.arrayContaining(['Courses', 'Batches', 'Jobs', 'Programs'])
+				expect.arrayContaining(['Courses', 'Batches', 'Programs'])
 			)
 		})
 
@@ -375,7 +375,6 @@ describe('categories and role-gated rows', () => {
 
 		it.each([
 			{ label: 'Certifications', route: 'CertifiedParticipants' },
-			{ label: 'Programming Exercises', route: 'ProgrammingExercises' },
 			{ label: 'Home', route: 'Home' },
 		])('offers $label when the sidebar does', async ({ label, route }) => {
 			sidebarLinks.value = links(route)
@@ -480,7 +479,7 @@ describe('categories and role-gated rows', () => {
 		it('offers everything while the flags are still unresolved', async () => {
 			settings.sidebarSettings.data = null
 			await mountPalette()
-			expect(titles()).toContain('Jobs')
+			expect(titles()).not.toContain('Jobs')
 		})
 
 		it('withholds a switched-off category from a search too', async () => {
@@ -557,7 +556,6 @@ describe('searching and routing', () => {
 				params: { courseName: COURSE.name },
 			},
 			{ item: BATCH, route: 'BatchDetail', params: { batchName: BATCH.name } },
-			{ item: JOB, route: 'JobDetail', params: { job: JOB.name } },
 			{
 				item: { doctype: 'LMS Quiz', name: 'quiz-1', title: 'Week 1 Quiz' },
 				route: 'QuizForm',

@@ -12,42 +12,13 @@
 		>
 			{{ fullName.charAt(0).toUpperCase() }}
 		</div>
-		<Tooltip
-			v-if="openTo"
-			:text="openTo === 'Work' ? __('Open to Work') : __('Hiring')"
-			side="right"
-		>
-			<div class="absolute bottom-3 end-1 p-0.5 bg-surface-base rounded-full">
-				<div
-					class="rounded-full w-fit"
-					:class="
-						openTo === 'Work'
-							? 'bg-surface-green-7 text-white'
-							: 'bg-surface-violet-7 text-white'
-					"
-				>
-					<span
-						class="size-5"
-						:class="
-							openTo === 'Work' ? 'lucide-badge-check' : 'lucide-briefcase'
-						"
-						aria-hidden="true"
-					/>
-				</div>
-				<span class="sr-only">
-					{{ openTo === 'Work' ? __('Open to Work') : __('Hiring') }}
-				</span>
-			</div>
-		</Tooltip>
 	</div>
 </template>
 <script setup lang="ts">
-import { Tooltip } from 'frappe-ui'
 import { safeUrl } from '@/utils/safeUrl'
 
 defineProps<{
 	image?: string | null
 	fullName: string
-	openTo?: string | null
 }>()
 </script>

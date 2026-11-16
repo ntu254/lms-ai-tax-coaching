@@ -81,7 +81,7 @@ describe('pickPrimaryTabs', () => {
 })
 
 describe('pickPrimaryTabs for a signed-out visitor', () => {
-	const guestLabels = ['Courses', 'Batches', 'Jobs', 'Statistics', 'Log in']
+	const guestLabels = ['Home', 'Courses', 'Batches', 'Statistics', 'Log in']
 
 	it('shows the whole bar before any sidebar link has loaded', () => {
 		// Regression: the guest bar used to be matched out of `sidebarLinks`,
@@ -102,6 +102,7 @@ describe('pickPrimaryTabs for a signed-out visitor', () => {
 		// see and open Batches or Jobs after LMS Settings had turned them off.
 		const visibility = { courses: 1, batches: 0, jobs: 0, statistics: 1 }
 		expect(pickPrimaryTabs([], false, visibility).map((t) => t.label)).toEqual([
+			'Home',
 			'Courses',
 			'Statistics',
 			'Log in',
@@ -151,20 +152,20 @@ describe('pickPrimaryTabs for a signed-out visitor', () => {
 		// `lms_settings.get(item)` hands back an int, but the resource has been
 		// seen carrying strings; both mean the same thing.
 		expect(
-			pickPrimaryTabs([], false, { jobs: '0' }).map((t) => t.label)
-		).not.toContain('Jobs')
+			pickPrimaryTabs([], false, { batches: '0' }).map((t) => t.label)
+		).not.toContain('Batches')
 		expect(
-			pickPrimaryTabs([], false, { jobs: '1' }).map((t) => t.label)
-		).toContain('Jobs')
+			pickPrimaryTabs([], false, { batches: '1' }).map((t) => t.label)
+		).toContain('Batches')
 	})
 
 	it('gives every tab an icon, and a route unless it leaves the SPA', () => {
 		const tabs = pickPrimaryTabs([], false)
 		expect(tabs.every((t) => t.icon)).toBe(true)
 		expect(tabs.filter((t) => t.to).map((t) => t.to)).toEqual([
+			'Home',
 			'Courses',
 			'Batches',
-			'Jobs',
 			'Statistics',
 		])
 	})
@@ -206,7 +207,6 @@ describe('sectionFor', () => {
 	it('files course content under LEARN wherever it came from', () => {
 		expect(sectionFor('Quizzes')).toBe('LEARN')
 		expect(sectionFor('Assignments')).toBe('LEARN')
-		expect(sectionFor('Programming Exercises')).toBe('LEARN')
 	})
 
 	it('files session actions under ACCOUNT', () => {
